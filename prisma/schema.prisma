@@ -66,12 +66,11 @@ model Order {
 }
 
 model OrderLog {
+    id         Int         @id @default(autoincrement())
     order      Order       @relation(fields: [orderId], references: [id])
     orderId    Int
     status     OrderStatus
     updateTime DateTime    @default(now())
-
-    @@id([orderId, status])
 }
 
 model OrderProducts {
