@@ -18,22 +18,23 @@ model User {
 }
 
 model Category {
-    id   Int    @id @default(autoincrement())
-    name String @unique
+    id       Int               @id @default(autoincrement())
+    name     String            @unique
+    products ProductCategory[]
 }
 
 model Product {
-    id          Int @id @default(autoincrement())
-    title       String
-    description String
-    image       String
-    price       Int
-    categories ProductCategory[]
+    id            Int               @id @default(autoincrement())
+    title         String
+    description   String
+    image         String
+    price         Int
+    categories    ProductCategory[]
     orderProducts OrderProducts[]
 }
 
-model ProductCategory{
-    product    Product @relation(fields: [productID], references: [id])
+model ProductCategory {
+    product    Product  @relation(fields: [productID], references: [id])
     productID  Int
     category   Category @relation(fields: [categoryID], references: [id])
     categoryID Int
@@ -42,11 +43,10 @@ model ProductCategory{
 }
 
 model Content {
-    id      Int @id @default(autoincrement())
-    title   String
-    html    String
+    id    Int    @id @default(autoincrement())
+    title String
+    html  String
 }
-
 
 enum OrderStatus {
     Waiting
@@ -58,23 +58,27 @@ enum OrderStatus {
 }
 
 model Order {
-    id      Int @id @default(autoincrement())
-    name String
-    address String
-    logs OrderLog[]
-    porudcts OrderProducts[]
+    id       Int             @id @default(autoincrement())
+    name     String
+    address  String
+    logs     OrderLog[]
+    products OrderProducts[]
 }
 
 model OrderLog {
-    order Order @relation(fields: [orderId], references: [id])
-    orderId Int
-    status OrderStatus
-    updateTime DateTime @default(now())
+    order      Order       @relation(fields: [orderId], references: [id])
+    orderId    Int
+    status     OrderStatus
+    updateTime DateTime    @default(now())
+
+    @@id([orderId, status])
 }
 
 model OrderProducts {
-    id      Int @id @default(autoincrement())
-    product Product @relation(fields: [productID], references: [id])
+    id        Int     @id @default(autoincrement())
+    order     Order   @relation(fields: [orderId], references: [id])
+    orderId   Int
+    product   Product @relation(fields: [productID], references: [id])
     productID Int
-    amount Int
+    amount    Int
 }
