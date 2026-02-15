@@ -1,18 +1,15 @@
 import { Link } from 'react-router-dom'
 import type { MenuType } from '../types/MenuType'
 
-const menuItems = [
+let menuItems = [
     { label: "Home", url: "/" },
-    {
-        label: "Categories", url: "/categories", "sub": [
-            { label: "Category 1", url: "#" },
-            { label: "Category 2", url: "#" },
-            { label: "Category 3", url: "#" }
-        ]
-    }
+    { label: "Categories", url: "/categories", "sub": [] }
 ]
 
-export const TopMenu = () => <Menu items={menuItems} />
+export const TopMenu = async () => {
+    return <Menu items={menuItems} />
+}
+
 export const BottomMenu = () => <></>
 
 export const Menu = ({ items }: { items: MenuType }) => {
