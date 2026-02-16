@@ -1,0 +1,33 @@
+enum OrderStatus {
+    Waiting
+    Canceled
+    Ready
+    Shipped
+    Arrived
+    Picked
+}
+
+model Order {
+    id       Int             @id @default(autoincrement())
+    name     String
+    address  String
+    logs     OrderLog[]
+    products OrderProducts[]
+}
+
+model OrderLog {
+    id         Int         @id @default(autoincrement())
+    order      Order       @relation(fields: [orderId], references: [id])
+    orderId    Int
+    status     OrderStatus
+    updateTime DateTime    @default(now())
+}
+
+model OrderProducts {
+    id        Int     @id @default(autoincrement())
+    order     Order   @relation(fields: [orderId], references: [id])
+    orderId   Int
+    product   Product @relation(fields: [productID], references: [id])
+    productID Int
+    amount    Int
+}

@@ -1,0 +1,25 @@
+model Category {
+    id       Int               @id @default(autoincrement())
+    name     String            @unique
+    products ProductCategory[]
+}
+
+model Product {
+    id            Int               @id @default(autoincrement())
+    title         String
+    shortDesc     String
+    description   String
+    image         String
+    price         Int
+    categories    ProductCategory[]
+    orderProducts OrderProducts[]
+}
+
+model ProductCategory {
+    product    Product  @relation(fields: [productID], references: [id])
+    productID  Int
+    category   Category @relation(fields: [categoryID], references: [id])
+    categoryID Int
+
+    @@id([productID, categoryID])
+}
