@@ -7,10 +7,13 @@ RUN apt-get update && apt-get install -y curl && \
 
 WORKDIR /app
 
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY prisma/ prisma/
+COPY prisma.config.ts ./
+RUN npx prisma generate
+
 EXPOSE 3000 4000
 
-CMD npm ci
-CMD npx prisma generate
-CMD npx vite build
-CMD npx nodemon server.ts &
-CMD npm run client #  -- --host 0.0.0.0
+CMD npx nodemon --exec "npx tsx" server.ts & npx vite --host 0.0.0.0
