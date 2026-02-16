@@ -1,5 +1,7 @@
+import './css/App.css'
 import './css/bootstrap.css'
 import './css/config.css'
+
 import { TopMenu, BottomMenu } from './components/Menu'
 import { Copyright } from './components/Copyright'
 import { Content } from './components/Content'
@@ -7,11 +9,15 @@ import { Content } from './components/Content'
 function App() {
     return (
         <>
-            <h1>SHOP</h1>
-            <TopMenu />
+            <header>
+                <h1>SHOP</h1>
+                <TopMenu />
+            </header>
             <Content />
-            <BottomMenu />
-            <Copyright />
+            <footer>
+                <BottomMenu />
+                <Copyright />
+            </footer>
         </>
     )
 }
