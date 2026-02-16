@@ -1,10 +1,9 @@
 import { Routes, Route } from 'react-router-dom'
-import { Homepage } from '../pages/Homepage'
-import { Categories } from '../pages/Categories'
+import { Category } from '../pages/Category'
 
 export const Content = () => (
     <Routes>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/categories" element={<Categories />} />
+        <Route path="/" element={<Category />} />
+        <Route path="/cat/:id/:name" element={<Category />} />
     </Routes>
 )

@@ -7,17 +7,18 @@ let menuItems = [
     { label: "Home", url: "/" },
 ]
 
-export const TopMenu = () => {
-    return <Menu items={menuItems} />
+export const TopMenu = ({ categoriesState }) => {
+    return <Menu items={menuItems} categoriesState={categoriesState} />
 }
 
 export const BottomMenu = () => <></>
 
-export const Menu = ({ items }: { items: MenuType }) => {
+export const Menu = ({ items, categoriesState }: { items: MenuType, categoriesState: any }) => {
     let i = 1;
+
     return <nav className="menu">
         {items.map((item) => <Link key={i++} to={item.url}>{item.label}</Link>)}
-        <MenuCategories />
+        <MenuCategories categoriesState={categoriesState} />
         <Link to="/contact">Contact us</Link>
     </nav>
 }

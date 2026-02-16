@@ -20,6 +20,21 @@ app.get('/api/products', async (req, res) => {
     res.json(results)
 })
 
+app.get('/api/products/:category', async (req, res) => {
+    console.log(req.params.category)
+    const results = await prisma.product.findMany({
+        where: {
+            categories: {
+                some: {
+                    categoryID: Number(req.params.category)
+                }
+            }
+        }
+    })
+    res.json(results)
+})
+
+
 
 app.listen(4000, () => {
     console.log("Server is running - http://localhost:4000")
