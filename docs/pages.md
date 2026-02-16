@@ -5,6 +5,7 @@
 * Content page
 
 * Category page
+* Search Results
 * Product page
 * Basket page
 * Payment page
