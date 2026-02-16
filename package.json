@@ -4,7 +4,7 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "dev": "vite",
+        "dev": "podman run -d --replace --name react-shop -p 3000:3000 -p 4000:4000 react-shop && podman logs -f react-shop",
         "build": "tsc -b && vite build",
         "lint": "eslint .",
         "preview": "vite preview",
