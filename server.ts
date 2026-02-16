@@ -21,7 +21,6 @@ app.get('/api/products', async (req, res) => {
 })
 
 app.get('/api/products/:category', async (req, res) => {
-    console.log(req.params.category)
     const results = await prisma.product.findMany({
         where: {
             categories: {
