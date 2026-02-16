@@ -1,0 +1,55 @@
+.menu {
+    padding: 10px;
+
+    div {
+        display:inline-block;
+        position: relative;
+    }
+
+    a {
+        text-decoration: none;
+        color: var(--bs-link-color);
+        padding: 20px ;
+        display: inline-block;
+        box-sizing: border-box;
+        transition: all 0.15s ease-out;
+
+        &:hover {
+            background: var(--bs-blue);
+            color: var(--bs-white);
+            border-radius: var(--bs-border-radius-lg);
+        }
+    }
+
+    .sub-menu {
+        div {
+            position: absolute;
+            left: 0;
+            top: 100%;
+            z-index: 10;
+            display: none;
+            background: var(--bs-white);
+            border: 1px solid var(--bs-border-color);
+            border-top: 0;
+            border-radius: 0 0 var(--bs-border-radius-lg) var(--bs-border-radius-lg) ;
+            overflow: hidden;
+            width: calc(100% - 1px);
+        }
+
+        &:hover {
+            > a {
+                background: var(--bs-blue);
+                color: var(--bs-white);
+                border-radius: var(--bs-border-radius-lg) var(--bs-border-radius-lg) 0 0;
+
+                + div {
+                    display: block;
+                    a {
+                        border-radius: 0;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

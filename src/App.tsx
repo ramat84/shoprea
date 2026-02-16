@@ -1,4 +1,5 @@
-import './App.css'
+import './css/bootstrap.css'
+import './css/config.css'
 import { TopMenu, BottomMenu } from './components/Menu'
 import { Copyright } from './components/Copyright'
 import { Content } from './components/Content'
