@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useParams } from 'react-router-dom'
+import { CategoriesContext } from '../contexts/CategoriesContext'
 
 import axios from "axios"
 import { Product } from '../components/Product'
@@ -9,11 +10,10 @@ import '../css/components/products.css'
 
 export const Category = () => {
     const [products, setProducts] = useState([])
-    const categoriesState = useState([])
     const [title, setTitle] = useState('')
-
     const categoryId = useParams().id ?? 0
 
+    const categoriesState = useState([])
     const [categories, setCategories] = categoriesState;
 
     useEffect(() => {
@@ -24,15 +24,12 @@ export const Category = () => {
     }, [])
 
     useEffect(() => {
-        console.log(categoryId)
         let url = 'http://localhost:4000/api/products'
         if (categoryId ?? 0 > 0)
             url += '/' + categoryId;
         axios.get(url)
             .then((res) => { setProducts(res.data) })
-    }, [location.pathname])
 
-    useEffect(() => {
         if (categoryId == 0) {
             setTitle('All Products')
         } else {
@@ -43,11 +40,11 @@ export const Category = () => {
         }
     }, [location.pathname])
 
-    return <>
-        <Header categoriesState={categoriesState} />
+    return <CategoriesContext.Provider value={categories}>
+        <Header />
         <h2>{title}</h2>
         <div className="products">
-            {products.map((prod) => <Product title={prod.title} image={prod.image} shortDesc={prod.shortDesc} price={prod.price} />)}
+            {products.map((prod) => <Product key={prod.id} title={prod.title} image={prod.image} shortDesc={prod.shortDesc} price={prod.price} />)}
         </div>
-    </>
+    </CategoriesContext.Provider>
 }

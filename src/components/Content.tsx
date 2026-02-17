@@ -4,6 +4,6 @@ import { Category } from '../pages/Category'
 export const Content = () => (
     <Routes>
         <Route path="/" element={<Category />} />
-        <Route path="/cat/:id/:name" element={<Category />} />
+        <Route path="/c/:id/:name" element={<Category />} />
     </Routes>
 )
