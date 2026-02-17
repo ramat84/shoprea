@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { useParams } from 'react-router-dom'
-import { CategoriesContext } from '../contexts/CategoriesContext'
-
 import axios from "axios"
+
 import { Product } from '../components/Product'
 import { Header } from '../components/Header'
 
@@ -10,6 +9,7 @@ import '../css/components/products.css'
 
 export const Category = () => {
     const [products, setProducts] = useState([])
+
     const [title, setTitle] = useState('')
     const categoryId = useParams().id ?? 0
 
@@ -40,11 +40,11 @@ export const Category = () => {
         }
     }, [location.pathname])
 
-    return <CategoriesContext.Provider value={categories}>
+    return <>
         <Header />
         <h2>{title}</h2>
         <div className="products">
             {products.map((prod) => <Product key={prod.id} title={prod.title} image={prod.image} shortDesc={prod.shortDesc} price={prod.price} />)}
         </div>
-    </CategoriesContext.Provider>
+    </>
 }
