@@ -20,20 +20,33 @@ app.get('/api/products', async (req, res) => {
     res.json(results)
 })
 
-app.get('/api/products/:category', async (req, res) => {
-    const results = await prisma.product.findMany({
+app.get('/api/product/:id', async (req, res) => {
+    const prismaResults = await prisma.product.findUnique({
         where: {
+            id: parseInt(req.params.id)
+        },
+        include: {
             categories: {
-                some: {
-                    categoryID: Number(req.params.category)
+                select: {
+                    categoryID: true
                 }
             }
         }
     })
-    res.json(results)
+
+    let returnResults: any = prismaResults
+    returnResults.categories = prismaResults?.categories.map((category) => category.categoryID)
+    res.json(returnResults)
 })
 
-
+app.get('/api/products/:category', async (req, res) => {
+    const results = await prisma.product.findMany({
+        where: {
+            categories: { some: { categoryID: Number(req.params.category) } }
+        }
+    })
+    res.json(results)
+})
 
 app.listen(4000, () => {
     console.log("Server is running - http://localhost:4000")

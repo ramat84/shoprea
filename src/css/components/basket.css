@@ -2,5 +2,10 @@
     height: 100%;
     display: flex;
     align-self: center;
-    margin-left: auto;
+    margin-left: 20px;
+    background: var(--bs-blue);
+    padding: 8px 20px;
+    color: #fff;
+    font-weight: 500;
+    border-radius: 10px;
 }

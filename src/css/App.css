@@ -6,11 +6,21 @@
 #root {
     max-width: 1200px;
     margin: auto;
+    margin-top: 40px;
+
+    >h2 {
+        margin: 40px 0 20px;
+    }
 }
 
 header {
     display: flex;
     align-items: self-end;
+    position: sticky;
+    top: 20px;
+    background: #fff;
+    box-shadow: 0 0 0 30px #fff;
+    z-index: 5;
 }
 
 i {

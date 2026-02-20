@@ -1,0 +1,13 @@
+.search {
+    align-self: stretch;
+    display: flex;
+    min-height: 100%;
+    align-items: center;
+    margin-left: auto;
+
+    input {
+        padding: 10px;
+        border: 1px solid silver;
+        border-radius: 5px;
+    }
+}

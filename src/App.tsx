@@ -2,34 +2,32 @@ import './css/App.css'
 import './css/bootstrap.css'
 import './css/config.css'
 
-import { useEffect, useState } from 'react'
-import axios from "axios"
+import { useEffect, useEffectEvent, useState } from 'react'
 
 import { BottomMenu } from './components/Menu'
 import { Copyright } from './components/Copyright'
-import { Content } from './components/Content'
+import { Router } from './components/Router'
 
-import { CategoriesContext } from './contexts/CategoriesContext'
-
+import { CategoriesContext, GetCategories } from './contexts/CategoriesContext'
+import { BasketContext, GetBasket } from './contexts/BasketContext'
 
 function App() {
-    const categoriesState = useState([])
-    const [categories, setCategories] = categoriesState;
+    const [categories, setCategories] = useState([]);
+    const basket = useState([])
+    const setBasket = basket[1]
 
-    useEffect(() => {
-        axios.get('http://localhost:4000/api/categories')
-            .then((res) => {
-                setCategories(res.data)
-            })
-    }, [])
+    useEffect(() => { GetCategories(setCategories) }, [])
+    useEffect(() => { setBasket(GetBasket()) }, [])
 
     return (
         <CategoriesContext.Provider value={categories}>
-            <Content />
-            <footer>
-                <BottomMenu />
-                <Copyright />
-            </footer>
+            <BasketContext.Provider value={basket}>
+                <Router />
+                <footer>
+                    <BottomMenu />
+                    <Copyright />
+                </footer>
+            </BasketContext.Provider>
         </CategoriesContext.Provider>
     )
 }

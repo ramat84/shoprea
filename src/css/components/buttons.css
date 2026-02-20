@@ -1,0 +1,31 @@
+    .cta {
+        display: flex;
+        gap: 10px;
+
+        button {
+            border: 0;
+            background: var(--bs-green);
+            padding: 10px 20px;
+            display: block;
+            border-radius: 5px;
+            color: #fff;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+
+            &.btn-view {
+                background: var(--bs-blue);
+            }
+
+            &:hover {
+                transform: scale(1.1);
+                filter: contrast(2);
+            }
+
+            i {
+                font-size: 16px;
+                margin-right: 10px;
+            }
+        }
+    }
