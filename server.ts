@@ -48,6 +48,18 @@ app.get('/api/products/:category', async (req, res) => {
     res.json(results)
 })
 
+app.get('/api/products/multi/:ids', async (req, res) => {
+    const ids = req.params.ids.match(/[0-9]+/g).map((id) => parseInt(id))
+
+    if (ids.length == 0) throw new Error("Missing numbers")
+    console.log(ids)
+
+    const results = await prisma.product.findMany({
+        where: { id: { in: ids } }
+    })
+    res.json(results)
+})
+
 app.listen(4000, () => {
     console.log("Server is running - http://localhost:4000")
 })

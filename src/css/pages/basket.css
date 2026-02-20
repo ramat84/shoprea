@@ -1,0 +1,32 @@
+.basketPage {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .row {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid lightgray;
+
+        &:first-child {
+            font-size: 18px;
+        }
+
+        .image {
+            width: 100px;
+        }
+
+        .title {
+            margin-right: auto;
+        }
+
+        .amount {
+            width: 80px;
+            text-align: center;
+        }
+    }
+}

@@ -18,6 +18,13 @@ export const Products = ({ categoryID }: { categoryID: number }) => {
 
     return <div className="products">
         {products.map((prod: ProductInterface) =>
-            <Product key={prod.id} id={prod.id} title={prod.title} image={prod.image} shortDesc={prod.shortDesc} price={prod.price} />)}
+            <Product
+                key={prod.id}
+                id={prod.id}
+                title={prod.title}
+                image={prod.image}
+                shortDesc={prod.shortDesc}
+                price={prod.price}
+            />)}
     </div>
 }
