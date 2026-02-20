@@ -1,7 +1,7 @@
 import axios from "axios";
-
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+
+import type { ProductInterface } from '../interfaces/ProductInterface.ts'
 import { Product } from "./Product";
 
 export const Products = ({ categoryID }: { categoryID: number }) => {
@@ -16,9 +16,8 @@ export const Products = ({ categoryID }: { categoryID: number }) => {
         })
     }, [location.pathname])
 
-
     return <div className="products">
-        {products.map((prod: { id: number, title: string, image: string, shortDesc: string, price: number }) =>
+        {products.map((prod: ProductInterface) =>
             <Product key={prod.id} id={prod.id} title={prod.title} image={prod.image} shortDesc={prod.shortDesc} price={prod.price} />)}
     </div>
 }
