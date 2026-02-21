@@ -6,7 +6,7 @@ import { useEffect, useEffectEvent, useState } from 'react'
 
 import { BottomMenu } from './components/Menu'
 import { Copyright } from './components/Copyright'
-import { Router } from './components/Router'
+import { Router } from './Router'
 
 import { CategoriesContext, GetCategories } from './contexts/CategoriesContext'
 import { BasketContext, GetBasket } from './contexts/BasketContext'
