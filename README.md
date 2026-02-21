@@ -1,28 +1,32 @@
-# Run in a podman container
+# ShopRea
+A shopping system built from the ground up using react
 
-## Install podman
+## Run in a podman container
+
+### Install podman
 Make sure that podmand is installed and running:
 * 'podman' command should be available,
 * The podman service should be running
 
 Start the continaer
 ```bash
+npm run init
 npm start
 ```
 
-# Run locally
+## Run locally
 
-## Installation
+### Installation
 ```bash
 npm install
 ```
 
-## Server
+### Server
 ```bash
 npm run server
 ```
 
-## Client
+### Client
 ```bash
 npm run client
 ```
