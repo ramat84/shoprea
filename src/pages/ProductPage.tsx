@@ -33,7 +33,7 @@ export const ProductPage = () => {
                 {product.description}
                 <span className="price">${product.price}</span>
             </p>
-            <ProductButtons renderView={false} productID={product.id} />
+            <ProductButtons renderView={false} product={product} />
         </div>
         <h2>Similar products</h2>
         <Products categoryID={category} />
