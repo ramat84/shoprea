@@ -1,14 +1,14 @@
-import { Link } from "react-router";
 import { ProductButtons } from "./ProductButtons";
+import type { ProductInterface } from '../interfaces/ProductInterface'
 
-export const Product = ({ image, title, shortDesc, price, id }: { image: string, title: string, shortDesc: string, price: number, id: number }) => (
-    <Link to={`/p/${id}/${title}`} className="product">
+export const Product = ({ product }: { product: ProductInterface }) => (
+    <div className="product" >
         <div className="image">
-            <img src={image} alt={title} />
+            <img src={product.image} alt={product.title} />
         </div>
-        <div className="title">{title}</div>
-        <div className="short">{shortDesc}</div>
-        <div className="price">{price}$</div>
-        <ProductButtons productID={id} />
-    </Link>
+        <div className="title">{product.title}</div>
+        <div className="short">{product.shortDesc}</div>
+        <div className="price">{product.price}$</div>
+        <ProductButtons product={product} />
+    </div>
 )

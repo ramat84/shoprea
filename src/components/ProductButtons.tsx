@@ -1,8 +1,10 @@
 import { useContext } from 'react'
+import { Link } from 'react-router'
 import { BasketContext } from '../contexts/BasketContext'
 import '../css/components/buttons.css'
+import type { ProductInterface } from '../interfaces/ProductInterface'
 
-export const ProductButtons = ({ renderView, renderAdd, productID }: { renderView?: boolean, renderAdd?: boolean, productID: number }) => {
+export const ProductButtons = ({ renderView, renderAdd, product }: { renderView?: boolean, renderAdd?: boolean, product: ProductInterface }) => {
 
 
     const [basket, setBasket] = useContext(BasketContext)
@@ -15,8 +17,8 @@ export const ProductButtons = ({ renderView, renderAdd, productID }: { renderVie
     }
 
     return <div className="cta">
-        {(renderView ?? true) && <button className="btn-view"><i>󰈈</i> View</button>}
-        {(renderAdd ?? true) && <button className="btn-add" onClick={() => AddToBasket(productID)}><i></i> Add to cart</button>}
+        {(renderView ?? true) && <Link to={`/p/${product.id}/${product.title}`} className="btn-view"><i>󰈈</i> View</Link>}
+        {(renderAdd ?? true) && <button className="btn-add" onClick={() => AddToBasket(product.id)}><i></i> Add to cart</button>}
     </div>
 }
 

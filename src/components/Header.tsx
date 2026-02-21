@@ -6,7 +6,7 @@ import { Search } from './Search'
 
 export const Header = () => (
     <header>
-        <Link to="/"><h1>SHOP</h1></Link>
+        <Link to="/"><h1>Shop<span>Rea</span></h1></Link>
         <TopMenu />
         <Search />
         <Basket />

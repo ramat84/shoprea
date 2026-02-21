@@ -50,7 +50,7 @@
             box-shadow: 3px 3px 5px gray, inset 17px 14px 15px rgba(0, 0, 0, 0.1);
         }
 
-        &:hover .btn-view {
+        .btn-view:hover {
             transform: scale(1.1);
             filter: contrast(2);
         }
