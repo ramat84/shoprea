@@ -4,7 +4,7 @@ import './css/config.css'
 
 import { useEffect, useEffectEvent, useState } from 'react'
 
-import { BottomMenu } from './components/Menu'
+import { BottomMenu } from './components/Header/Menu'
 import { Copyright } from './components/Copyright'
 import { Router } from './Router'
 

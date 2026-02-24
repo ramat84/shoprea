@@ -35,19 +35,15 @@
         .short {
             font-size: 12px;
             text-align: center;
-            margin-bottom: 40px;
         }
 
         .price {
-            position: absolute;
-            bottom: -15px;
-            right: 10px;
-            background: white;
             padding: 5px 20px;
             font-size: 20px;
             font-weight: bold;
             border-radius: 10px;
-            box-shadow: 3px 3px 5px gray, inset 17px 14px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            margin: 10px 0;
         }
 
         .btn-view:hover {

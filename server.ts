@@ -60,6 +60,13 @@ app.get('/api/products/multi/:ids', async (req, res) => {
     res.json(results)
 })
 
+app.post('/api/signin', (req, res) => {
+    res.send({
+        status: 200,
+        message: "Great Success"
+    })
+})
+
 app.listen(4000, () => {
     console.log("Server is running - http://localhost:4000")
 })

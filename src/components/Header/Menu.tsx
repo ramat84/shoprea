@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
-import type { MenuType } from '../types/MenuType'
-import { MenuCategories } from './MenuCategories'
-import '../css/components/menu.css'
+import type { MenuType } from '../../types/MenuType'
+import { MenuCategories } from '../MenuCategories'
+import '../../css/components/menu.css'
 
 let menuItems = [
     { label: "Home", url: "/" },

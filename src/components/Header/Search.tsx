@@ -1,4 +1,4 @@
-import '../css/components/search.css'
+import '../../css/components/search.css'
 
 export const Search = () => (
     <div className="search">

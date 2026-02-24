@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router'
-import '../css/components/basket.css'
-import { BasketContext } from '../contexts/BasketContext'
+import '../../css/components/basket.css'
+import { BasketContext } from '../../contexts/BasketContext'
 
 export const Basket = () => {
     const [basketCount, setBasketCount] = useState()
