@@ -5,15 +5,16 @@
     "type": "module",
     "scripts": {
         "init": "podman build -t react-shop .",
+        "podman-shell": "podman exec -it react-shop /bin/bash",
         "start": "./scripts/podman.sh",
         "dev": "vite",
+        "preview": "vite preview",
         "build": "tsc -b && vite build",
         "lint": "eslint .",
-        "preview": "vite preview",
-        "migrate": "prisma migrate dev",
-        "server": "node server.ts",
         "client": "vite",
-        "podman-shell": "podman exec -it react-shop /bin/bash"
+        "server": "node server.ts",
+        "generate": "prisma generate",
+        "migrate": "prisma migrate dev"
     },
     "dependencies": {
         "@prisma/adapter-better-sqlite3": "^7.4.0",
@@ -22,6 +23,8 @@
         "better-sqlite3": "^12.6.2",
         "cors": "^2.8.6",
         "express": "^5.2.1",
+        "js-cookie": "^3.0.5",
+        "js-sha256": "^0.11.1",
         "prisma": "^7.4.0",
         "react": "^19.2.0",
         "react-dom": "^19.2.0",

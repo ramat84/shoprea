@@ -10,10 +10,12 @@ import { Router } from './Router'
 
 import { CategoriesContext, GetCategories } from './contexts/CategoriesContext'
 import { BasketContext, GetBasket } from './contexts/BasketContext'
+import { UserContext } from './contexts/UserContext'
 
 function App() {
     const [categories, setCategories] = useState([]);
     const basket = useState([])
+    const user = useState(undefined)
     const setBasket = basket[1]
 
     useEffect(() => { GetCategories(setCategories) }, [])
@@ -22,11 +24,13 @@ function App() {
     return (
         <CategoriesContext.Provider value={categories}>
             <BasketContext.Provider value={basket}>
-                <Router />
-                <footer>
-                    <BottomMenu />
-                    <Copyright />
-                </footer>
+                <UserContext.Provider value={user}>
+                    <Router />
+                    <footer>
+                        <BottomMenu />
+                        <Copyright />
+                    </footer>
+                </UserContext.Provider>
             </BasketContext.Provider>
         </CategoriesContext.Provider>
     )

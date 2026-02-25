@@ -1,6 +1,8 @@
 import express from 'express'
+import { sha256 } from 'js-sha256'
 import cors from 'cors'
 const app = express()
+app.use(express.json())
 
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 import { PrismaClient } from '@prisma/client'
@@ -52,7 +54,6 @@ app.get('/api/products/multi/:ids', async (req, res) => {
     const ids = req.params.ids.match(/[0-9]+/g).map((id) => parseInt(id))
 
     if (ids.length == 0) throw new Error("Missing numbers")
-    console.log(ids)
 
     const results = await prisma.product.findMany({
         where: { id: { in: ids } }
@@ -60,10 +61,43 @@ app.get('/api/products/multi/:ids', async (req, res) => {
     res.json(results)
 })
 
-app.post('/api/signin', (req, res) => {
+app.post('/api/signin', async (req, res) => {
+    if (!req.body.email || !req.body.password)
+        return res.send({ status: 400, message: "Missing Email or Password" })
+
+    const session = sha256(req.body.password + Math.random() + (new Date()))
+
+    const prismaResults = await prisma.user.findUnique({
+        where: {
+            email: req.body.email
+        }
+    })
+
+    if (prismaResults) {
+        if (prismaResults.password != req.body.password)
+            return res.send({ status: 400, message: "Wrong password" })
+
+        await prisma.user.update({
+            data: { session: session },
+            where: { email: req.body.email }
+        })
+    }
+
+    if (!prismaResults) {
+        const user = await prisma.user.create({
+            data: {
+                email: req.body.email,
+                password: req.body.password,
+                session: session,
+                isAdmin: false
+            }
+        })
+    }
+
     res.send({
         status: 200,
-        message: "Great Success"
+        message: "Great Success",
+        session: session
     })
 })
 

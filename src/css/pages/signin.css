@@ -17,6 +17,27 @@ body:has(.popup-signin) {
         margin-top: 0;
     }
 
+    h2,
+    h3 {
+        text-align: center;
+    }
+
+    .user-icon {
+        display: block;
+        margin: auto;
+        width: 14vw;
+        font-size: 15vw;
+        text-align: center;
+        text-shadow: 5px 5px 5px silver;
+        cursor: default;
+
+
+        &:hover {
+            transition: all 5s ease-in-out;
+            transform: rotateY(3000deg)
+        }
+    }
+
     form {
         display: flex;
         flex-direction: column;

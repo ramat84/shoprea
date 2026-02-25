@@ -1,33 +1,60 @@
-import { useForm, type SubmitHandler } from "react-hook-form"
+const SALT = "m12oik3SADF!@$$FASofpsaq.1243?"
+
 import axios from "axios"
+import { useForm, type SubmitHandler } from "react-hook-form"
+import Cookies from "js-cookie"
+import { sha256 } from "js-sha256"
 
 import { Header } from '../components/Header'
+import { UserContext } from "../contexts/UserContext"
+
 import '../css/pages/signin.css'
+import { useContext, useEffect } from "react"
 
 type FormFields = {
     email: string;
     password: string;
 }
 
-export const SigninForm = () => {
+
+export const Welcome = () => {
+    const [user, setUser] = useContext(UserContext)
+
+    return (
+        <div className="popup-signin">
+            <h2>Welcome back</h2>
+            <h3>{user.email}</h3>
+            <div class="user-icon"><i></i></div>
+        </div>
+    )
+}
+
+export const Form = () => {
+    const [user, setUser] = useContext(UserContext)
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormFields>()
 
+
     const onSubmit: SubmitHandler<FormFields> = (data) => {
-        axios.post('/api/singin', {
+        axios.post('http://localhost:4000/api/signin', {
             "email": data.email,
-            "password": data.password
+            "password": sha256(data.password + SALT)
         })
             .then((res) => {
+
                 console.log(res)
-                confirm("SUCCESS!")
-            })
-            .catch(() => {
-                alert("I AM ERROR!")
+
+                if (res.data.status == 200) {
+                    Cookies.set('session', res.data.session, { expires: 7 })
+                    setUser({ session: res.data.session, email: data.email })
+
+                    confirm(res.data.message)
+                } else {
+                    alert(res.data.message)
+                }
             })
     }
 
-    return <>
-        <Header />
+    return (
         <div className="popup-signin">
             <h2>Sign In</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -60,7 +87,16 @@ export const SigninForm = () => {
                 </button>
             </form>
         </div>
-    </>
-
+    )
 }
 
+export const SigninForm = () => {
+    const [user, setUser] = useContext(UserContext)
+
+    return (
+        <>
+            <Header />
+            {user ? <Welcome /> : <Form />}
+        </>
+    )
+}
