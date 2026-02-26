@@ -33,15 +33,16 @@ export const Form = () => {
     const [user, setUser] = useContext(UserContext)
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormFields>()
 
-    const onSubmit: SubmitHandler<FormFields> = (data) => {
+    const onSubmit: SubmitHandler<FormFields> = (userData) => {
         axios.post('http://localhost:4000/api/signin', {
-            "email": data.email,
-            "password": sha256(data.password + SALT)
+            "email": userData.email,
+            "password": sha256(userData.password + SALT)
         })
             .then(({ data }) => {
+                console.log(data)
                 if (data.status == 200) {
                     Cookies.set('session', data.session, { expires: 7 })
-                    setUser({ session: data.session, email: data.email, name: data.email.split("@")[0] })
+                    setUser({ session: data.session, email: data.email, name: userData.email.split("@")[0] })
                 } else {
                     alert(data.message)
                 }
