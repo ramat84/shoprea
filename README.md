@@ -8,9 +8,8 @@ Make sure that podmand is installed and running:
 * 'podman' command should be available,
 * The podman service should be running
 
-Start the continaer
+Build Start the continaer
 ```bash
-npm run init
 npm start
 ```
 

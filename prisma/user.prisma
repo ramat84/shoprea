@@ -3,5 +3,5 @@ model User {
     email    String  @unique
     password String
     isAdmin  Boolean @default(false)
-    session  String
+    session  String  @unique
 }

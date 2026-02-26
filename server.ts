@@ -61,6 +61,19 @@ app.get('/api/products/multi/:ids', async (req, res) => {
     res.json(results)
 })
 
+app.get('/api/session/:session', async (req, res) => {
+    const prismaResults = await prisma.user.findUnique({
+        where: {
+            session: req.params.session
+        }
+    })
+
+    if(!prismaResults)
+        return res.send({status: 404})
+
+    return res.send({status: 200, email: prismaResults.email})
+})
+
 app.post('/api/signin', async (req, res) => {
     if (!req.body.email || !req.body.password)
         return res.send({ status: 400, message: "Missing Email or Password" })

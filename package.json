@@ -4,9 +4,9 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
+        "start": "podman build -t react-shop . && ./scripts/podman.sh",
         "init": "podman build -t react-shop .",
         "podman-shell": "podman exec -it react-shop /bin/bash",
-        "start": "./scripts/podman.sh",
         "dev": "vite",
         "preview": "vite preview",
         "build": "tsc -b && vite build",

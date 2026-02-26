@@ -31,10 +31,9 @@ body:has(.popup-signin) {
         text-shadow: 5px 5px 5px silver;
         cursor: default;
 
-
         &:hover {
             transition: all 5s ease-in-out;
-            transform: rotateY(3000deg)
+            transform: rotateY(3600deg)
         }
     }
 

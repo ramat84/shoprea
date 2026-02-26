@@ -14,8 +14,8 @@ export const Signin = () => {
     }
 
     return <span className="btn-signin">
-        {user ? user.email + ' | ' : ''}
+        {user ? user.name + ' | ' : ''}
         {!user && <Link to="/signin">Sign in</Link>}
-        {user && <Link onClick={SignOut}>Sign out</Link>}
+        {user && <Link to="/" onClick={SignOut}>Sign out</Link>}
     </span>
 }

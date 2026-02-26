@@ -11,6 +11,7 @@ import { Router } from './Router'
 import { CategoriesContext, GetCategories } from './contexts/CategoriesContext'
 import { BasketContext, GetBasket } from './contexts/BasketContext'
 import { UserContext } from './contexts/UserContext'
+import { UserCheck } from './lib/User.jsx'
 
 function App() {
     const [categories, setCategories] = useState([]);
@@ -18,8 +19,11 @@ function App() {
     const user = useState(undefined)
     const setBasket = basket[1]
 
-    useEffect(() => { GetCategories(setCategories) }, [])
-    useEffect(() => { setBasket(GetBasket()) }, [])
+    useEffect(() => {
+        GetCategories(setCategories)
+        setBasket(GetBasket())
+        UserCheck(user[1])
+    }, [])
 
     return (
         <CategoriesContext.Provider value={categories}>
