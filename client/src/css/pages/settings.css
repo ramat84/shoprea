@@ -1,0 +1,77 @@
+.settings-container {
+    display: flex;
+
+    .panel {
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        gap: 10px;
+
+        a {
+            display: block;
+            text-decoration: none;
+            color: black;
+            border: 1px solid silver;
+            border-radius: 5px;
+            padding: 10px;
+
+            box-shadow: inset 0 0 0 var(--bs-primary);
+            transition: box-shadow 0.3s ease-out;
+
+            &.active {
+                box-shadow: inset 250px 0 0 var(--bs-primary);
+                color: #fff;
+            }
+        }
+    }
+
+    .content {
+        width: 100%;
+        margin-left: 10px;
+    }
+
+    .content,
+    .bubble {
+        border-radius: 10px;
+        padding: 20px;
+        background: rgba(0, 0, 0, 0.05);
+    }
+
+    .bubble {
+        margin-top: 25px;
+        box-shadow: 1px 1px 3px silver;
+        overflow: hidden;
+
+        h4 {
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            margin: -20px -20px 20px -20px;
+            padding: 8px;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        max-width: 500px;
+
+        label {
+            width: 30%;
+            margin: 0;
+            line-height: 40px;
+        }
+
+        input {
+            margin: 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid silver;
+        }
+
+        button {
+            padding: 10px 25px;
+            background: var(--bs-green);
+        }
+    }
+}

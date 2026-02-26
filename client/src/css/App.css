@@ -1,0 +1,35 @@
+@font-face {
+    font-family: "Nerd";
+    src: url("/css/nerd.ttf");
+}
+
+body {
+    background: #f1efef;
+}
+
+#root {
+    max-width: 1200px;
+    margin: auto;
+
+    >h2 {
+        padding: 20px 0 30px;
+        margin: 0;
+    }
+}
+
+i {
+    font-family: Nerd;
+    font-style: normal;
+}
+
+footer p {
+    text-align: center;
+}
+
+[class^=btn] {
+    border: 0;
+    border-radius: 5px;
+    color: #fff;
+    background: var(--bs-gray-800);
+    padding: 10px 20px;
+}

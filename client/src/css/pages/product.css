@@ -1,0 +1,43 @@
+.productPage {
+    display: grid;
+    grid-template-columns: [firstCol] 30% [secondCol] 70%;
+    grid-template-rows: [titleRow] 50px [contentRow] auto [priceRow] auto [ctaRow] 50px [finalRow] auto;
+    gap: 20px;
+    margin-top: 30px;
+
+    >* {
+        grid-area: secondCol;
+    }
+
+    h2 {
+        grid-area: titleRow / secondCol;
+    }
+
+    p {
+        grid-area: contentRow / secondCol;
+        margin: 0;
+        max-width: 570px;
+    }
+
+    .price {
+        grid-area: priceRow / secondCol;
+        display: block;
+        text-align: right;
+        font-size: 24px;
+        font-weight: 500;
+        margin-top: 30px;
+    }
+
+    .product-image {
+        grid-area: titleRow / firstCol / finalRow / firstCol;
+
+        img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+    }
+
+    .cta {
+        grid-area: ctaRow / secondCol;
+    }
+}
