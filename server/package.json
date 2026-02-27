@@ -11,7 +11,7 @@
         "preview": "vite preview",
         "build": "tsc -b && vite build",
         "lint": "eslint .",
-        "server": "node server.ts",
+        "server": "NODE_PATH=/app/node_modules nodemon src/server.ts",
         "generate": "prisma generate",
         "migrate": "prisma migrate dev"
     },
