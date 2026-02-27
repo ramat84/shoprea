@@ -1,17 +1,18 @@
 {
-  "name": "shoprea",
-  "version": "1.0.0",
-  "description": "",
-  "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
-  "scripts": {
-    "start-server": "cd server && npm start",
-    "start-client": "cd client && npm start",
-    "start": "concurrently \"npm run start-server\" \"npm run start-client\""
-  },
-  "devDependencies": {
-    "concurrently": "^9.2.1"
-  }
+    "name": "shoprea",
+    "version": "1.0.0",
+    "description": "",
+    "license": "ISC",
+    "author": "",
+    "type": "commonjs",
+    "main": "index.js",
+    "scripts": {
+        "start-server": "cd server && npm start",
+        "start-client": "cd client && npm start",
+        "start": "concurrently --names \"SERVER,CLIENT\" \"npm run start-server\" \"npm run start-client\"",
+        "init": "cd client && npm run init && cd ../server && npm run init"
+    },
+    "devDependencies": {
+        "concurrently": "^9.2.1"
+    }
 }
