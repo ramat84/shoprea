@@ -66,7 +66,7 @@ export const BasketProducts = ({ products, allowChange }: { products: ProductTyp
                 <div className="desc">{product.shortDesc}</div>
                 <div className="price">${product.price}</div>
                 {allowChange && <BasketAmount event={event} product={product} basket={basket} />}
-                {!allowChange && <div className="amount">${basket[product.id]}</div>}
+                {!allowChange && <div className="amount">✕ {basket[product.id]}</div>}
             </div>
         ))}
     </>
