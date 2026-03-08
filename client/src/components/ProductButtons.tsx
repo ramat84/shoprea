@@ -2,11 +2,9 @@ import { useContext } from 'react'
 import { Link } from 'react-router'
 import { BasketContext } from '../contexts/BasketContext'
 import '../css/components/buttons.css'
-import type { ProductInterface } from '../interfaces/ProductInterface'
+import type { ProductInterface } from '../interfaces/ProductType'
 
 export const ProductButtons = ({ renderView, renderAdd, product }: { renderView?: boolean, renderAdd?: boolean, product: ProductInterface }) => {
-
-
     const [basket, setBasket] = useContext(BasketContext)
 
     const AddToBasket = (productId: number, amount: number = 1) => {

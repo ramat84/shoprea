@@ -1,7 +1,7 @@
 import { ProductButtons } from "./ProductButtons";
-import type { ProductInterface } from '../interfaces/ProductInterface'
+import type { ProductType } from '../interfaces/ProductType'
 
-export const Product = ({ product }: { product: ProductInterface }) => (
+export const Product = ({ product }: { product: ProductType }) => (
     <div className="product" >
         <div className="image">
             <img src={product.image} alt={product.title} />

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import type { ProductInterface } from '../interfaces/ProductInterface.ts'
+import type { ProductType } from '../interfaces/ProductType'
 import { Product } from "./Product";
 
 export const Products = ({ categoryID }: { categoryID: number }) => {
@@ -18,7 +18,7 @@ export const Products = ({ categoryID }: { categoryID: number }) => {
 
     return (
         <div className="products">
-            {products.map((prod: ProductInterface) => <Product key={prod.id} product={prod} />)}
+            {products.map((prod: ProductType) => <Product key={prod.id} product={prod} />)}
         </div>
     )
 }
