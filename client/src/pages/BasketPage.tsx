@@ -12,7 +12,7 @@ import '../css/pages/basket.css'
 import { ModalContext } from '../contexts/ModalContext'
 
 export const BasketPage = () => {
-    const [products, setProducts] = useState<ProductType[]>([])
+    const [basketProducts, setBasketProducts] = useState<ProductType[]>([])
 
     useEffect(() => {
         const basketEntries = Object.entries(GetBasket())
@@ -22,11 +22,18 @@ export const BasketPage = () => {
             axios
                 .get('http://localhost:4000/api/products/multi/' + productIDs.join(','))
                 .then((res) => {
-                    setProducts(res.data)
+                    setBasketProducts(res.data)
                 })
     }, [])
 
     const modalState = useState<boolean>(false)
+    const setModalIsOpen = modalState[1]
+
+    const btnNext = (
+        <button className="btn next" onClick={() => setModalIsOpen(true)}>
+            <i></i> Continue to Checkout
+        </button>
+    )
 
     return (
         <ModalContext.Provider value={modalState}>
@@ -34,11 +41,11 @@ export const BasketPage = () => {
             <h2>Basket</h2>
             <div className="basketPage">
                 <div className="basketProducts">
-                    <BasketProducts products={products} allowChange={true} />
-                    <BasketFooter showNextButton={true} products={products} />
+                    <BasketProducts basketProducts={basketProducts} allowChange={true} />
+                    <BasketFooter button={btnNext} basketProducts={basketProducts} />
                 </div>
             </div>
-            <Checkout products={products} />
+            <Checkout basketProducts={basketProducts} />
         </ModalContext.Provider>
     )
 }

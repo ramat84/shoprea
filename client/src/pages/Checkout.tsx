@@ -6,15 +6,22 @@ import type { ProductType } from '../interfaces/ProductType';
 import { ModalComponent } from '../components/ModalComponent';
 import { ModalContext } from '../contexts/ModalContext';
 
-export const Checkout = ({ products }: { products: ProductType[] }) => {
+export const Checkout = ({ basketProducts }: { basketProducts: ProductType[] }) => {
     const [modalIsOpen, setModalIsOpen] = useContext(ModalContext)
+
+    const btnPayment = (
+        <button className="btn next" onClick={() => setModalIsOpen(true)}>
+            <i></i> Continue to Payment
+        </button>
+    )
+
 
     const content = <>
         <button className="modal-close" onClick={() => setModalIsOpen(false)}>x</button>
         <h2>Checkout</h2>
         <div className="basketProducts">
-            <BasketProducts products={products} allowChange={false} />
-            <BasketFooter showNextButton={false} products={products} />
+            <BasketProducts basketProducts={basketProducts} allowChange={false} />
+            <BasketFooter button={btnPayment} basketProducts={basketProducts} />
         </div>
     </>
 

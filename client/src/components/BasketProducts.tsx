@@ -3,7 +3,7 @@ import { useContext, useEffect } from 'react'
 import { BasketContext, GetBasket } from '../contexts/BasketContext'
 import { BasketFooter } from './BasketFooter'
 
-export const BasketProducts = ({ products, allowChange }: { products: ProductType[], allowChange: boolean }) => {
+export const BasketProducts = ({ basketProducts, allowChange }: { basketProducts: ProductType[], allowChange: boolean }) => {
     const [basket, setBasket] = useContext(BasketContext)
 
     const BasketAmount = ({ event, product, basket }: { event: any, product: ProductType, basket: any }) => (
@@ -38,7 +38,7 @@ export const BasketProducts = ({ products, allowChange }: { products: ProductTyp
         let new_basket = { ...basket };
         delete new_basket[productID]
 
-        let new_products = [...products];
+        let new_products = [...basketProducts];
         new_products = new_products.filter((product) => { return productID != product.id })
 
         localStorage.setItem("basket", JSON.stringify(new_basket))
@@ -59,7 +59,7 @@ export const BasketProducts = ({ products, allowChange }: { products: ProductTyp
 
     return <>
         <BasketHeader />
-        {products.map((product: ProductInterface) => (
+        {basketProducts.map((product: ProductInterface) => (
             <div key={product.id} className="row">
                 <img className="image" src={product.image} />
                 <div className="title">{product.title}</div>
