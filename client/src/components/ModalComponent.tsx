@@ -1,13 +1,13 @@
-import { useContext } from 'react'
+import { useContext, Children } from 'react'
 import ReactModal from 'react-modal'
 import { ModalContext } from '../contexts/ModalContext';
 
-export const ModalComponent = (children) => {
-    const [modalIsOpen, setModalIsOpen] = useContext(ModalContext)
+export const ModalComponent = () => {
+    const [modalContent, setModalContent] = useContext(ModalContext)
 
     return (
-        <ReactModal isOpen={modalIsOpen} >
-            {children}
+        <ReactModal isOpen={modalContent !== false}>
+            {modalContent}
         </ReactModal>
     )
 }

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import type { ProductType } from '../interfaces/ProductType.js'
 
 import { Header } from '../components/Header'
@@ -10,6 +10,7 @@ import { BasketFooter } from '../components/BasketFooter';
 
 import '../css/pages/basket.css'
 import { ModalContext } from '../contexts/ModalContext'
+import { ModalComponent } from '../components/ModalComponent';
 
 export const BasketPage = () => {
     const [basketProducts, setBasketProducts] = useState<ProductType[]>([])
@@ -26,11 +27,11 @@ export const BasketPage = () => {
                 })
     }, [])
 
-    const modalState = useState<boolean>(false)
-    const setModalIsOpen = modalState[1]
+    const modalState = useState(false)
+    const setModalContent = modalState[1]
 
     const btnNext = (
-        <button className="btn next" onClick={() => setModalIsOpen(true)}>
+        <button className="btn next" onClick={() => setModalContent(<Checkout basketProducts={basketProducts} />)}>
             <i></i> Continue to Checkout
         </button>
     )
@@ -45,7 +46,8 @@ export const BasketPage = () => {
                     <BasketFooter button={btnNext} basketProducts={basketProducts} />
                 </div>
             </div>
-            <Checkout basketProducts={basketProducts} />
+
+            <ModalComponent />
         </ModalContext.Provider>
     )
 }
