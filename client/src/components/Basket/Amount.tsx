@@ -16,33 +16,35 @@ export const Amount = ({ event, product }: { event: any, product: ProductType })
             return;
         }
 
-        let new_basket = { ...basket };
-        new_basket[productId] = amount;
+        setBasket(prev => {
+            let new_basket = { ...prev };
+            new_basket.amounts[productId] = amount;
 
-        localStorage.setItem("basket", JSON.stringify(new_basket))
-        setBasket(new_basket)
+            localStorage.setItem("basket", JSON.stringify(new_basket.amounts))
+            return new_basket
+        })
     }
 
     const Trash = (productID: number) => {
         if (!confirm('Are you sure you want to delete this product?')) return false;
-        let new_basket = { ...basket };
-        delete new_basket[productID]
 
-        let new_products = [...basketProducts];
-        new_products = new_products.filter((product) => { return productID != product.id })
+        setBasket(prev => {
+            let new_basket = { ...prev };
+            delete new_basket.amounts[productID]
 
-        localStorage.setItem("basket", JSON.stringify(new_basket))
+            new_basket.products = products.filter((product) => { return productID != product.id })
 
-        setProducts(new_products)
-        setBasket(new_basket)
+            localStorage.setItem("basket", JSON.stringify(new_basket.amounts))
+            return new_basket
+        })
     }
 
     return (
         <div className="amount">
             <button className="trash" onClick={() => Trash(product.id)}><i></i></button>
-            <input onChange={() => UpdateBasket(product.id, parseInt(event.data))} value={basket[product.id]} />
-            <button onClick={() => UpdateBasket(product.id, basket[product.id] - 1)}>-</button>
-            <button onClick={() => UpdateBasket(product.id, basket[product.id] + 1)}>+</button>
+            <input onChange={() => UpdateBasket(product.id, parseInt(event.data))} value={basket.amounts[product.id]} />
+            <button onClick={() => UpdateBasket(product.id, basket.amounts[product.id] - 1)}>-</button>
+            <button onClick={() => UpdateBasket(product.id, basket.amounts[product.id] + 1)}>+</button>
         </div>
     )
 }

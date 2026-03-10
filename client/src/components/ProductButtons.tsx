@@ -8,10 +8,12 @@ export const ProductButtons = ({ renderView, renderAdd, product }: { renderView?
     const [basket, setBasket] = useContext(BasketContext)
 
     const AddToBasket = (productId: number, amount: number = 1) => {
-        let new_basket = { ...basket };
-        new_basket[productId] = (basket[productId] ?? 0) + amount;
-        localStorage.setItem("basket", JSON.stringify(new_basket))
-        setBasket(new_basket)
+        setBasket(prev => {
+            let new_basket = { ...prev };
+            new_basket[productId] = (basket[productId] ?? 0) + amount;
+            localStorage.setItem("basket", JSON.stringify(new_basket))
+            return new_basket
+        })
     }
 
     return <div className="cta">

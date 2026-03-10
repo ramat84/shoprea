@@ -1,8 +1,11 @@
 import { createContext, useContext } from 'react';
 
-export const BasketContext = createContext([])
+export const BasketContext = createContext({
+    amounts: {},
+    products: {}
+})
 
-export const GetBasket = () => {
+export const GetAmounts = () => {
     const storageBasket = localStorage.getItem("basket")
     return storageBasket ? JSON.parse(storageBasket) : {};
 }

@@ -8,7 +8,7 @@ export const Basket = () => {
     const [basket, setBasket] = useContext(BasketContext)
 
     useEffect(() => {
-        const values = Object.values(basket)
+        const values = Object.values(basket.amounts)
         const count: number = values.length == 0 ? 0 : values.reduce((sum, val) => sum += val)
         setBasketCount(count)
     }, [basket])

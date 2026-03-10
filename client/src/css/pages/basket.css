@@ -84,13 +84,27 @@
                 }
             }
         }
+
+        :
     }
 }
 
 .basket-footer {
+    position: relative;
+
+
     .btn {
+        position: absolute;
+        left: 50%;
+        top: -6px;
+        transform: translateX(-50%);
         background: var(--bs-green);
     }
+
+    .btn-payment {
+        background: var(--bs-blue);
+    }
+
 
     i {
         margin-right: 10px;

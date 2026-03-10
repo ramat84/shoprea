@@ -7,6 +7,7 @@ export const ModalComponent = () => {
 
     return (
         <ReactModal isOpen={modalContent !== false}>
+            <button className="modal-close" onClick={() => setModalContent(false)}>x</button>
             {modalContent}
         </ReactModal>
     )

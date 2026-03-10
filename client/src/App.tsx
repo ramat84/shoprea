@@ -9,25 +9,30 @@ import { Copyright } from './components/Copyright'
 import { Router } from './Router'
 
 import { CategoriesContext, GetCategories } from './contexts/CategoriesContext'
-import { BasketContext, GetBasket } from './contexts/BasketContext'
+import { BasketContext, GetAmounts } from './contexts/BasketContext'
 import { UserContext } from './contexts/UserContext'
 import { UserCheck } from './lib/User.jsx'
 
 function App() {
-    const [categories, setCategories] = useState([]);
-    const basket = useState([])
+    const [categories, setCategories] = useState([])
+    const basketState = useState({ amounts: [], products: [] })
     const user = useState(undefined)
-    const setBasket = basket[1]
+    const [basket, setBasket] = basketState
 
     useEffect(() => {
         GetCategories(setCategories)
-        setBasket(GetBasket())
+
+        setBasket(prev => {
+            const new_basket = { ...prev }
+            new_basket.amounts = GetAmounts()
+            return new_basket
+        })
         UserCheck(user[1])
     }, [])
 
     return (
         <CategoriesContext.Provider value={categories}>
-            <BasketContext.Provider value={basket}>
+            <BasketContext.Provider value={basketState}>
                 <UserContext.Provider value={user}>
                     <Router />
                     <footer>

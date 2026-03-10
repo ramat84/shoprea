@@ -1,10 +1,10 @@
 import axios from 'axios'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import type { ProductType } from '../interfaces/ProductType.js'
 
 import { Header } from '../components/Header'
 import { Checkout } from './Checkout'
-import { BasketContext, GetBasket } from '../contexts/BasketContext'
+import { BasketContext, GetAmounts } from '../contexts/BasketContext'
 import { BasketProducts } from '../components/BasketProducts'
 import { BasketFooter } from '../components/BasketFooter';
 
@@ -13,17 +13,21 @@ import { ModalContext } from '../contexts/ModalContext'
 import { ModalComponent } from '../components/ModalComponent';
 
 export const BasketPage = () => {
-    const [basketProducts, setBasketProducts] = useState<ProductType[]>([])
+    const [basket, setBasket] = useContext(BasketContext)
 
     useEffect(() => {
-        const basketEntries = Object.entries(GetBasket())
-        const productIDs = Object.values(basketEntries).map(([id]) => id)
+        const basketAmounts = Object.entries(GetAmounts())
+        const productIDs = Object.values(basketAmounts).map(([id]) => id)
 
         if (productIDs.length > 0)
             axios
                 .get('http://localhost:4000/api/products/multi/' + productIDs.join(','))
                 .then((res) => {
-                    setBasketProducts(res.data)
+                    setBasket((prev) => {
+                        let new_basket = { ...prev }
+                        new_basket.products = res.data;
+                        return new_basket
+                    })
                 })
     }, [])
 
@@ -31,7 +35,7 @@ export const BasketPage = () => {
     const setModalContent = modalState[1]
 
     const btnNext = (
-        <button className="btn next" onClick={() => setModalContent(<Checkout basketProducts={basketProducts} />)}>
+        <button className="btn next" onClick={() => setModalContent(<Checkout />)}>
             <i></i> Continue to Checkout
         </button>
     )
@@ -42,8 +46,8 @@ export const BasketPage = () => {
             <h2>Basket</h2>
             <div className="basketPage">
                 <div className="basketProducts">
-                    <BasketProducts basketProducts={basketProducts} allowChange={true} />
-                    <BasketFooter button={btnNext} basketProducts={basketProducts} />
+                    <BasketProducts allowChange={true} />
+                    <BasketFooter button={btnNext} />
                 </div>
             </div>
 
