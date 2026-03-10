@@ -2,7 +2,6 @@ import { useContext } from 'react';
 
 import { BasketProducts } from '../components/BasketProducts';
 import { BasketFooter } from '../components/BasketFooter';
-import type { ProductType } from '../interfaces/ProductType';
 import { ModalContext } from '../contexts/ModalContext';
 
 export const Checkout = () => {
