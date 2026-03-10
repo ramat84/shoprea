@@ -9,7 +9,7 @@ export const Checkout = () => {
     const [modalContent, setModalContent] = useContext(ModalContext)
 
     const btnPayment = (
-        <button className="btn btn-payment next" onClick={() => setModalContent(PaymentPage)}>
+        <button className="btn btn-payment next" onClick={() => setModalContent(<PaymentPage />)}>
             <i></i> Continue to Payment
         </button>
     )

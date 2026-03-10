@@ -13,7 +13,8 @@ import { ModalContext } from '../contexts/ModalContext'
 import { ModalComponent } from '../components/ModalComponent';
 
 export const BasketPage = () => {
-    const [basketProducts, setBasketProducts] = useContext(BasketContext).products
+    const basketContext = useContext(BasketContext)
+    const [basketProducts, setBasketProducts] = basketContext.products
 
     useEffect(() => {
         const basketAmounts = Object.entries(GetAmounts())

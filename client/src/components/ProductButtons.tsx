@@ -2,9 +2,9 @@ import { useContext } from 'react'
 import { Link } from 'react-router'
 import { BasketContext } from '../contexts/BasketContext'
 import '../css/components/buttons.css'
-import type { ProductInterface } from '../interfaces/ProductType'
+import type { ProductType } from '../interfaces/ProductType'
 
-export const ProductButtons = ({ renderView, renderAdd, product }: { renderView?: boolean, renderAdd?: boolean, product: ProductInterface }) => {
+export const ProductButtons = ({ renderView, renderAdd, product }: { renderView?: boolean, renderAdd?: boolean, product: ProductType }) => {
     const basketContext = useContext(BasketContext)
     const [basketAmounts, setBasketAmounts] = basketContext.amounts
 
