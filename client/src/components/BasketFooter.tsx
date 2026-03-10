@@ -3,16 +3,23 @@ import type { ProductType } from "../interfaces/ProductType";
 import { BasketContext } from "../contexts/BasketContext";
 
 export const BasketFooter = ({ button }: { button: any }) => {
-    const [total, setTotal] = useState<number>(0)
-    const [basket, setBasket] = useContext(BasketContext)
+    const basketContext = useContext(BasketContext)
+    const [basketAmounts, setBasketAmounts] = basketContext.amounts
+    const [basketTotal, setBasketTotal] = basketContext.total
+    const [basketProducts, setBasketProducts] = basketContext.products
 
-    useEffect(() => {
-        let total = 0;
-        basket.products.forEach((prod: ProductType) => {
-            total += prod.price * basket.amounts[prod.id]
+    const GetTotal = () => {
+        let total = 0
+
+        basketProducts.forEach((prod: ProductType) => {
+            total += prod.price * basketAmounts[prod.id]
         })
-        setTotal(total)
-    }, [basket])
+
+        return total
+    }
+
+    useEffect(() => { setBasketTotal(GetTotal()) }, [])
+    useEffect(() => { setBasketTotal(GetTotal()) }, [basketContext.products, basketContext.amounts])
 
     return <div className="row basket-footer" >
         <div className="image">&nbsp;</div>
@@ -21,7 +28,7 @@ export const BasketFooter = ({ button }: { button: any }) => {
             {button}
         </div>
         <div className="price">Total:</div>
-        <div className="amount">${total}</div>
+        <div className="amount">${basketTotal}</div>
     </div>
 }
 

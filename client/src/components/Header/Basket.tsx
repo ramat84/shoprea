@@ -5,13 +5,13 @@ import { BasketContext } from '../../contexts/BasketContext'
 
 export const Basket = () => {
     const [basketCount, setBasketCount] = useState()
-    const [basket, setBasket] = useContext(BasketContext)
+    const [basketAmounts, setBasketAmounts] = useContext(BasketContext).amounts
 
     useEffect(() => {
-        const values = Object.values(basket.amounts)
+        const values = Object.values(basketAmounts)
         const count: number = values.length == 0 ? 0 : values.reduce((sum, val) => sum += val)
         setBasketCount(count)
-    }, [basket])
+    }, [basketAmounts])
 
     return <Link to="/basket" className="basket"><i>󰄑</i> &nbsp; {basketCount} </Link>
 }

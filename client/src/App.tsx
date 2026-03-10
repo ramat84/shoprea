@@ -15,24 +15,25 @@ import { UserCheck } from './lib/User.jsx'
 
 function App() {
     const [categories, setCategories] = useState([])
-    const basketState = useState({ amounts: [], products: [] })
+
+    const basketStates = {
+        amounts: useState([]),
+        products: useState([]),
+        total: useState(0)
+    }
+
     const user = useState(undefined)
-    const [basket, setBasket] = basketState
+    const [basketAmounts, setBasketAmounts] = basketStates.amounts
 
     useEffect(() => {
         GetCategories(setCategories)
-
-        setBasket(prev => {
-            const new_basket = { ...prev }
-            new_basket.amounts = GetAmounts()
-            return new_basket
-        })
+        setBasketAmounts(GetAmounts())
         UserCheck(user[1])
     }, [])
 
     return (
         <CategoriesContext.Provider value={categories}>
-            <BasketContext.Provider value={basketState}>
+            <BasketContext.Provider value={basketStates}>
                 <UserContext.Provider value={user}>
                     <Router />
                     <footer>

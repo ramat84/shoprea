@@ -13,7 +13,7 @@ import { ModalContext } from '../contexts/ModalContext'
 import { ModalComponent } from '../components/ModalComponent';
 
 export const BasketPage = () => {
-    const [basket, setBasket] = useContext(BasketContext)
+    const [basketProducts, setBasketProducts] = useContext(BasketContext).products
 
     useEffect(() => {
         const basketAmounts = Object.entries(GetAmounts())
@@ -23,11 +23,7 @@ export const BasketPage = () => {
             axios
                 .get('http://localhost:4000/api/products/multi/' + productIDs.join(','))
                 .then((res) => {
-                    setBasket((prev) => {
-                        let new_basket = { ...prev }
-                        new_basket.products = res.data;
-                        return new_basket
-                    })
+                    setBasketProducts(res.data)
                 })
     }, [])
 

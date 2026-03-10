@@ -3,7 +3,9 @@ import { BasketContext } from "../../contexts/BasketContext"
 import type { ProductType } from "../../interfaces/ProductType"
 
 export const Amount = ({ event, product }: { event: any, product: ProductType }) => {
-    const [basket, setBasket] = useContext(BasketContext)
+    const basketContext = useContext(BasketContext)
+    const [basketAmounts, setBasketAmounts] = basketContext.amounts
+    const [basketProducts, setBasketProducts] = basketContext.products
 
     const UpdateBasket = (productId: number, amount: number) => {
         if (amount === 0) {
@@ -16,35 +18,38 @@ export const Amount = ({ event, product }: { event: any, product: ProductType })
             return;
         }
 
-        setBasket(prev => {
-            let new_basket = { ...prev };
-            new_basket.amounts[productId] = amount;
+        setBasketAmounts(prev => {
+            let new_amounts = { ...prev };
+            new_amounts[productId] = amount;
 
-            localStorage.setItem("basket", JSON.stringify(new_basket.amounts))
-            return new_basket
+            localStorage.setItem("basket", JSON.stringify(new_amounts))
+            return new_amounts
         })
+
     }
 
     const Trash = (productID: number) => {
         if (!confirm('Are you sure you want to delete this product?')) return false;
 
-        setBasket(prev => {
-            let new_basket = { ...prev };
-            delete new_basket.amounts[productID]
+        setBasketAmounts(prev => {
+            let new_amounts = { ...prev };
+            delete new_amounts[productID]
 
-            new_basket.products = products.filter((product) => { return productID != product.id })
+            localStorage.setItem("basket", JSON.stringify(new_amounts))
+            return new_amounts
+        })
 
-            localStorage.setItem("basket", JSON.stringify(new_basket.amounts))
-            return new_basket
+        setBasketProducts(prev => {
+            return prev.filter((product) => { return productID != product.id })
         })
     }
 
     return (
         <div className="amount">
             <button className="trash" onClick={() => Trash(product.id)}><i></i></button>
-            <input onChange={() => UpdateBasket(product.id, parseInt(event.data))} value={basket.amounts[product.id]} />
-            <button onClick={() => UpdateBasket(product.id, basket.amounts[product.id] - 1)}>-</button>
-            <button onClick={() => UpdateBasket(product.id, basket.amounts[product.id] + 1)}>+</button>
+            <input onChange={() => UpdateBasket(product.id, parseInt(event.data))} value={basketAmounts[product.id]} />
+            <button onClick={() => UpdateBasket(product.id, basketAmounts[product.id] - 1)}>-</button>
+            <button onClick={() => UpdateBasket(product.id, basketAmounts[product.id] + 1)}>+</button>
         </div>
     )
 }

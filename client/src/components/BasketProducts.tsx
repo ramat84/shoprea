@@ -4,7 +4,10 @@ import { BasketContext } from '../contexts/BasketContext'
 import { Amount } from './Basket/Amount.tsx'
 
 export const BasketProducts = ({ allowChange }: { allowChange: boolean }) => {
-    const [basket, setBasket] = useContext(BasketContext)
+    const basketContext = useContext(BasketContext)
+
+    const [basketProducts, setBasketProducts] = basketContext.products
+    const [basketAmounts, setBasketAmounts] = basketContext.amounts
 
     const BasketHeader = () => (
         <div className="row">
@@ -18,14 +21,14 @@ export const BasketProducts = ({ allowChange }: { allowChange: boolean }) => {
 
     return <>
         <BasketHeader />
-        {basket.products.map((product: ProductType) => (
+        {basketProducts.length > 0 && basketProducts.map((product: ProductType) => (
             <div key={product.id} className="row">
                 <img className="image" src={product.image} />
                 <div className="title">{product.title}</div>
                 <div className="desc">{product.shortDesc}</div>
                 <div className="price">${product.price}</div>
                 {allowChange && <Amount event={event} product={product} />}
-                {!allowChange && <div className="amount">✕ {basket.amounts[product.id]}</div>}
+                {!allowChange && <div className="amount">✕ {basketAmounts[product.id]}</div>}
             </div>
         ))}
     </>
