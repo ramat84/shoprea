@@ -1,0 +1,29 @@
+.paymentPage {
+    h2 {
+        border-bottom: 1px solid silver;
+        padding-bottom: 20px;
+
+        &:not(:first-child) {
+            margin-top: 40px;
+        }
+    }
+
+    form {
+        display: flex;
+        flex-wrap: wrap;
+
+        >* {
+            width: 30%;
+            box-sizing: border-box;
+            padding: 10px 20px;
+            margin: 10px 1%;
+        }
+    }
+
+    .paymentOption {
+        max-width: 200px;
+        border: 1px solid silver;
+        padding: 10px;
+        border-radius: 5px;
+    }
+}

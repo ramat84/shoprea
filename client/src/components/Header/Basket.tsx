@@ -4,7 +4,7 @@ import '../../css/components/basket.css'
 import { BasketContext } from '../../contexts/BasketContext'
 
 export const Basket = () => {
-    const [basketCount, setBasketCount] = useState()
+    const [basketCount, setBasketCount] = useState<number>(0)
     const [basketAmounts, setBasketAmounts] = useContext(BasketContext).amounts
 
     useEffect(() => {
