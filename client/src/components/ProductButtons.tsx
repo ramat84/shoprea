@@ -5,14 +5,15 @@ import '../css/components/buttons.css'
 import type { ProductInterface } from '../interfaces/ProductType'
 
 export const ProductButtons = ({ renderView, renderAdd, product }: { renderView?: boolean, renderAdd?: boolean, product: ProductInterface }) => {
-    const [basket, setBasket] = useContext(BasketContext)
+    const basketContext = useContext(BasketContext)
+    const [basketAmounts, setBasketAmounts] = basketContext.amounts
 
     const AddToBasket = (productId: number, amount: number = 1) => {
-        setBasket(prev => {
-            let new_basket = { ...prev };
-            new_basket[productId] = (basket[productId] ?? 0) + amount;
-            localStorage.setItem("basket", JSON.stringify(new_basket))
-            return new_basket
+        setBasketAmounts(prev => {
+            let new_amounts = { ...prev };
+            new_amounts[productId] = (new_amounts[productId] ?? 0) + amount;
+            localStorage.setItem("basket", JSON.stringify(new_amounts))
+            return new_amounts
         })
     }
 
