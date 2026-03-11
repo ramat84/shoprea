@@ -28,7 +28,6 @@
             box-sizing: border-box;
             border: 1px solid silver;
             border-radius: 5px;
-            overflow: hidden;
             padding: 0;
             margin: 1vh 1vw;
 
@@ -37,12 +36,15 @@
                 top: 0.5vh;
             }
 
-            input,
-            select {
+            input {
                 width: 100%;
                 padding: 3.5vh 2vw 1.5vh;
                 box-sizing: border-box;
                 font-size: 1.5vh;
+
+                &::placeholder {
+                    color: #000;
+                }
             }
 
             input {
@@ -63,6 +65,40 @@
 
                 color: gray;
                 transition: all 0.15s ease-out;
+            }
+
+            input:focus,
+            input:active {
+                outline: 0;
+                border: 2px solid var(--bs-blue);
+                border-bottom: 0;
+
+                ~select {
+                    transform: rotateX(0deg);
+                }
+
+            }
+
+            select {
+                position: absolute;
+                transform: rotateX(90deg);
+                transform-origin: top center;
+                left: 0;
+                top: 100%;
+                z-index: 500;
+                width: 100%;
+                border-radius: 0 0 5px 5px;
+                overflow: hidden;
+                border: 0;
+                border: 2px solid var(--bs-blue);
+                border-top: 0;
+                transition: all 0.3s linear;
+
+                option {
+                    padding: 1.5vh 1.8vw;
+                    appearance: none;
+                    font-size: 1.4vh;
+                }
             }
         }
     }
