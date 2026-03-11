@@ -1,13 +1,13 @@
+import { Input } from "./Input";
+
 export const Shipment = () => (
     <form>
-        <input placeholder="Country" />
-        <input placeholder="City" />
-        <input placeholder="Full Address" />
-        <input placeholder="Phone number" />
-        <input placeholder="Email Address" />
-        <input placeholder="Zip code" />
-        <select name="method">
-            <option value="">Method</option>
-        </select>
+        <Input name="country" label="Country" />
+        <Input name="city" label="City" />
+        <Input name="address" label="Address" />
+        <Input name="phone" label="Phone Number" />
+        <Input name="email" label="Email Address" />
+        <Input name="zip" label="Zip Code" />
+        {/* TODO: Method  */}
     </form>
 )

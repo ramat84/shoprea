@@ -38,11 +38,15 @@ footer p {
 .ReactModal__Overlay {
     z-index: 10;
 
+
     >div[role=dialog] {
-        background: rgba(255, 255, 255, 0.8) !important;
+        max-width: 1000px;
+        margin: auto;
+        background: rgba(255, 255, 255, 0.4) !important;
         border-radius: 10px !important;
         box-shadow: 5px 5px 5px silver;
         padding: 30px 50px !important;
+        backdrop-filter: blur(5px);
     }
 }
 
