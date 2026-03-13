@@ -6,6 +6,7 @@ import { Header } from '../components/Header'
 import { CategoriesContext } from '../contexts/CategoriesContext'
 
 import '../css/components/products.css'
+import '../css/components/products-mobile.css'
 
 export const CategoryPage = () => {
     const [title, setCategoryTitle] = useState('')

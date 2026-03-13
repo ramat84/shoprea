@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import type { ProductType } from '../interfaces/ProductType.ts'
+import type { ProductType } from '../types/ProductType.ts'
 
 export const BasketContext = createContext<any>({
     amounts: [{}, () => { }],

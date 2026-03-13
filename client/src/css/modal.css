@@ -1,0 +1,65 @@
+.ReactModal__Content:has(.ModalBottom) {
+    padding-bottom: 80px;
+}
+
+.ModalBottom {
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    background: #e8e8f6;
+    width: 100%;
+    left: 0;
+    padding: 20px;
+    text-align: right;
+    box-sizing: border-box;
+    box-shadow: 0 -2px silver;
+}
+
+.ReactModal__Overlay {
+    z-index: 10;
+
+    h2 {
+        margin-top: 30px;
+    }
+
+    >div[role=dialog] {
+        max-width: 1000px;
+        margin: auto;
+        background: rgba(255, 255, 255, 0.4) !important;
+        border-radius: 10px !important;
+        box-shadow: 5px 5px 5px silver;
+        padding: 0 !important;
+        backdrop-filter: blur(5px);
+
+        >*:not(.modal-wrapper),
+        .modal-wrapper>* {
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+    }
+}
+
+.modal-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 30px;
+    width: 40px;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+
+    &:hover {
+        font-weight: 500
+    }
+}

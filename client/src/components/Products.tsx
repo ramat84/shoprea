@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 
-import type { ProductType } from '../interfaces/ProductType'
+import type { ProductType } from '../types/ProductType'
 import { Product } from "./Product";
 
 export const Products = ({ categoryID }: { categoryID: number }) => {

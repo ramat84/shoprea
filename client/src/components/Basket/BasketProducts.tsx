@@ -1,7 +1,8 @@
-import type { ProductType } from '../interfaces/ProductType'
-import { useContext, useEffect } from 'react'
-import { BasketContext } from '../contexts/BasketContext'
-import { Amount } from './Basket/Amount.tsx'
+import type { ProductType } from '../../types/ProductType.ts'
+import { useContext } from 'react'
+import { BasketContext } from '../../contexts/BasketContext.tsx'
+import { Amount } from './Amount.tsx'
+import { Price } from '../Price'
 
 export const BasketProducts = ({ allowChange }: { allowChange: boolean }) => {
     const basketContext = useContext(BasketContext)
@@ -10,7 +11,7 @@ export const BasketProducts = ({ allowChange }: { allowChange: boolean }) => {
     const [basketAmounts, setBasketAmounts] = basketContext.amounts
 
     const BasketHeader = () => (
-        <div className="row">
+        <div key="basket-header" className="row">
             <div className="image">Product</div>
             <div className="title">&nbsp;</div>
             <div className="desc">&nbsp;</div>
@@ -26,8 +27,10 @@ export const BasketProducts = ({ allowChange }: { allowChange: boolean }) => {
                 <img className="image" src={product.image} />
                 <div className="title">{product.title}</div>
                 <div className="desc">{product.shortDesc}</div>
-                <div className="price">${product.price}</div>
-                {allowChange && <Amount event={event} product={product} />}
+                <div className="price">
+                    <Price price={product.price} />
+                </div>
+                {allowChange && <Amount e={event} product={product} />}
                 {!allowChange && <div className="amount">✕ {basketAmounts[product.id]}</div>}
             </div>
         ))}

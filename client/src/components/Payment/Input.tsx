@@ -1,65 +1,53 @@
-import { useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
+import { FormContext } from '../../contexts/FormContext'
+import { InputSelect } from "./InputSelect"
+import type { InputProps } from "../../types/InputProps";
 
-export const Input = ({ name, label, values = [] }: { name: string, label: string, values: any }) => {
-    const [filter, setFilter] = useState('')
-    const [valueText, setValueText] = useState('')
-    const [inputValue, setInputValue] = useState('')
+export const Input = (props: InputProps) => {
+    const { name, label, values = [], callback = false }: InputProps = props;
+
+    const inputStates = {
+        selected: useState(''),
+        input: useState('')
+    }
+
+    const [selectedText, setSelectedText] = inputStates.selected
+    const [inputText, setInputText] = inputStates.input
+
+    const { register, handleSubmit, formState: { errors, isSubmitting } } = useContext(FormContext)
+    const _$ = (s: string) => document.querySelector(s);
 
     const SelectValue = ({ target }) => {
-        const selectedSelect = target
-        const selectedOption = selectedSelect.selectedOptions[0]
-        setValueText(selectedOption.text)
-        setInputValue('')
+        const selectedOption = (target.tagName == "OPTION") ? target : target.selectedOptions[0]
+
+        setSelectedText(selectedOption.text)
+        setInputText('')
+
+        if (callback)
+            callback(selectedOption.value)
     }
 
-    const UpdateInputValue = () => {
-        setFilter(event.target.value)
-        setInputValue(event?.target.value)
-    }
-
-    const KeyUp = (e) => {
+    const KeyDown = (e) => {
         const selectSelector = `select[name=${e.target.name}_value]`;
 
         switch (e.key) {
-
             case 'Enter':
-                const selectElement = document.querySelector(selectSelector)
+                const selectElement = _$(selectSelector)
 
                 SelectValue({ target: selectElement });
                 selectElement.focus();
                 break;
 
             case 'ArrowDown':
-                const nextOption = document.querySelector(selectSelector + " option:checked ~ option")
-                if (nextOption) {
-                    nextOption.selected = true;
-                }
+                const nextOption = _$(selectSelector + " option:checked ~ option")
+                nextOption && setSelectValue(nextOption.value)
                 break;
 
             case 'ArrowUp':
-                const prevOption = document.querySelector(selectSelector + " option:has(+option:checked)")
-                if (prevOption) {
-                    prevOption.selected = true;
-                }
+                const prevOption = _$(selectSelector + " option:has(+option:checked)")
+                prevOption && setSelectValue(prevOption.value)
                 break;
         }
-    }
-
-    const Options = () => {
-        let isFirst = true;
-        return values.map((value) => {
-            const show = (filter == '' || value.name.toLowerCase().indexOf(filter.toLowerCase()) >= 0)
-            const selected = show && isFirst;
-            if (selected) isFirst = false;
-            return show && (
-                <option
-                    key={value.code}
-                    value={value.code}
-                    selected={selected}>
-                    {value.name}
-                </option>
-            )
-        })
     }
 
     return (
@@ -69,17 +57,13 @@ export const Input = ({ name, label, values = [] }: { name: string, label: strin
                 type="text"
                 id={name}
                 name={name}
-                value={inputValue}
-                required={valueText == ''}
-                placeholder={valueText}
-                onChange={UpdateInputValue}
-                onKeyUp={KeyUp}
-            />
-            {values.length > 0 && (
-                <select name={name + '_value'} size="5" onChange={SelectValue} >
-                    <Options />
-                </select>
-            )}
+                value={inputText}
+                required={selectedText == ''}
+                placeholder={selectedText}
+                onChange={(e) => setInputText(e.target.value)}
+                onKeyDown={KeyDown} />
+
+            <InputSelect inputStates={inputStates} inputProps={props} />
         </fieldset>
     )
 }

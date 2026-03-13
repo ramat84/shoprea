@@ -1,7 +1,5 @@
-import express from 'express'
 import { PrismaClient } from '@prisma/client'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
-import { Country } from 'country-state-city'
 
 const adapter = new PrismaBetterSqlite3({ url: 'file:./shop.db' })
 const prisma = new PrismaClient({ adapter })
@@ -55,9 +53,4 @@ export const ProductsAPI = (app) => {
         const results = await prisma.category.findMany()
         res.json(results)
     })
-
-    app.get('/api/location/countries', async (req, res) => {
-        return res.json(Country.getAllCountries().map((country) => { return { flag: country.flag, code: country.isoCode, name: country.name } }))
-    })
-
 }

@@ -1,8 +1,8 @@
 import { useContext } from "react"
 import { BasketContext } from "../../contexts/BasketContext"
-import type { ProductType } from "../../interfaces/ProductType"
+import type { ProductType } from "../../types/ProductType"
 
-export const Amount = ({ event, product }: { event: any, product: ProductType }) => {
+export const Amount = ({ e, product }: { e: any, product: ProductType }) => {
     const basketContext = useContext(BasketContext)
     const [basketAmounts, setBasketAmounts] = basketContext.amounts
     const [basketProducts, setBasketProducts] = basketContext.products
@@ -47,7 +47,7 @@ export const Amount = ({ event, product }: { event: any, product: ProductType })
     return (
         <div className="amount">
             <button className="trash" onClick={() => Trash(product.id)}><i></i></button>
-            <input onChange={() => UpdateBasket(product.id, parseInt(event.data))} value={basketAmounts[product.id]} />
+            <input onChange={(e) => UpdateBasket(product.id, parseInt(e.target.value))} value={basketAmounts[product.id]} />
             <button onClick={() => UpdateBasket(product.id, basketAmounts[product.id] - 1)}>-</button>
             <button onClick={() => UpdateBasket(product.id, basketAmounts[product.id] + 1)}>+</button>
         </div>

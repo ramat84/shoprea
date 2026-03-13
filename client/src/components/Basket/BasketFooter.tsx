@@ -1,8 +1,9 @@
 import { useState, useEffect, useContext } from "react";
-import type { ProductType } from "../interfaces/ProductType";
-import { BasketContext } from "../contexts/BasketContext";
+import type { ProductType } from "../../types/ProductType";
+import { BasketContext } from "../../contexts/BasketContext";
+import { Price } from "../Price";
 
-export const BasketFooter = ({ button }: { button: any }) => {
+export const BasketFooter = () => {
     const basketContext = useContext(BasketContext)
     const [basketAmounts, setBasketAmounts] = basketContext.amounts
     const [basketTotal, setBasketTotal] = basketContext.total
@@ -24,11 +25,11 @@ export const BasketFooter = ({ button }: { button: any }) => {
     return <div className="row basket-footer" >
         <div className="image">&nbsp;</div>
         <div className="title">&nbsp;</div>
-        <div className="desc">
-            {button}
-        </div>
+        <div className="desc">&nbsp;</div>
         <div className="price">Total:</div>
-        <div className="amount">${basketTotal}</div>
+        <div className="amount">
+            <Price price={basketTotal} />
+        </div>
     </div>
 }
 

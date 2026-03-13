@@ -18,13 +18,13 @@ type FormFields = {
 
 
 export const Welcome = () => {
-    const [user, setUser] = useContext(UserContext)
+    const [user, setUser] = useContext<[any, any]>(UserContext)
 
     return (
         <div className="popup-signin">
             <h2>Welcome back</h2>
             <h3>{user.email}</h3>
-            <div class="user-icon"><i></i></div>
+            <div className="user-icon"><i></i></div>
         </div>
     )
 }

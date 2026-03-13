@@ -1,12 +1,11 @@
 import axios from 'axios'
 import { useState, useEffect, useContext } from 'react'
-import type { ProductType } from '../interfaces/ProductType.js'
 
 import { Header } from '../components/Header'
 import { Checkout } from './Checkout'
 import { BasketContext, GetAmounts } from '../contexts/BasketContext'
-import { BasketProducts } from '../components/BasketProducts'
-import { BasketFooter } from '../components/BasketFooter';
+import { BasketProducts } from '../components/Basket/BasketProducts'
+import { BasketFooter } from '../components/Basket/BasketFooter';
 
 import '../css/pages/basket.css'
 import { ModalContext } from '../contexts/ModalContext'
@@ -31,20 +30,18 @@ export const BasketPage = () => {
     const modalState = useState(false)
     const setModalContent = modalState[1]
 
-    const btnNext = (
-        <button className="btn next" onClick={() => setModalContent(<Checkout />)}>
-            <i></i> Continue to Checkout
-        </button>
-    )
-
     return (
         <ModalContext.Provider value={modalState}>
             <Header />
-            <h2>Basket</h2>
+            <h2>Cart</h2>
             <div className="basketPage">
                 <div className="basketProducts">
                     <BasketProducts allowChange={true} />
-                    <BasketFooter button={btnNext} />
+
+                    <BasketFooter />
+                    <button className="btn next" onClick={() => setModalContent(<Checkout />)}>
+                        <i></i> Continue to Checkout
+                    </button>
                 </div>
             </div>
 

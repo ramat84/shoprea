@@ -3,8 +3,14 @@
     src: url("/css/nerd.ttf");
 }
 
+@font-face {
+    font-family: "Arimo";
+    src: url("/css/Arimo.ttf");
+}
+
 body {
     background: #f1efef;
+    font-family: Arimo;
 }
 
 #root {
@@ -33,34 +39,4 @@ footer p {
     background: var(--bs-gray-800);
     padding: 10px 20px;
     cursor: pointer;
-}
-
-.ReactModal__Overlay {
-    z-index: 10;
-
-
-    >div[role=dialog] {
-        max-width: 1000px;
-        margin: auto;
-        background: rgba(255, 255, 255, 0.4) !important;
-        border-radius: 10px !important;
-        box-shadow: 5px 5px 5px silver;
-        padding: 30px 50px !important;
-        backdrop-filter: blur(5px);
-    }
-}
-
-.modal-close {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    font-size: 30px;
-    width: 40px;
-    border: 0;
-    background: transparent;
-    cursor: pointer;
-
-    &:hover {
-        font-weight: 500
-    }
 }

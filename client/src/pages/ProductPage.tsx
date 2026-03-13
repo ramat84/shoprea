@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
+import { Link } from 'react-router'
+
 import axios from 'axios'
 import { Header } from '../components/Header'
 import { ProductButtons } from '../components/ProductButtons'
 import { Products } from '../components/Products'
-import { Link } from 'react-router'
+import { Price } from '../components/Price'
 
 import '../css/pages/product.css'
 
@@ -34,7 +36,9 @@ export const ProductPage = () => {
             </Link>
             <p>
                 {product.description}
-                <span className="price">${product.price}</span>
+                <span className="price">
+                    <Price price={product.price} />
+                </span>
             </p>
             <ProductButtons renderView={false} product={product} />
         </div>

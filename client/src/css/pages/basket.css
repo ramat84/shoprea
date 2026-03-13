@@ -84,8 +84,11 @@
                 }
             }
         }
+    }
 
-        :
+    .btn.next {
+        background: var(--bs-green);
+        float: right;
     }
 }
 

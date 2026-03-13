@@ -1,6 +1,7 @@
 import { useContext, Children } from 'react'
 import ReactModal from 'react-modal'
 import { ModalContext } from '../contexts/ModalContext';
+import '../css/modal.css'
 
 ReactModal.setAppElement('#root')
 
