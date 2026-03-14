@@ -10,7 +10,6 @@ export const LocationAPI = (app) => {
 
     app.get('/api/location/countries/:code/cities', async (req, res) => {
         const states = State.getStatesOfCountry(req.params.code)
-        console.log(states)
 
         return res.json(
             City.getCitiesOfCountry(req.params.code)?.map((city) => {

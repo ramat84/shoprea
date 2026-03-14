@@ -23,7 +23,6 @@ export const InputKeyboard = (e: KeyboardEvent<HTMLInputElement>, inputStates: a
     switch (e.key) {
         case 'Enter':
             const selectElement: HTMLSelectElement = document.querySelector(selectSelector)!
-            console.log(selectElement)
 
             if (!selectElement) return
 
@@ -33,12 +32,12 @@ export const InputKeyboard = (e: KeyboardEvent<HTMLInputElement>, inputStates: a
 
         case 'ArrowDown':
             const nextOption: (HTMLOptionElement | null) = document.querySelector(selectSelector + " option:checked ~ option")
-            if (nextOption) SelectValue(nextOption)
+            nextOption && SelectValue(nextOption)
             break;
 
         case 'ArrowUp':
             const prevOption: (HTMLOptionElement | null) = document.querySelector(selectSelector + " option:has(+option:checked)")
-            if (prevOption) SelectValue(prevOption)
+            prevOption && SelectValue(prevOption)
             break;
     }
 }
