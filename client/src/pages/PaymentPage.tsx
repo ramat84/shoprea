@@ -4,13 +4,10 @@ import { PaymentProducts } from '../components/Payment/Products'
 import '../css/pages/payment.css'
 
 export const PaymentPage = () => {
-
     return (
         <div className="paymentPage">
             <h2>Summary</h2>
-            <h4>Products: </h4>
             <PaymentProducts />
-            <h2>Shipping</h2>
             <ShipmentForm />
             <h2>Pay with</h2>
             <img className="paymentOption" src="/assets/paypal.svg" />

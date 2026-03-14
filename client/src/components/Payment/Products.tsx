@@ -10,18 +10,21 @@ export const PaymentProducts = () => {
     const [basketAmounts, setBasketAmounts] = basketContext.amounts
     const [basketTotal, setBasketTotal] = basketContext.total
 
-    return <div className="paymentProducts">
-        {basketProducts.length > 0 && basketProducts.map((product: ProductType) => (
-            <div key={product.id} >
-                {product.title}
-                <span>
-                    <Price price={product.price} />
-                    &nbsp;✕ {basketAmounts[product.id]}
-                </span></div>
-        ))}
-        <div className="paymentTotal">
-            Total
-            <span><Price price={basketTotal} /></span>
+    return (<>
+        <h4>Products: </h4>
+        <div className="paymentProducts">
+            {basketProducts.length > 0 && basketProducts.map((product: ProductType) => (
+                <div key={product.id} >
+                    {product.title}
+                    <span>
+                        <Price price={product.price} />
+                        &nbsp;✕ {basketAmounts[product.id]}
+                    </span></div>
+            ))}
+            <div className="paymentTotal">
+                Total
+                <span><Price price={basketTotal} /></span>
+            </div>
         </div>
-    </div>
+    </>)
 }

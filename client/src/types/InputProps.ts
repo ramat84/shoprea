@@ -1,1 +1,7 @@
-export type InputProps = { name: string, label: string, values: any, callback?: any }
+export type InputProps = {
+    name: string,
+    label: string,
+    values?: any,
+    callback?: any,
+    register?: any
+}

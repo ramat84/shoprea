@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react"
-import { FormContext } from '../../contexts/FormContext'
+import { useContext, useEffect, useState, type ChangeEvent } from "react"
 import { InputSelect } from "./InputSelect"
 import type { InputProps } from "../../types/InputProps";
 import { InputKeyboard } from '../../lib/InputKeyboard.ts'
+import { useFormContext } from "react-hook-form";
 
 export const Input = (props: InputProps) => {
-    const { name, label, values = [], callback = false }: InputProps = props;
+    const { name, label, values = [], callback = false, register = {} }: InputProps = props;
 
     const inputStates = {
         selected: useState(''),
@@ -16,7 +16,13 @@ export const Input = (props: InputProps) => {
     const [selectedText, setSelectedText] = inputStates.selected
     const [inputText, setInputText] = inputStates.input
 
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = useContext(FormContext)
+    const { formState: { errors } } = useFormContext()
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setInputText(e.target.value)
+
+        register.onChange && register.onChange(e)
+    }
 
     return (
         <fieldset className="inputText">
@@ -28,10 +34,15 @@ export const Input = (props: InputProps) => {
                 value={inputText}
                 required={selectedText == ''}
                 placeholder={selectedText}
-                onChange={(e) => setInputText(e.target.value)}
-                onKeyDown={(e) => InputKeyboard(e, inputStates, callback)} />
+                onChange={onChange}
+                onKeyDown={(e) => InputKeyboard(e, inputStates, callback)}
+                onBlur={register.onBlur ?? null}
+                ref={register.ref ?? null}
+            />
 
             <InputSelect inputStates={inputStates} inputProps={props} />
+
+            {errors[name] && <div className="error">{errors[name].message}</div>}
         </fieldset>
     )
 }

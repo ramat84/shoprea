@@ -16,7 +16,6 @@ type FormFields = {
     password: string;
 }
 
-
 export const Welcome = () => {
     const [user, setUser] = useContext<[any, any]>(UserContext)
 
@@ -58,7 +57,10 @@ export const Form = () => {
                     type="text"
                     {...register('email', {
                         required: "Email is required",
-                        pattern: { value: /^[A-Za-z0-9.]+@[A-Za-z0-9.]+$/, message: "Enter a valid Email address" }
+                        pattern: {
+                            value: /^[A-Za-z0-9.]+@[A-Za-z0-9.]+$/,
+                            message: "Enter a valid Email address"
+                        }
                     })}
                     placeholder="Email"
                 />
