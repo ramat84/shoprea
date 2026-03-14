@@ -4,6 +4,7 @@ export const InputSelect = ({ inputStates, inputProps }: { inputStates: any, inp
     const { name, label, values = [], callback = false }: { name: string, label: string, values: any, callback?: any } = inputProps;
 
     const [selectedText, setSelectedText] = inputStates.selected
+    const [selectedValue, setSelectedValue] = inputStates.value
     const [inputText, setInputText] = inputStates.input
 
     const SelectValue = ({ target }) => {
@@ -27,7 +28,7 @@ export const InputSelect = ({ inputStates, inputProps }: { inputStates: any, inp
         return <></>
 
     return (
-        <select name={name + '_value'} size={5} onChange={SelectValue} onClick={SelectValue} value={selectedText}>
+        <select name={name + '_value'} size={5} onChange={SelectValue} onClick={SelectValue} value={selectedValue}>
             <Options key={name} />
         </select>
     )

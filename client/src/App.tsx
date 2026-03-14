@@ -11,7 +11,7 @@ import { Router } from './Router'
 import { CategoriesContext, GetCategories } from './contexts/CategoriesContext'
 import { BasketContext, GetAmounts } from './contexts/BasketContext'
 import { UserContext } from './contexts/UserContext'
-import { UserCheck } from './lib/User.jsx'
+import { UserCheck } from './lib/User.ts'
 
 function App() {
     const [categories, setCategories] = useState([])
