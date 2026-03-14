@@ -1,10 +1,11 @@
+import type { Express } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 
 const adapter = new PrismaBetterSqlite3({ url: 'file:./shop.db' })
 const prisma = new PrismaClient({ adapter })
 
-export const ProductsAPI = (app) => {
+export const ProductsAPI = (app: Express) => {
     app.get('/api/products', async (req, res) => {
         const results = await prisma.product.findMany()
         res.json(results)

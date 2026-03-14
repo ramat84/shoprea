@@ -1,3 +1,4 @@
+import type { Express } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 
@@ -5,7 +6,7 @@ const adapter = new PrismaBetterSqlite3({ url: 'file:./shop.db' })
 const prisma = new PrismaClient({ adapter })
 import { sha256 } from 'js-sha256'
 
-export const UsersAPI = (app) => {
+export const UsersAPI = (app: Express) => {
     app.post('/api/signin', async (req, res) => {
         if (!req.body.email || !req.body.password)
             return res.send({ status: 400, message: "Missing Email or Password" })

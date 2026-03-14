@@ -1,6 +1,7 @@
+import type { Express } from 'express'
 import { Country, State, City } from 'country-state-city'
 
-export const LocationAPI = (app) => {
+export const LocationAPI = (app: Express) => {
     app.get('/api/location/countries', async (req, res) => {
         return res.json(
             Country.getAllCountries().map((country) => {
