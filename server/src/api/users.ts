@@ -59,5 +59,4 @@ export const UsersAPI = (app: Express) => {
 
         return res.send({ status: 200, email: prismaResults.email })
     })
-
 }

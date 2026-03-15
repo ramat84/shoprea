@@ -1,46 +1,44 @@
 import { useContext, useEffect, useState, type ChangeEvent } from "react"
 import { InputSelect } from "./InputSelect"
 import type { InputProps } from "../../types/InputProps";
-import { InputKeyboard } from '../../lib/InputKeyboard.ts'
 import { useFormContext } from "react-hook-form";
 
 export const Input = (props: InputProps) => {
-    const { name, label, values = [], callback = false, register = {} }: InputProps = props;
+    const { name, label, icon = '', values = [], callback = false, register = {} }: InputProps = props;
+
+    const formContext = useFormContext()
+    const { formState: { errors }, setValue } = formContext
 
     const inputStates = {
         selected: useState(''),
         value: useState(''),
-        input: useState('')
+        form: formContext
     }
 
     const [selectedText, setSelectedText] = inputStates.selected
-    const [inputText, setInputText] = inputStates.input
-
-    const { formState: { errors } } = useFormContext()
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setInputText(e.target.value)
+        console.log(e.target.name, e.target.value)
+        setValue(e.target.name, e.target.value)
 
         register.onChange && register.onChange(e)
     }
 
     return (
         <fieldset className="inputText">
-            <label htmlFor={name}>{label}</label>
+            {icon && <i>{icon}</i>}
             <input
-                type="text"
                 id={name}
                 name={name}
-                value={inputText}
-                required={selectedText == ''}
-                placeholder={selectedText}
+                className="input"
+                type={values.length ? 'hidden' : 'text'}
                 onChange={onChange}
-                onKeyDown={(e) => InputKeyboard(e, inputStates, callback)}
-                onBlur={register.onBlur ?? null}
-                ref={register.ref ?? null}
+                {...register}
             />
 
             <InputSelect inputStates={inputStates} inputProps={props} />
+
+            <label htmlFor={name}>{label}</label>
 
             {errors[name] && <div className="error">{errors[name].message}</div>}
         </fieldset>

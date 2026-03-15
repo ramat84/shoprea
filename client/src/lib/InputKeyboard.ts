@@ -1,9 +1,10 @@
 import type { KeyboardEvent } from "react"
+// import { useFormContext } from "react-hook-form"
 
-export const InputKeyboard = (e: KeyboardEvent<HTMLInputElement>, inputStates: any, callback: Function) => {
+export const InputKeyboard = (e: KeyboardEvent<HTMLInputElement>, fieldName: string, inputStates: any, callback: Function) => {
     const [selectedText, setSelectedText] = inputStates.selected
-    const [inputText, setInputText] = inputStates.input
     const [selectedValue, setSelectedValue] = inputStates.value
+    // const { formState: { errors }, setValue } = useFormContext()
 
     const SelectValue = (target: HTMLOptionElement | HTMLSelectElement) => {
         const selectedOption: HTMLOptionElement = (target.tagName == "OPTION")
@@ -12,13 +13,13 @@ export const InputKeyboard = (e: KeyboardEvent<HTMLInputElement>, inputStates: a
 
         setSelectedText(selectedOption.text)
         setSelectedValue(selectedOption.value)
-        setInputText('')
+        // setInputText('')
 
         if (callback)
             callback(selectedOption.value)
     }
 
-    const selectSelector = `select[name=${(e.target as HTMLInputElement).name}_value]`;
+    const selectSelector = `select[name=${fieldName}_value]`;
 
     switch (e.key) {
         case 'Enter':
@@ -31,6 +32,7 @@ export const InputKeyboard = (e: KeyboardEvent<HTMLInputElement>, inputStates: a
             break;
 
         case 'ArrowDown':
+            console.log(selectSelector + " option:checked ~ option")
             const nextOption: (HTMLOptionElement | null) = document.querySelector(selectSelector + " option:checked ~ option")
             nextOption && SelectValue(nextOption)
             break;

@@ -21,19 +21,34 @@
         display: flex;
         flex-wrap: wrap;
         margin-top: 20px;
+        justify-content: space-between;
+
+        .btn-submit {
+            margin-left: auto;
+            margin-top: 20px;
+            background: var(--bs-blue);
+        }
 
         fieldset.inputText {
             position: relative;
-            width: 28%;
+            width: 32%;
             box-sizing: border-box;
             border: 1px solid silver;
             border-radius: 5px;
             padding: 0;
-            margin: 1vh 1vw;
+            margin: 1vh 0;
 
-            &:valid label,
-            label:has(+ input:focus) {
-                top: 0.8vh;
+            i {
+                position: absolute;
+                top: 23px;
+                right: 20px;
+                color: gray;
+                z-index: -1;
+                font-size: 20px;
+
+                ~.input {
+                    padding-right: 45px;
+                }
             }
 
             input {
@@ -42,15 +57,41 @@
                 box-sizing: border-box;
                 font-size: 1.5vh;
 
-                &::placeholder {
-                    color: #000;
-                }
-            }
-
-            input {
                 background: transparent;
                 border: 2px solid transparent;
                 border-bottom: 0;
+
+                &::placeholder {
+                    color: #000;
+                }
+
+                &.input[value],
+                &:focus,
+                &:active {
+                    ~label {
+                        top: 0.8vh;
+                    }
+                }
+
+                &:focus,
+                &:active {
+                    box-sizing: border-box;
+                    outline: 0;
+                    border: 1px solid var(--bs-blue);
+
+                    ~.error {
+                        display: none;
+                    }
+
+                    &:has(~select) {
+                        border: 2px solid var(--bs-blue);
+                        border-bottom: 0;
+                    }
+
+                    ~select {
+                        transform: rotateX(0deg);
+                    }
+                }
             }
 
             label {
@@ -60,29 +101,13 @@
                 z-index: -1;
 
                 left: 1.7vw;
-                top: 2.4vh;
+                top: 2.9vh;
                 z-index: -1;
                 font-size: 1.5vh;
 
                 color: gray;
                 transition: all 0.15s ease-out;
-            }
-
-            input:focus,
-            input:active {
-                box-sizing: border-box;
-                outline: 0;
-                border: 1px solid var(--bs-blue);
-
-                &:has(~select) {
-                    border: 2px solid var(--bs-blue);
-                    border-bottom: 0;
-                }
-
-                ~select {
-                    transform: rotateX(0deg);
-                }
-
+                transition-delay: 0.1s;
             }
 
             select {
@@ -106,14 +131,30 @@
                     font-size: 1.4vh;
                 }
             }
+
+            .filter:active,
+            .filter:focus {
+                ~.selected-text {
+                    display: none;
+                }
+            }
+
+            .selected-text {
+                position: absolute;
+                top: 3.4vh;
+                left: 1.6vw;
+            }
         }
 
         .error {
+            color: crimson;
             position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 5px;
-            color: red;
+            top: -14px;
+            right: 20px;
+            background: #fff;
+            padding: 3px 10px;
+            border: 1px solid crimson;
+            border-radius: 5px;
         }
     }
 
