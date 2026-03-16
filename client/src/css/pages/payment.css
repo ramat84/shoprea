@@ -66,6 +66,7 @@
                     }
 
                     &.input[value]:not([value=""]),
+                    &.input[data-hasvalue=true],
                     &:focus,
                     &:active {
                         ~label {

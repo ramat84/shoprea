@@ -6,11 +6,12 @@ import { useFormContext } from "react-hook-form";
 export const Input = (props: InputProps) => {
     const { isEnabled = true, name, label, icon = '', values = [], callback = false, register = {}, emptyOn = null }: InputProps = props;
 
-    const { formState: { errors }, setValue } = useFormContext()
+    const { formState: { errors }, setValue, watch } = useFormContext()
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        console.log(e)
         register.onChange && register.onChange(e)
-        setValue(e.target.name, e.target.value)
+        setValue(e.target.name, e.target.value, { shouldTouch: true })
     }
 
     if (emptyOn)
@@ -27,6 +28,7 @@ export const Input = (props: InputProps) => {
                 className="input"
                 type={values.length ? 'hidden' : 'text'}
                 onKeyDown={onChange}
+                data-hasvalue={watch(name) != false}
                 {...register} />
 
             <InputSelect inputProps={props} />
