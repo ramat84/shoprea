@@ -7,7 +7,7 @@ import { Input } from "./Input";
 
 export const ShipmentForm = () => {
     const form = useForm<FormFields>()
-    const { register, handleSubmit, setValue, getValues, reset, watch } = form
+    const { register, handleSubmit, setValue, getValues, reset, watch, trigger } = form
 
     const country = watch('country')
     const state = watch('state')
@@ -27,10 +27,9 @@ export const ShipmentForm = () => {
         setTimeout(() => {
             let breakLoop = false;
             document.querySelectorAll('form .input:not([value])')?.forEach((el) => {
-                if (!breakLoop && el.value == "")
-                    (breakLoop = true) && el.focus();
-            }
-            )
+                if (!breakLoop && (el as HTMLInputElement).value == "")
+                    (breakLoop = true) && (el as HTMLInputElement).focus();
+            })
         }, 50)
     }
 
@@ -125,6 +124,7 @@ export const ShipmentForm = () => {
 
     const SetInputValue = (name: any, value: string) => {
         setValue(name, value);
+        trigger(name)
     }
 
     return (
@@ -159,10 +159,17 @@ export const ShipmentForm = () => {
                             register={registers.city}
                             emptyOn={[country, state]} />
                         <Input
+                            icon="󰶈"
+                            name="zip"
+                            label="Zip Code"
+                            register={registers.zip} />
+                        <Input
                             icon=""
                             name="address"
                             label="Address"
-                            register={registers.address} />
+                            register={registers.address}
+                            double={true}
+                        />
                         <Input
                             icon=""
                             name="phone"
@@ -173,14 +180,13 @@ export const ShipmentForm = () => {
                             name="email"
                             label="Email Address"
                             register={registers.email} />
-                        <Input
-                            icon="󰶈"
-                            name="zip"
-                            label="Zip Code"
-                            register={registers.zip} />
                         {/* TODO: Method  */}
                     </div>
-                    <button className="btn btn-submit">Next</button>
+
+                    <h2>Pay with</h2>
+                    <button><img className="paymentOption" src="/assets/paypal.svg" /></button>
+                    <button><img className="paymentOption" src="/assets/stripe.svg" /></button>
+                    <button><img className="paymentOption" src="/assets/googlepay.svg" /></button>
                 </form>
             </FormProvider>
         </>

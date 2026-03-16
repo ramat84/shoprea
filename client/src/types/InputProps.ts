@@ -6,5 +6,6 @@ export type InputProps = {
     values?: any,
     callback?: any,
     register?: any,
-    emptyOn?: any
+    emptyOn?: any,
+    double?: boolean
 }

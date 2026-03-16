@@ -26,12 +26,16 @@
 
             fieldset.inputText {
                 position: relative;
-                width: 32%;
+                width: 24%;
                 box-sizing: border-box;
                 border: 1px solid silver;
                 border-radius: 5px;
                 padding: 0;
                 margin: 1vh 0;
+
+                &.double {
+                    width: calc(48% + 10px);
+                }
 
                 &[data-disabled=true] {
                     pointer-events: none;
@@ -79,10 +83,6 @@
                         box-sizing: border-box;
                         outline: 0;
                         border: 1px solid var(--bs-blue);
-
-                        ~.error {
-                            display: none;
-                        }
 
                         &:has(~select) {
                             border: 2px solid var(--bs-blue);
@@ -154,14 +154,17 @@
             }
 
             .error {
-                color: crimson;
                 position: absolute;
-                top: -14px;
+                top: -2vh;
                 right: 20px;
+
+                color: crimson;
                 background: #fff;
+
                 padding: 3px 10px;
                 border: 1px solid crimson;
                 border-radius: 5px;
+                white-space: nowrap;
             }
         }
 
@@ -198,6 +201,17 @@
         .paymentTotal {
             margin-top: 0.5vh;
             font-weight: bold;
+        }
+    }
+
+    button {
+        background: transparent;
+        border: 0;
+        cursor: pointer;
+        transition: all 0.2s ease-in-out;
+
+        &:hover {
+            transform: scale(1.1);
         }
     }
 }
