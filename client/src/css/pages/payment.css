@@ -92,6 +92,10 @@
                             transform: rotateX(0deg);
                         }
                     }
+
+                    &.input[value=""]~.selected-text {
+                        display: none;
+                    }
                 }
 
                 label {
