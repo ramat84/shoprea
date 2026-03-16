@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
-import { useForm, FormProvider, type SubmitHandler } from "react-hook-form"
+import { useForm, FormProvider, useFormContext } from "react-hook-form"
+import type { SubmitHandler } from "react-hook-form"
 import axios from "axios";
 
 import { Input } from "./Input";
 
 export const ShipmentForm = () => {
-    const [state, setState] = useState<string>('')
-    const [country, setCountry] = useState<string>('')
+    const form = useForm<FormFields>()
+    const { register, handleSubmit, setValue, getValues, reset, watch } = form
+
+    const country = watch('country')
+    const state = watch('state')
+    const city = watch('city')
 
     const [countries, setCountries] = useState([])
     const [cities, setCities] = useState([])
@@ -15,18 +20,30 @@ export const ShipmentForm = () => {
     useEffect(() => {
         const url = 'http://localhost:4000/api/location/countries'
         axios.get(url).then((res) => { setCountries(res.data) })
-    }, [])
+    }, [reset])
 
     useEffect(() => {
         if (!country) return;
+
         const url = `http://localhost:4000/api/location/countries/${country}/states`
-        axios.get(url).then((res) => { setStates(res.data) })
+        axios.get(url).then((res) => {
+            if (res.data && res.data.length > 0) {
+                setStates(res.data);
+            } else {
+                const url = `http://localhost:4000/api/location/countries/${country}/cities`
+                axios.get(url).then((res) => { setCities(res.data) });
+                (document.querySelector("input[name=city]") as HTMLInputElement).focus()
+            }
+        })
     }, [country])
 
     useEffect(() => {
         if (!state) return;
         const url = `http://localhost:4000/api/location/countries/${country}/states/${state}/cities`
-        axios.get(url).then((res) => { setCities(res.data) })
+        axios.get(url).then((res) => {
+            setCities(res.data);
+            (document.querySelector("input[name=state]") as HTMLInputElement).focus()
+        })
     }, [state])
 
     type FormFields = {
@@ -39,10 +56,8 @@ export const ShipmentForm = () => {
         zip: number
     }
 
-    const form = useForm<FormFields>()
-    const { register, handleSubmit, formState: { errors, isSubmitting } } = form
 
-    const onSubmit = (data) => { return true }
+    const onSubmit = (data: any) => { return true }
 
     const registers = {
         country: register('country', { required: 'Country is required' }),
@@ -72,20 +87,70 @@ export const ShipmentForm = () => {
         }),
     }
 
+    const setInputCountry = (val: string) => {
+        setValue('city', val)
+        setValue('state', '')
+    }
+
+    const setInputState = (val: string) => {
+        setValue('state', val)
+        setValue('city', '')
+    }
+
     return (
         <>
             <h2>Shipping</h2>
             <FormProvider {...form}>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                    <Input icon="" name="country" label="Country" values={countries} callback={setCountry} register={registers.country} />
-                    <Input icon="" name="state" label="State" values={states} callback={setState} register={registers.state} />
-                    <Input icon="" name="city" label="City" values={cities} register={registers.city} />
-                    <Input icon="" name="address" label="Address" register={registers.address} />
-                    <Input icon="" name="phone" label="Phone Number" register={registers.phone} />
-                    <Input icon="󰇰" name="email" label="Email Address" register={registers.email} />
-                    <Input icon="󰶈" name="zip" label="Zip Code" register={registers.zip} />
-                    {/* TODO: Method  */}
-                    <button className="btn btn-submit">Save</button>
+                    <div className="inputs">
+                        <Input
+                            icon=""
+                            name="country"
+                            label="Country"
+                            values={countries}
+                            callback={(val: string) => setValue('country', val)}
+                            register={registers.country} />
+                        <Input
+                            isEnabled={states && states.length > 0}
+                            icon=""
+                            name="state"
+                            label="State"
+                            values={states}
+                            callback={(val: string) => setValue('state', val)}
+                            register={registers.state}
+                            emptyOn={[country]} />
+                        <Input
+                            isEnabled={cities && cities.length > 0}
+                            icon=""
+                            name="city"
+                            label="City"
+                            values={cities}
+                            callback={(val: string) => setValue('city', val)}
+                            register={registers.city}
+                            emptyOn={[country, state]} />
+                        <Input
+                            icon=""
+                            name="address"
+                            label="Address"
+                            register={registers.address} />
+                        <Input
+                            icon=""
+                            name="phone"
+                            label="Phone Number"
+                            register={registers.phone} />
+                        <Input
+                            icon="󰇰"
+                            name="email"
+                            label="Email Address"
+                            register={registers.email} />
+                        <Input
+                            icon="󰶈"
+                            name="zip"
+                            label="Zip Code"
+                            register={registers.zip} />
+                        {/* TODO: Method  */}
+                    </div>
+                    <button className="btn btn-submit">Next</button>
                 </form>
             </FormProvider>
         </>

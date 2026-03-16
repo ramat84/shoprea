@@ -1,22 +1,20 @@
 import type { KeyboardEvent } from "react"
-// import { useFormContext } from "react-hook-form"
 
-export const InputKeyboard = (e: KeyboardEvent<HTMLInputElement>, fieldName: string, inputStates: any, callback: Function) => {
+export const InputKeyboard = (
+    e: KeyboardEvent<HTMLInputElement>,
+    fieldName: string,
+    inputStates: any,
+    callback: Function) => {
+
     const [selectedText, setSelectedText] = inputStates.selected
     const [selectedValue, setSelectedValue] = inputStates.value
-    // const { formState: { errors }, setValue } = useFormContext()
 
     const SelectValue = (target: HTMLOptionElement | HTMLSelectElement) => {
         const selectedOption: HTMLOptionElement = (target.tagName == "OPTION")
             ? target as HTMLOptionElement
             : (target as HTMLSelectElement).selectedOptions[0]
 
-        setSelectedText(selectedOption.text)
-        setSelectedValue(selectedOption.value)
-        // setInputText('')
-
-        if (callback)
-            callback(selectedOption.value)
+        callback(selectedOption)
     }
 
     const selectSelector = `select[name=${fieldName}_value]`;
@@ -34,12 +32,13 @@ export const InputKeyboard = (e: KeyboardEvent<HTMLInputElement>, fieldName: str
         case 'ArrowDown':
             console.log(selectSelector + " option:checked ~ option")
             const nextOption: (HTMLOptionElement | null) = document.querySelector(selectSelector + " option:checked ~ option")
-            nextOption && SelectValue(nextOption)
+            console.log(nextOption)
+            nextOption && setSelectedValue(nextOption.value)
             break;
 
         case 'ArrowUp':
             const prevOption: (HTMLOptionElement | null) = document.querySelector(selectSelector + " option:has(+option:checked)")
-            prevOption && SelectValue(prevOption)
+            prevOption && setSelectedValue(prevOption.value)
             break;
     }
 }

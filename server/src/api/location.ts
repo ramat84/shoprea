@@ -24,14 +24,20 @@ export const LocationAPI = (app: Express) => {
     })
 
     app.get('/api/location/countries/:country/states/:state/cities', async (req, res) => {
-        return res.json(
-            City.getCitiesOfState(req.params.country, req.params.state)?.map((city) => {
-                return {
-                    code: city.name,
-                    name: city.name
-                }
-            })
-        );
+
+        let cities = City.getCitiesOfState(req.params.country, req.params.state)
+
+        if (!cities || cities.length == 0)
+            cities as any = City.getCitiesOfCountry(req.params.country);
+
+        console.log(cities)
+
+        return res.json(cities?.map((city) => {
+            return {
+                code: city.name,
+                name: city.name
+            }
+        }))
     })
 
     app.get('/api/location/countries/:country/cities', async (req, res) => {

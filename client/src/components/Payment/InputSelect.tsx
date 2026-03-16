@@ -3,14 +3,28 @@ import { useFormContext } from "react-hook-form";
 import type { InputProps } from "../../types/InputProps";
 import { InputKeyboard } from '../../lib/InputKeyboard.ts'
 
-export const InputSelect = ({ inputStates, inputProps }: { inputStates: any, inputProps: InputProps }) => {
-    const { name, label, values = [], callback = false }: { name: string, label: string, values: any, callback?: any } = inputProps;
+export const InputSelect = ({ inputProps }: { inputProps: InputProps }) => {
+    const { name, label, isEnabled = true, values = [], callback = false } = inputProps;
+
+    const inputStates = {
+        selected: useState(''),
+        value: useState(''),
+    }
 
     const [selectedText, setSelectedText] = inputStates.selected
     const [inputValue, setInputValue] = inputStates.value
     const [filterValue, setFilterValue] = useState('')
 
     const { formState: { errors }, setValue } = useFormContext()
+
+    const ChangeValue = (option: HTMLOptionElement) => {
+        setSelectedText(option.text)
+        setValue(name, option.value)
+        setFilterValue('')
+
+        if (callback)
+            callback(option.value)
+    }
 
     const SelectValue = (e: ChangeEvent | MouseEvent) => {
         const target = e.target as Element
@@ -20,13 +34,7 @@ export const InputSelect = ({ inputStates, inputProps }: { inputStates: any, inp
                 ? target as HTMLOptionElement
                 : (target as HTMLSelectElement).selectedOptions[0]
 
-        setSelectedText((selectedOption).text)
-        // setInputValue(selectedOption.value)
-        setValue(name, selectedOption.value)
-        setFilterValue('')
-
-        if (callback)
-            callback(selectedOption.value)
+        ChangeValue(selectedOption)
     }
 
     const Options = () => {
@@ -45,8 +53,7 @@ export const InputSelect = ({ inputStates, inputProps }: { inputStates: any, inp
                 className="filter"
                 value={filterValue}
                 onChange={(e) => setFilterValue(e.target.value)}
-                onKeyDown={(e) => { InputKeyboard(e, name, inputStates, callback) }}
-            />
+                onKeyDown={(e) => { InputKeyboard(e, name, inputStates, ChangeValue) }} />
             <select
                 name={name + '_value'}
                 size={5}

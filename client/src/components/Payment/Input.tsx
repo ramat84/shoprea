@@ -4,39 +4,32 @@ import type { InputProps } from "../../types/InputProps";
 import { useFormContext } from "react-hook-form";
 
 export const Input = (props: InputProps) => {
-    const { name, label, icon = '', values = [], callback = false, register = {} }: InputProps = props;
+    const { isEnabled = true, name, label, icon = '', values = [], callback = false, register = {}, emptyOn = null }: InputProps = props;
 
-    const formContext = useFormContext()
-    const { formState: { errors }, setValue } = formContext
-
-    const inputStates = {
-        selected: useState(''),
-        value: useState(''),
-        form: formContext
-    }
-
-    const [selectedText, setSelectedText] = inputStates.selected
+    const { formState: { errors }, setValue } = useFormContext()
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.name, e.target.value)
-        setValue(e.target.name, e.target.value)
-
         register.onChange && register.onChange(e)
+        setValue(e.target.name, e.target.value)
     }
 
+    if (emptyOn)
+        useEffect(() => {
+            setValue(name, '')
+        }, emptyOn)
+
     return (
-        <fieldset className="inputText">
+        <fieldset className="inputText" data-disabled={!isEnabled} >
             {icon && <i>{icon}</i>}
             <input
                 id={name}
                 name={name}
                 className="input"
                 type={values.length ? 'hidden' : 'text'}
-                onChange={onChange}
-                {...register}
-            />
+                onKeyDown={onChange}
+                {...register} />
 
-            <InputSelect inputStates={inputStates} inputProps={props} />
+            <InputSelect inputProps={props} />
 
             <label htmlFor={name}>{label}</label>
 
