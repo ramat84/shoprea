@@ -17,9 +17,26 @@ export const ShipmentForm = () => {
     const [cities, setCities] = useState([])
     const [states, setStates] = useState([])
 
+    const FocusOn = (name: string) => {
+        setTimeout(() => {
+            (document.querySelector(`input[name=${name}] ~ .filter`) as HTMLInputElement).focus()
+        }, 50)
+    }
+
+    const FocusOnNextInput = () => {
+        setTimeout(() => {
+            let breakLoop = false;
+            document.querySelectorAll('form .input:not([value])')?.forEach((el) => {
+                if (!breakLoop && el.value == "")
+                    (breakLoop = true) && el.focus();
+            }
+            )
+        }, 50)
+    }
+
     useEffect(() => {
         const url = 'http://localhost:4000/api/location/countries'
-        axios.get(url).then((res) => { setCountries(res.data) })
+        axios.get(url).then((res) => { setCountries(res.data) });
     }, [reset])
 
     useEffect(() => {
@@ -29,11 +46,16 @@ export const ShipmentForm = () => {
         axios.get(url).then((res) => {
             if (res.data && res.data.length > 0) {
                 setStates(res.data);
+                FocusOn('state')
             } else {
                 const url = `http://localhost:4000/api/location/countries/${country}/cities`
-                axios.get(url).then((res) => { setCities(res.data) });
-                (document.querySelector("input[name=city]") as HTMLInputElement).focus()
+                axios.get(url).then((res) => {
+                    setStates([])
+                    setCities(res.data)
+                    FocusOn('city')
+                });
             }
+
         })
     }, [country])
 
@@ -42,9 +64,13 @@ export const ShipmentForm = () => {
         const url = `http://localhost:4000/api/location/countries/${country}/states/${state}/cities`
         axios.get(url).then((res) => {
             setCities(res.data);
-            (document.querySelector("input[name=state]") as HTMLInputElement).focus()
+            FocusOn('city')
         })
     }, [state])
+
+    useEffect(() => {
+        FocusOnNextInput()
+    }, [city])
 
     type FormFields = {
         country: string,
@@ -97,6 +123,10 @@ export const ShipmentForm = () => {
         setValue('city', '')
     }
 
+    const SetInputValue = (name: any, value: string) => {
+        setValue(name, value);
+    }
+
     return (
         <>
             <h2>Shipping</h2>
@@ -108,7 +138,7 @@ export const ShipmentForm = () => {
                             name="country"
                             label="Country"
                             values={countries}
-                            callback={(val: string) => setValue('country', val)}
+                            callback={(val: string) => SetInputValue('country', val)}
                             register={registers.country} />
                         <Input
                             isEnabled={states && states.length > 0}
@@ -116,7 +146,7 @@ export const ShipmentForm = () => {
                             name="state"
                             label="State"
                             values={states}
-                            callback={(val: string) => setValue('state', val)}
+                            callback={(val: string) => SetInputValue('state', val)}
                             register={registers.state}
                             emptyOn={[country]} />
                         <Input
@@ -125,7 +155,7 @@ export const ShipmentForm = () => {
                             name="city"
                             label="City"
                             values={cities}
-                            callback={(val: string) => setValue('city', val)}
+                            callback={(val: string) => SetInputValue('city', val)}
                             register={registers.city}
                             emptyOn={[country, state]} />
                         <Input

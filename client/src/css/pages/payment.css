@@ -93,8 +93,10 @@
                         }
                     }
 
-                    &.input[value=""]~.selected-text {
-                        display: none;
+                    &.input[value=""] {
+                        ~.selected-text {
+                            display: none;
+                        }
                     }
                 }
 
