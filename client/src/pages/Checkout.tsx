@@ -16,7 +16,7 @@ export const Checkout = () => {
                 <BasketFooter />
             </div>
             <div className="ModalBottom">
-                <button className="btn btn-payment next" onClick={() => setModalContent(<PaymentPage key="PaymentPage" />)}>
+                <button className="btn btn-payment next" onClick={() => setModalContent(<PaymentPage />)}>
                     <i></i> Continue to Payment
                 </button>
             </div>

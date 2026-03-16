@@ -1,13 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react"
 import { useForm, FormProvider, useFormContext } from "react-hook-form"
 import type { SubmitHandler } from "react-hook-form"
 import axios from "axios";
+
+import { ModalContext } from '../../contexts/ModalContext'
+import { Paypal } from './Types/Paypal'
 
 import { Input } from "./Input";
 
 export const ShipmentForm = () => {
     const form = useForm<FormFields>()
     const { register, handleSubmit, setValue, getValues, reset, watch, trigger } = form
+    const [modalContent, setModalContent] = useContext(ModalContext)
 
     const country = watch('country')
     const state = watch('state')
@@ -16,6 +20,7 @@ export const ShipmentForm = () => {
     const [countries, setCountries] = useState([])
     const [cities, setCities] = useState([])
     const [states, setStates] = useState([])
+    const [payType, setPayType] = useState('')
 
     const FocusOn = (name: string) => {
         setTimeout(() => {
@@ -82,7 +87,11 @@ export const ShipmentForm = () => {
     }
 
 
-    const onSubmit = (data: any) => { return true }
+    const onSubmit = (data: any) => {
+        if (payType == 'paypal')
+            setModalContent(<Paypal />)
+        return true
+    }
 
     const registers = {
         country: register('country', { required: 'Country is required' }),
@@ -159,7 +168,7 @@ export const ShipmentForm = () => {
                     </div>
 
                     <h2>Pay with</h2>
-                    <button><img className="paymentOption" src="/assets/paypal.svg" /></button>
+                    <button onClick={() => setPayType('paypal')}><img className="paymentOption" src="/assets/paypal.svg" /></button>
                     <button><img className="paymentOption" src="/assets/stripe.svg" /></button>
                     <button><img className="paymentOption" src="/assets/googlepay.svg" /></button>
                 </form>

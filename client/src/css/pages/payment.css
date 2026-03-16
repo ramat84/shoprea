@@ -184,25 +184,6 @@
         margin-right: 1vw;
     }
 
-    .paymentProducts {
-        font-size: 1.6vh;
-        line-height: 1.5;
-
-        div {
-            display: flex;
-            white-space: nowrap;
-
-            span {
-                width: 100%;
-                text-align: right;
-            }
-        }
-
-        .paymentTotal {
-            margin-top: 0.5vh;
-            font-weight: bold;
-        }
-    }
 
     button {
         background: transparent;
@@ -213,6 +194,26 @@
         &:hover {
             transform: scale(1.1);
         }
+    }
+}
+
+.paymentProducts {
+    font-size: 1.6vh;
+    line-height: 1.5;
+
+    div {
+        display: flex;
+        white-space: nowrap;
+
+        span {
+            width: 100%;
+            text-align: right;
+        }
+    }
+
+    .paymentTotal {
+        margin-top: 0.5vh;
+        font-weight: bold;
     }
 }
 
