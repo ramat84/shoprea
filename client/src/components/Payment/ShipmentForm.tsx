@@ -134,53 +134,28 @@ export const ShipmentForm = () => {
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="inputs">
                         <Input
-                            icon=""
-                            name="country"
-                            label="Country"
+                            icon="" name="country" label="Country"
                             values={countries}
                             callback={(val: string) => SetInputValue('country', val)}
                             register={registers.country} />
                         <Input
+                            icon="" name="state" label="State"
                             isEnabled={states && states.length > 0}
-                            icon=""
-                            name="state"
-                            label="State"
                             values={states}
                             callback={(val: string) => SetInputValue('state', val)}
                             register={registers.state}
                             emptyOn={[country]} />
                         <Input
+                            icon="" name="city" label="City"
                             isEnabled={cities && cities.length > 0}
-                            icon=""
-                            name="city"
-                            label="City"
                             values={cities}
                             callback={(val: string) => SetInputValue('city', val)}
                             register={registers.city}
                             emptyOn={[country, state]} />
-                        <Input
-                            icon="󰶈"
-                            name="zip"
-                            label="Zip Code"
-                            register={registers.zip} />
-                        <Input
-                            icon=""
-                            name="address"
-                            label="Address"
-                            register={registers.address}
-                            double={true}
-                        />
-                        <Input
-                            icon=""
-                            name="phone"
-                            label="Phone Number"
-                            register={registers.phone} />
-                        <Input
-                            icon="󰇰"
-                            name="email"
-                            label="Email Address"
-                            register={registers.email} />
-                        {/* TODO: Method  */}
+                        <Input icon="󰶈" name="zip" label="Zip Code" register={registers.zip} />
+                        <Input icon="" name="address" label="Address" register={registers.address} double={true} />
+                        <Input icon="" name="phone" label="Phone Number" register={registers.phone} />
+                        <Input icon="󰇰" name="email" label="Email Address" register={registers.email} />
                     </div>
 
                     <h2>Pay with</h2>

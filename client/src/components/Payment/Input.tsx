@@ -9,7 +9,6 @@ export const Input = (props: InputProps) => {
     const { formState: { errors }, setValue, watch } = useFormContext()
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e)
         register.onChange && register.onChange(e)
         setValue(e.target.name, e.target.value, { shouldTouch: true })
     }

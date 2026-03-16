@@ -30,8 +30,6 @@ export const LocationAPI = (app: Express) => {
         if (!cities || cities.length == 0)
             cities as any = City.getCitiesOfCountry(req.params.country);
 
-        console.log(cities)
-
         return res.json(cities?.map((city) => {
             return {
                 code: city.name,

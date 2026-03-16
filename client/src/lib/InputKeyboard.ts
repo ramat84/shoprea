@@ -32,7 +32,6 @@ export const InputKeyboard = (
         case 'ArrowDown':
             console.log(selectSelector + " option:checked ~ option")
             const nextOption: (HTMLOptionElement | null) = document.querySelector(selectSelector + " option:checked ~ option")
-            console.log(nextOption)
             nextOption && setSelectedValue(nextOption.value)
             break;
 

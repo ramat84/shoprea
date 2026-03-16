@@ -38,7 +38,6 @@ export const Form = () => {
             "password": sha256(userData.password + SALT)
         })
             .then(({ data }) => {
-                console.log(data)
                 if (data.status == 200) {
                     Cookies.set('session', data.session, { expires: 7 })
                     setUser({ session: data.session, email: data.email, name: userData.email.split("@")[0] })
