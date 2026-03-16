@@ -38,10 +38,22 @@ export const InputSelect = ({ inputProps }: { inputProps: InputProps }) => {
     }
 
     const Options = () => {
-        return values.map((value: { code: string, name: string }) => {
-            const show = (filterValue == '' || value.name.toLowerCase().indexOf(filterValue.toLowerCase()) >= 0)
-            return show && (<option key={value.code} value={value.code}>{value.name}</option>)
-        })
+        return <>
+            {
+                filterValue != '' &&
+                values.map((value: { code: string, name: string }) => {
+                    const pos = value.name.toLowerCase().indexOf(filterValue.toLowerCase())
+                    return pos == 0 && (<option key={value.code} value={value.code}>{value.name}</option>)
+                })
+            }
+            {
+                values.map((value: { code: string, name: string }) => {
+                    const pos = value.name.toLowerCase().indexOf(filterValue.toLowerCase())
+                    const show = (filterValue == '' || pos > 0)
+                    return show && (<option key={value.code} value={value.code}>{value.name}</option>)
+                })
+            }
+        </>
     }
 
     if (values.length == 0)
