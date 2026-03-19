@@ -1,57 +1,57 @@
-import type { Express } from 'express'
+import type { Request, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 
 const adapter = new PrismaBetterSqlite3({ url: 'file:./shop.db' })
 const prisma = new PrismaClient({ adapter })
 
-export const ProductsAPI = (app: Express) => {
-    app.get('/api/products', async (req, res) => {
-        const results = await prisma.product.findMany()
-        res.json(results)
-    })
+export const GetAll = async (req: Request, res: Response) => {
+    const results = await prisma.product.findMany()
+    return res.json(results)
+}
 
-    app.get('/api/product/:id', async (req, res) => {
-        const prismaResults = await prisma.product.findUnique({
-            where: {
-                id: parseInt(req.params.id)
-            },
-            include: {
-                categories: {
-                    select: {
-                        categoryID: true
-                    }
+export const GetProduct = async (req: Request, res: Response) => {
+    const prismaResults = await prisma.product.findUnique({
+        where: {
+            id: parseInt(req.params.id as string)
+        },
+        include: {
+            categories: {
+                select: {
+                    categoryID: true
                 }
             }
-        })
-
-        let returnResults: any = prismaResults
-        returnResults.categories = prismaResults?.categories.map((category) => category.categoryID)
-        res.json(returnResults)
+        }
     })
 
-    app.get('/api/products/:category', async (req, res) => {
-        const results = await prisma.product.findMany({
-            where: {
-                categories: { some: { categoryID: Number(req.params.category) } }
-            }
-        })
-        res.json(results)
-    })
-
-    app.get('/api/products/multi/:ids', async (req, res) => {
-        const ids = req.params.ids.match(/[0-9]+/g).map((id) => parseInt(id))
-
-        if (ids.length == 0) throw new Error("Missing numbers")
-
-        const results = await prisma.product.findMany({
-            where: { id: { in: ids } }
-        })
-        res.json(results)
-    })
-
-    app.get('/api/categories', async (req, res) => {
-        const results = await prisma.category.findMany()
-        res.json(results)
-    })
+    let returnResults: any = prismaResults
+    returnResults.categories = prismaResults?.categories.map((category) => category.categoryID)
+    return res.json(returnResults)
 }
+
+export const GetCategoryProducts = async (req: Request, res: Response) => {
+    const results = await prisma.product.findMany({
+        where: {
+            categories: { some: { categoryID: Number(req.params.category) } }
+        }
+    })
+    return res.json(results)
+}
+
+export const GetMultipleProducts = async (req: Request, res: Response) => {
+    const ids = (req.params.ids as string).match(/[0-9]+/g)?.map((id) => parseInt(id)) ?? []
+    console.log(ids)
+
+    if (ids.length == 0) throw new Error("Missing numbers")
+
+    const results = await prisma.product.findMany({
+        where: { id: { in: ids } }
+    })
+    return res.json(results)
+}
+
+export const GetCategories = async (req: Request, res: Response) => {
+    const results = await prisma.category.findMany()
+    return res.json(results)
+}
+
