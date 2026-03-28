@@ -40,3 +40,8 @@ footer p {
     padding: 10px 20px;
     cursor: pointer;
 }
+
+.disabled {
+    opacity: 0.35;
+    pointer-events: none;
+}

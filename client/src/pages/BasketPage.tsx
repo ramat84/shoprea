@@ -14,6 +14,8 @@ import { ModalComponent } from '../components/ModalComponent';
 export const BasketPage = () => {
     const basketContext = useContext(BasketContext)
     const [basketProducts, setBasketProducts] = basketContext.products
+    const [basketTotal, setBasketTotal] = basketContext.total
+
 
     useEffect(() => {
         const basketAmounts = Object.entries(GetAmounts())
@@ -39,9 +41,12 @@ export const BasketPage = () => {
                     <BasketProducts allowChange={true} />
 
                     <BasketFooter />
-                    <button className="btn next" onClick={() => setModalContent(<Checkout />)}>
-                        <i></i> Continue to Checkout
-                    </button>
+                    {
+                        basketTotal > 0 &&
+                        <button className="btn next" onClick={() => setModalContent(<Checkout />)}>
+                            <i></i> Continue to Checkout
+                        </button>
+                    }
                 </div>
             </div>
 

@@ -169,8 +169,8 @@ export const ShipmentForm = () => {
 
                     <h2>Pay with</h2>
                     <button onClick={() => setPayType('paypal')}><img className="paymentOption" src="/assets/paypal.svg" /></button>
-                    <button><img className="paymentOption" src="/assets/stripe.svg" /></button>
-                    <button><img className="paymentOption" src="/assets/googlepay.svg" /></button>
+                    <button className="disabled"><img className="paymentOption" src="/assets/stripe.svg" /></button>
+                    <button className="disabled"><img className="paymentOption" src="/assets/googlepay.svg" /></button>
                 </form>
             </FormProvider>
         </>
