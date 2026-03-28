@@ -1,3 +1,5 @@
+import { PayPalScriptProvider, PayPalButtons, usePayPalScriptReducer } from "@paypal/react-paypal-js";
+
 import {
     PayPalProvider,
     PayPalOneTimePaymentButton,
@@ -5,34 +7,54 @@ import {
 
 import { PaymentProducts } from '../../Payment/Products'
 
-export const Paypal = () => {
-    const CheckoutPage = () => (
-        <>
-            <h2>Pay with Paypal</h2>
-            <h3>Click on the button to open Paypal payment method</h3>
+export const Paypal = ({amount} : {amount: number}) => {
+    const CheckoutPage = () => {
+        const [{ options, isPending }, dispatch] = usePayPalScriptReducer();
+        const currency = 'USD'
 
-            <PayPalOneTimePaymentButton
-                createOrder={async () => {
-                    const response = await fetch("/api/create-order", {
-                        method: "POST",
-                    });
-                    const { orderId } = await response.json();
-                    return { orderId };
-                }}
-                onApprove={async ({ orderId }: OnApproveDataOneTimePayments) => {
-                    await fetch(`/api/capture-order/${orderId}`, {
-                        method: "POST",
-                    });
-                    console.log("Payment captured!");
-                }}
-            />
+        const onCreateOrder = (data,actions) => {
+            return actions.order.create({
+                purchase_units: [
+                    {
+                        amount: {
+                            value: amount.toString(),
+                        },
+                    },
+                ],
+            });
+        }
 
-            <PaymentProducts />
-        </>
-    )
+        const onApproveOrder = (data,actions) => {
+            return actions.order.capture().then((details) => {
+                const name = details.payer.name.given_name;
+                alert(`Transaction completed by ${name}`);
+            });
+        }
+
+        return ( 
+            <>
+                <h2>Pay with Paypal</h2>
+                <h3>Click on the button to open Paypal payment method</h3>
+                <PayPalButtons
+                    style={{ layout: "vertical" }}
+                    createOrder={(data, actions) => onCreateOrder(data, actions)}
+                    onApprove={(data, actions) => onApproveOrder(data, actions)}
+                />
+            </>
+        )
+    }
+
+    const { VITE_PAYPAL_ENV, VITE_PAYPAL_KEY } = import.meta.env
+
+    const initialOptions = {
+        "client-id": VITE_PAYPAL_KEY,
+        environment: 'sandbox',
+        currency: "USD",
+        intent: "capture",
+    };
 
     return (
-        <PayPalProvider environment="sandbox" clientId="your-client-id" components={["paypal-payments"]} pageType="checkout">
+        <PayPalScriptProvider options={paypal_options} components={["paypal-payments"]} pageType="checkout">
             <CheckoutPage />
         </PayPalProvider>
     )

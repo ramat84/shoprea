@@ -1,3 +1,5 @@
+// import { defineConfig } from "prisma/config";
+
 import './css/App.css'
 import './css/bootstrap.css'
 import './css/config.css'
