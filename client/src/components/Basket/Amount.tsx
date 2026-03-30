@@ -1,8 +1,8 @@
 import { useContext } from "react"
 import { BasketContext } from "../../contexts/BasketContext"
-import type { ProductType } from "../../types/ProductType"
+import type { Product } from "../../../../shared/src/generated/prisma/client.ts";
 
-export const Amount = ({ e, product }: { e: any, product: ProductType }) => {
+export const Amount = ({ e, product }: { e: any, product: Product }) => {
     const basketContext = useContext(BasketContext)
     const [basketAmounts, setBasketAmounts] = basketContext.amounts
     const [basketProducts, setBasketProducts] = basketContext.products
