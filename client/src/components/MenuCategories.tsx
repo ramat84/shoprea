@@ -4,7 +4,7 @@ import { CategoriesContext } from '../contexts/CategoriesContext'
 import type { Category } from "../../../shared/src/generated/prisma/client.ts";
 
 export const MenuCategories = () => {
-    const categories = useContext(CategoriesContext)
+    const [categories, setCategories] = useContext(CategoriesContext)
 
     return <div className="sub-menu">
         <a href="#">Categories</a>

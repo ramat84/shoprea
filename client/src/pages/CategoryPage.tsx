@@ -12,7 +12,7 @@ export const CategoryPage = () => {
     const [title, setCategoryTitle] = useState('')
 
     const currentCategoryID = parseInt(useParams().id ?? '0')
-    const categories = useContext(CategoriesContext)
+    const [categories, setCategories] = useContext(CategoriesContext)
 
     const refreshCategoryTitle = () => {
         if (currentCategoryID == 0) {

@@ -14,7 +14,8 @@ import { UserContext } from './contexts/UserContext'
 import { UserCheck } from './lib/User.ts'
 
 function App() {
-    const [categories, setCategories] = useState([])
+    const categoriesState = useState([])
+    const [categories, setCategories] = categoriesState
 
     const basketStates = {
         amounts: useState([]),
@@ -32,7 +33,7 @@ function App() {
     }, [])
 
     return (
-        <CategoriesContext.Provider value={categories}>
+        <CategoriesContext.Provider value={categoriesState}>
             <BasketContext.Provider value={basketStates}>
                 <UserContext.Provider value={user}>
                     <Router />
