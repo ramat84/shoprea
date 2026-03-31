@@ -1,4 +1,4 @@
-import { useContext, MouseEvent, useEffect } from 'react';
+import { useContext, type MouseEvent, useEffect } from 'react';
 import { CategoriesContext } from '../../contexts/CategoriesContext.tsx'
 import type { Category } from "../../../../shared/src/generated/prisma/client.ts";
 import '../../css/pages/admin/categories.css'
