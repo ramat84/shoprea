@@ -1,4 +1,4 @@
-.admin-categories-page {
+.admin-data-page {
     position: relative;
 }
 
@@ -8,7 +8,7 @@ form.add {
     top: 13px;
 }
 
-.admin-categories {
+.admin-data {
     &.move-done div {
         transition: none;
     }

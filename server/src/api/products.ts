@@ -51,7 +51,22 @@ export const GetMultipleProducts = async (req: Request, res: Response) => {
 }
 
 export const GetCategories = async (req: Request, res: Response) => {
-    const results = await prisma.category.findMany()
+    const results = await prisma.category.findMany({
+        orderBy: { order: "asc" }
+    })
     return res.json(results)
+}
+
+export const PutCategoriesOrder = async (req: Request, res: Response) => {
+    let order = 1;
+
+    req.params.ids.split(",").forEach(async (catId) => {
+        const updateCategories = await prisma.category.update({
+            where: { id: parseInt(catId) },
+            data: { order: order++ }
+        })
+    })
+
+    return res.json({ status: 200 })
 }
 

@@ -9,6 +9,7 @@ import * as User from './api/users.ts'
 
 app.use(cors({ origin: 'http://localhost:3000' }))
 
+// Website
 app.get('/api/products', Product.GetAll)
 app.get('/api/product/:id', Product.GetProduct)
 app.get('/api/products/:category', Product.GetCategoryProducts)
@@ -20,8 +21,12 @@ app.get('/api/location/countries/:country/states', Loc.GetCountryStates)
 app.get('/api/location/countries/:country/states/:state/cities', Loc.GetStateCities)
 app.get('/api/location/countries/:country/cities', Loc.GetCountryCities)
 
+// User
 app.post('/api/signin', User.SignIn)
 app.get('/api/session/:session', User.GetSession)
+
+// Admin
+app.put('/api/categories/order/:ids', Product.PutCategoriesOrder)
 
 app.listen(4000, () => {
     console.log("Server is running - http://localhost:4000")
