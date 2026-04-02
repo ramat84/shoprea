@@ -2,9 +2,15 @@ import { type MouseEvent, useEffect } from 'react';
 
 import '../../css/pages/admin/table.css'
 
-type tableParams = { data: any, updateCallback: any, columns: [string], title: string }
+type tableParams = {
+    data: any,
+    updateCallback: any,
+    editCallback: any,
+    columns: [string],
+    title: string
+}
 
-export const AdminTable = ({ data, updateCallback, columns, title }: tableParams) => {
+export const AdminTable = ({ data, updateCallback, editCallback, columns, title }: tableParams) => {
     let lock = -1
 
     useEffect(() => {
@@ -66,7 +72,7 @@ export const AdminTable = ({ data, updateCallback, columns, title }: tableParams
                     {columns.map((fieldName: string) => (
                         <div>{item[fieldName]}</div>
                     ))}
-                    <button className="l edit"><i></i></button>
+                    <button onClick={() => editCallback(item)} className="l edit"><i></i></button>
                     <button className="r trash"><i></i></button>
                 </div>
             ))}

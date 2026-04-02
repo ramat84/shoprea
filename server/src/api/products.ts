@@ -1,7 +1,6 @@
 import type { Request, Response } from 'express'
 import { PrismaClient } from '@prisma/client'
 import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
-import { GetSessionEmail } from './users.ts'
 
 const adapter = new PrismaBetterSqlite3({ url: 'file:./shop.db' })
 const prisma = new PrismaClient({ adapter })
@@ -57,21 +56,3 @@ export const GetCategories = async (req: Request, res: Response) => {
     })
     return res.json(results)
 }
-
-export const PutCategoriesOrder = async (req: Request, res: Response) => {
-    let order = 1;
-
-    const sessionEmail = GetSessionEmail(req.params.session)
-
-    if (!sessionEmail) return;
-
-    req.params.ids.split(",").forEach(async (catId) => {
-        const updateCategories = await prisma.category.update({
-            where: { id: parseInt(catId) },
-            data: { order: order++ }
-        })
-    })
-
-    return res.json({ status: 200 })
-}
-

@@ -7,6 +7,8 @@ import * as Product from './api/products.ts'
 import * as Loc from './api/location.ts'
 import * as User from './api/users.ts'
 
+import * as ProductAdmin from './api/admin/products.ts'
+
 app.use(cors({ origin: 'http://localhost:3000' }))
 
 // Website
@@ -26,7 +28,8 @@ app.post('/api/signin', User.SignIn)
 app.get('/api/session/:session', User.GetSession)
 
 // Admin
-app.put('/api/categories/order/:session/:ids', Product.PutCategoriesOrder)
+app.put('/api/categories/order/:session/:ids', ProductAdmin.PutCategoriesOrder)
+app.put('/api/categories/name/:session/:id', ProductAdmin.PutCategoriesName)
 
 app.listen(4000, () => {
     console.log("Server is running - http://localhost:4000")
