@@ -32,11 +32,8 @@ export const AdminCategories = () => {
                         row.name = newName
                     return row
                 })
-                console.log(newCategories)
                 setCategories([...newCategories])
             })
-
-        console.log(category)
     }
 
     return <AdminTable

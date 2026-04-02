@@ -23,7 +23,6 @@ export const Paypal = () => {
                     await fetch(`/api/capture-order/${orderId}`, {
                         method: "POST",
                     });
-                    console.log("Payment captured!");
                 }}
             />
 

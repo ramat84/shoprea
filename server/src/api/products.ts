@@ -40,7 +40,6 @@ export const GetCategoryProducts = async (req: Request, res: Response) => {
 
 export const GetMultipleProducts = async (req: Request, res: Response) => {
     const ids = (req.params.ids as string).match(/[0-9]+/g)?.map((id) => parseInt(id)) ?? []
-    console.log(ids)
 
     if (ids.length == 0) throw new Error("Missing numbers")
 
