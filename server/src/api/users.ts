@@ -6,7 +6,7 @@ const adapter = new PrismaBetterSqlite3({ url: 'file:./shop.db' })
 const prisma = new PrismaClient({ adapter })
 import { sha256 } from 'js-sha256'
 
-export const SignIn =  async (req: Request, res: Response) => {
+export const SignIn = async (req: Request, res: Response) => {
     if (!req.body.email || !req.body.password)
         return res.send({ status: 400, message: "Missing Email or Password" })
 
@@ -29,7 +29,7 @@ export const SignIn =  async (req: Request, res: Response) => {
     }
 
     if (!prismaResults) {
-        const user = await prisma.user.create({
+        await prisma.user.create({
             data: {
                 email: req.body.email,
                 password: req.body.password,
@@ -46,15 +46,21 @@ export const SignIn =  async (req: Request, res: Response) => {
     })
 }
 
-export const GetSession = async (req: Request, res: Response) => {
+export const GetSessionEmail = async (session: string) => {
     const prismaResults = await prisma.user.findUnique({
-        where: {
-            session: req.params.session
-        }
+        where: { session: session }
     })
 
-    if (!prismaResults)
-        return res.send({ status: 404 })
+    if (!prismaResults) return ''
 
-    return res.send({ status: 200, email: prismaResults.email })
+    return prismaResults.email
 }
+
+export const GetSession = async (req: Request, res: Response) => {
+    const email = await GetSessionEmail(req.params.session)
+
+    if (!email) return res.send({ status: 404 })
+
+    return res.send({ status: 200, email: email })
+}
+

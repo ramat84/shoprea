@@ -7,7 +7,7 @@ export const UserCheck = (setUser) => {
 
     axios.get('http://localhost:4000/api/session/' + session).then(({ data }) => {
         if (data.status === 200)
-            setUser({ session: data.session, email: data.email, name: data.email.split("@")[0] })
+            setUser({ session: session, email: data.email, name: data.email.split("@")[0] })
     })
 
 }

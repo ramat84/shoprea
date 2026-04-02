@@ -26,7 +26,7 @@ app.post('/api/signin', User.SignIn)
 app.get('/api/session/:session', User.GetSession)
 
 // Admin
-app.put('/api/categories/order/:ids', Product.PutCategoriesOrder)
+app.put('/api/categories/order/:session/:ids', Product.PutCategoriesOrder)
 
 app.listen(4000, () => {
     console.log("Server is running - http://localhost:4000")

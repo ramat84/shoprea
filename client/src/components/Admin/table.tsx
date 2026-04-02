@@ -2,7 +2,9 @@ import { type MouseEvent, useEffect } from 'react';
 
 import '../../css/pages/admin/table.css'
 
-export const AdminTable = ({ data, set, columns, title }: { data: any, set: any, columns: [string], title: string }) => {
+type tableParams = { data: any, updateCallback: any, columns: [string], title: string }
+
+export const AdminTable = ({ data, updateCallback, columns, title }: tableParams) => {
     let lock = -1
 
     useEffect(() => {
@@ -34,7 +36,7 @@ export const AdminTable = ({ data, set, columns, title }: { data: any, set: any,
 
         setTimeout(() => {
             lock = -1;
-            set(new_data)
+            updateCallback(new_data)
         }, 340)
 
         return true;
