@@ -39,3 +39,37 @@ export const PutCategoriesName = async (req: Request, res: Response) => {
 
     return res.json({ status: 404 })
 }
+
+export const DeleteCategory = async (req: Request, res: Response) => {
+    console.log(req.params)
+    if (!req.params.id || !req.params.to)
+        return;
+
+    const catId = parseInt(req.params.id as string)
+    const toId = parseInt(req.params.to as string)
+
+    await prisma.productCategory.updateMany({
+        data: { categoryID: toId },
+        where: { categoryID: catId }
+    })
+
+    await prisma.category.delete({
+        where: { id: catId }
+    })
+
+    res.json({ status: 200 })
+}
+
+export const CreateCategory = async (req: Request, res: Response) => {
+    if (!req.body.name) return;
+
+    await prisma.category.create({
+        data: {
+            name: req.body.name,
+            order: req.body.order
+        }
+    })
+
+    res.json({ status: 200 })
+}
+

@@ -1,4 +1,6 @@
-import { type MouseEvent, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form'
+import type { KeyboardEvent, MouseEvent } from 'react';
 
 import '../../css/pages/admin/table.css'
 
@@ -6,11 +8,15 @@ type tableParams = {
     data: any,
     updateCallback: any,
     editCallback: any,
+    createCallback: any,
+    deleteCallback: any,
     columns: [string],
     title: string
 }
 
-export const AdminTable = ({ data, updateCallback, editCallback, columns, title }: tableParams) => {
+export const AdminTable = ({ data, updateCallback, editCallback, createCallback, deleteCallback, columns, title }: tableParams) => {
+    const NewForm = useForm()
+
     let lock = -1
 
     useEffect(() => {
@@ -58,10 +64,14 @@ export const AdminTable = ({ data, updateCallback, editCallback, columns, title 
 
     let i = 0;
 
+    const AddNew = () => {
+        createCallback(NewForm.getValues('name'))
+    }
+
     return <div className="admin-data-page">
         <h3>{title}</h3>
-        <form className="add">
-            <input placeholder='New...' />
+        <form className="add" onSubmit={NewForm.handleSubmit(AddNew)}>
+            <input {...NewForm.register('name', { value: '' })} placeholder='New...' />
             <button className='btn-add'>Add</button>
         </form>
         <div className="admin-data">
@@ -73,7 +83,7 @@ export const AdminTable = ({ data, updateCallback, editCallback, columns, title 
                         <div>{item[fieldName]}</div>
                     ))}
                     <button onClick={() => editCallback(item)} className="l edit"><i></i></button>
-                    <button className="r trash"><i></i></button>
+                    <button onClick={() => deleteCallback(item)} className="r trash"><i></i></button>
                 </div>
             ))}
         </div>

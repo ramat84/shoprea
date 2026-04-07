@@ -30,6 +30,8 @@ app.get('/api/session/:session', User.GetSession)
 // Admin
 app.put('/api/categories/order/:session/:ids', ProductAdmin.PutCategoriesOrder)
 app.put('/api/categories/name/:session/:id', ProductAdmin.PutCategoriesName)
+app.delete('/api/categories/delete/:session/:id/:to', ProductAdmin.DeleteCategory)
+app.post('/api/categories/create/:session', ProductAdmin.CreateCategory)
 
 app.listen(4000, () => {
     console.log("Server is running - http://localhost:4000")

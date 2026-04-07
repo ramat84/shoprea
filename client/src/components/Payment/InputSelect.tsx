@@ -15,7 +15,7 @@ export const InputSelect = ({ inputProps }: { inputProps: InputProps }) => {
     const [inputValue, setInputValue] = inputStates.value
     const [filterValue, setFilterValue] = useState('')
 
-    const { formState: { errors }, setValue } = useFormContext()
+    const { setValue } = useFormContext()
 
     const ChangeValue = (option: HTMLOptionElement) => {
         setSelectedText(option.text)

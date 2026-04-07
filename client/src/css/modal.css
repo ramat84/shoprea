@@ -2,6 +2,15 @@
     padding-bottom: 80px;
 }
 
+div.modal-small.ReactModal__Content[class] {
+    top: 50%;
+    transform: translateY(-50%);
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding-bottom: 30px;
+}
+
 .ModalBottom {
     position: sticky;
     bottom: 0;

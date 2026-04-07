@@ -1,0 +1,37 @@
+div.ReactModal__Content:has(.delete-category-dialog)[class] {
+    background: rgba(255, 200, 200, 0.5) !important;
+}
+
+.delete-category-dialog {
+    margin-bottom: 20px;
+
+    h2 {
+        color: var(--bs-red);
+    }
+
+    select {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: #fff;
+        border: 1px solid silver;
+        border-radius: 10px;
+        margin-bottom: 20px;
+
+        &:has(option[value="0"]:checked)+* .btn-delete {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    }
+
+    .btn-delete {
+        background: var(--bs-red);
+    }
+
+    button+button {
+        margin-left: 10px;
+    }
+
+    label {
+        margin-right: 15px;
+    }
+}
