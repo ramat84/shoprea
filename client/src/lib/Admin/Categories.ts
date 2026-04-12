@@ -4,8 +4,6 @@ import type { Dispatch } from 'react';
 import type { UseFormReturn } from 'react-hook-form';
 
 import { GetCategories } from '../../contexts/CategoriesContext.tsx'
-import { useContext } from 'react';
-import { UserContext } from '../../contexts/UserContext.tsx';
 
 export const CreateCategory = (user: User, categories: [Category], setCategories, newName: string) => {
     if (!newName) return;
@@ -37,12 +35,12 @@ export const RenameCategory = (user: User, categories: [Category], setCategories
 }
 
 export const CategoriesOrder = (user: User, oldcategories: [Category], setCategories, categories: [Category]) => {
-    setCategories(categories)
-
     const categoriesOrder = categories.map(cat => cat.id).join(",")
     if (!categoriesOrder) return;
 
     axios.put(`http://localhost:4000/api/categories/order/${user.session}/${categoriesOrder}`)
+
+    setTimeout(() => { setCategories(categories) }, 340)
 }
 
 export const DeleteNow = (

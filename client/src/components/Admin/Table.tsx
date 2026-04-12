@@ -50,10 +50,9 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
         new_data[curOrder] = otherItem;
         new_data[curOrder + direction] = curItem;
 
-        setTimeout(() => {
-            lock = -1;
-            orderCallback(user, data, setData, new_data)
-        }, 340)
+        orderCallback(user, data, setData, new_data)
+
+        setTimeout(() => { lock = -1; }, 340)
 
         return true;
     }
