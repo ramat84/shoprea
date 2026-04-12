@@ -71,14 +71,20 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
         createCallback(user, data, setData, NewForm.getValues('name'))
     }
 
+    var prodOrder = 1;
+
     return <div className="admin-data-page">
         <form className="add" onSubmit={NewForm.handleSubmit(AddNew)}>
             <input {...NewForm.register('name', { value: '' })} placeholder='New...' />
             <button className='btn-add'>Add</button>
         </form>
         <div className="admin-data">
-            {data.map((item: any) => (
-                <div data-id={item.id} data-order={i++} key={item.id}>
+            {data.map((item: any) => {
+                var orderI = 1
+                return <div data-id={item.id} data-order={i++} key={item.id}>
+                    <select className="order" value={prodOrder++}>
+                        {data.map(() => <option>{orderI++}</option>)}
+                    </select>
                     <button onClick={MoveDown} className="l arrow"><i></i></button>
                     <button onClick={MoveUp} className="r arrow"><i></i></button>
                     {columns.map((fieldName: string) => (
@@ -87,7 +93,7 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
                     <button onClick={() => editCallback(user, data, setData, item)} className="l edit"><i></i></button>
                     <button onClick={() => deleteCallback(user, data, setData, item)} className="r trash"><i></i></button>
                 </div>
-            ))}
+            })}
         </div>
     </div>
 }

@@ -33,7 +33,8 @@ export const GetCategoryProducts = async (req: Request, res: Response) => {
     const results = await prisma.product.findMany({
         where: {
             categories: { some: { categoryID: Number(req.params.category) } }
-        }
+        },
+        orderBy: { order: "asc" }
     })
     return res.json(results)
 }

@@ -27,11 +27,14 @@ app.get('/api/location/countries/:country/cities', Loc.GetCountryCities)
 app.post('/api/signin', User.SignIn)
 app.get('/api/session/:session', User.GetSession)
 
-// Admin
+// Admin - categories
 app.put('/api/categories/order/:session/:ids', ProductAdmin.PutCategoriesOrder)
 app.put('/api/categories/name/:session/:id', ProductAdmin.PutCategoriesName)
 app.delete('/api/categories/delete/:session/:id/:to', ProductAdmin.DeleteCategory)
 app.post('/api/categories/create/:session', ProductAdmin.CreateCategory)
+
+// Admin - products
+app.put('/api/products/order/:session/:ids', ProductAdmin.PutProductsOrder)
 
 app.listen(4000, () => {
     console.log("Server is running - http://localhost:4000")

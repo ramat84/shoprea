@@ -1,17 +1,15 @@
 import axios from 'axios';
 import type { Product, User } from '../../generated/prisma/client.ts';
-import type { Dispatch } from 'react';
 
-export const ProductsOrder = (
-    products: [Product],
-    setProducts: Dispatch<[Product]>,
-    user: User
-) => {
-    setProducts(products)
-
-    const productsOrder = products.map(prod => prod.id).join(",")
+export const ProductsOrder = (user: User, oldproducts: [Product], setProducts, products: [Product]) => {
+    const productsOrder = products.map(cat => cat.id).join(",")
     if (!productsOrder) return;
 
     axios.put(`http://localhost:4000/api/products/order/${user.session}/${productsOrder}`)
+
+    setTimeout(() => { setProducts(products) }, 340)
 }
 
+export const CreateCallback = () => { () => { } }
+export const EditCallback = () => { () => { } }
+export const DeleteCallback = () => { () => { } }

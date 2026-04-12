@@ -27,6 +27,21 @@ export const PutCategoriesOrder = async (req: Request<Params>, res: Response) =>
     return res.json({ status: 200 })
 }
 
+export const PutProductsOrder = async (req: Request<Params>, res: Response) => {
+    if (!GetSessionEmail(req.params.session)) return;
+
+    let order = 1;
+
+    req.params.ids.split(",").forEach(async (prodId: string) => {
+        await prisma.product.update({
+            where: { id: parseInt(prodId) },
+            data: { order: order++ }
+        })
+    })
+
+    return res.json({ status: 200 })
+}
+
 export const PutCategoriesName = async (req: Request<Params>, res: Response) => {
     if (!GetSessionEmail(req.params.session)) return;
 

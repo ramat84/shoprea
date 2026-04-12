@@ -1,8 +1,14 @@
+import { useParams } from "react-router"
 import { useForm } from "react-hook-form"
 import type { Item } from "../../types/Item"
 
 export const Filter = ({ label, values, callback }) => {
-    const { register, handleSubmit } = useForm()
+    const { register, setValue, handleSubmit } = useForm()
+
+    const params = useParams()
+
+    if (params.id)
+        setValue('filter', params.id)
 
     return (
         <form>

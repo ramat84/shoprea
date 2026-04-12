@@ -14,6 +14,8 @@ export const Router = () => (
         <Route path="/signin" element={<SigninForm />} />
         <Route path="/basket" element={<BasketPage />} />
         <Route path="/settings" element={<SettingsPage />} />
-        <Route path="/settings/:page" element={<SettingsPage />} />
+        <Route path="/settings/:page" element={<SettingsPage />}>
+            <Route path=":id" element={null} />
+        </Route>
     </Routes>
 )
