@@ -10,10 +10,24 @@ import { ModalContext } from '../contexts/ModalContext'
 import { ModalComponent } from '../components/ModalComponent';
 
 import '../css/pages/settings.css'
+import { AdminProducts } from './admin/AdminProducts'
 
 export const SettingsPage = () => {
-    const page = useParams().page ?? 'user'
+    const curPage = useParams().page ?? 'user'
     const modalState = useState(false)
+
+    const PageLink = ({ page, title }: { page: string, title: string }) => {
+        return <Link className={page == curPage ? 'active' : ''} to={`/settings/${page}`}>{title}</Link>
+    }
+
+    const Panel = () => {
+        if (curPage == 'user') return <UserSettings />
+        if (curPage == 'orders') return <Orders />
+        if (curPage == 'categories') return <AdminCategories />
+        if (curPage == 'products') return <AdminProducts />
+
+        return <></>;
+    }
 
     return (
         <ModalContext.Provider value={modalState}>
@@ -21,14 +35,13 @@ export const SettingsPage = () => {
             <h2>User Settings</h2>
             <div className="settings-container">
                 <div className="panel">
-                    <Link className={page == 'user' ? 'active' : ''} to="/settings/user">User</Link>
-                    <Link className={page == 'orders' ? 'active' : ''} to="/settings/orders">Orders</Link>
-                    <Link className={page == 'categories' ? 'active' : ''} to="/settings/categories">Categories</Link>
+                    <PageLink page='user' title='User' />
+                    <PageLink page='orders' title='Orders' />
+                    <PageLink page='categories' title='Categories' />
+                    <PageLink page='products' title='Products' />
                 </div>
                 <div className="content">
-                    {page == 'user' && <UserSettings />}
-                    {page == 'orders' && <Orders />}
-                    {page == 'categories' && <AdminCategories />}
+                    <Panel />
                 </div>
             </div>
             <ModalComponent />

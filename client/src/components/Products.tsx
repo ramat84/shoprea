@@ -3,17 +3,13 @@ import { useEffect, useState } from "react";
 
 import type { ProductType } from '../types/ProductType'
 import { Product } from "./Product";
+import { GetProductsByCategory } from "../lib/Products";
 
 export const Products = ({ categoryID }: { categoryID: number }) => {
     const [products, setProducts] = useState([])
 
     useEffect(() => {
-        let url = 'http://localhost:4000/api/products'
-        if (categoryID ?? 0 > 0) url += '/' + categoryID;
-
-        axios.get(url).then((res) => {
-            setProducts(res.data)
-        })
+        GetProductsByCategory(categoryID, setProducts)
     }, [location.pathname])
 
     return (

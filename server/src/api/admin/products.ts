@@ -6,12 +6,18 @@ const prisma = new PrismaClient({ adapter })
 
 import { GetSessionEmail } from "../users.ts";
 
-export const PutCategoriesOrder = async (req: Request, res: Response) => {
+interface Params {
+    id: string,
+    ids: string,
+    session: string
+}
+
+export const PutCategoriesOrder = async (req: Request<Params>, res: Response) => {
     if (!GetSessionEmail(req.params.session)) return;
 
     let order = 1;
 
-    req.params.ids.split(",").forEach(async (catId) => {
+    req.params.ids.split(",").forEach(async (catId: string) => {
         await prisma.category.update({
             where: { id: parseInt(catId) },
             data: { order: order++ }
@@ -21,7 +27,7 @@ export const PutCategoriesOrder = async (req: Request, res: Response) => {
     return res.json({ status: 200 })
 }
 
-export const PutCategoriesName = async (req: Request, res: Response) => {
+export const PutCategoriesName = async (req: Request<Params>, res: Response) => {
     if (!GetSessionEmail(req.params.session)) return;
 
     const reqName = req.body.name ?? ''
