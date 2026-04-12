@@ -1,20 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form'
-import type { KeyboardEvent, MouseEvent } from 'react';
+import { useContext } from 'react';
+import { UserContext } from '../../contexts/UserContext.tsx';
+import type { MouseEvent } from 'react';
 
 import '../../css/pages/admin/table.css'
 
 type tableParams = {
     data: any,
-    updateCallback: any,
+    setData: any,
+    orderCallback: any,
     editCallback: any,
     createCallback: any,
     deleteCallback: any,
-    columns: [string],
-    title: string
+    columns: string[]
 }
 
-export const AdminTable = ({ data, updateCallback, editCallback, createCallback, deleteCallback, columns, title }: tableParams) => {
+export const AdminTable = ({ data, setData, orderCallback, editCallback, createCallback, deleteCallback, columns }: tableParams) => {
+    const user = useContext(UserContext)[0]
+
     const NewForm = useForm()
 
     let lock = -1
@@ -48,7 +52,7 @@ export const AdminTable = ({ data, updateCallback, editCallback, createCallback,
 
         setTimeout(() => {
             lock = -1;
-            updateCallback(new_data)
+            orderCallback(user, data, setData, new_data)
         }, 340)
 
         return true;
@@ -65,11 +69,10 @@ export const AdminTable = ({ data, updateCallback, editCallback, createCallback,
     let i = 0;
 
     const AddNew = () => {
-        createCallback(NewForm.getValues('name'))
+        createCallback(user, data, setData, NewForm.getValues('name'))
     }
 
     return <div className="admin-data-page">
-        <h3>{title}</h3>
         <form className="add" onSubmit={NewForm.handleSubmit(AddNew)}>
             <input {...NewForm.register('name', { value: '' })} placeholder='New...' />
             <button className='btn-add'>Add</button>
@@ -80,10 +83,10 @@ export const AdminTable = ({ data, updateCallback, editCallback, createCallback,
                     <button onClick={MoveDown} className="l arrow"><i></i></button>
                     <button onClick={MoveUp} className="r arrow"><i></i></button>
                     {columns.map((fieldName: string) => (
-                        <div>{item[fieldName]}</div>
+                        fieldName == 'image' ? <img src={item[fieldName]} /> : <div>{item[fieldName]}</div>
                     ))}
-                    <button onClick={() => editCallback(item)} className="l edit"><i></i></button>
-                    <button onClick={() => deleteCallback(item)} className="r trash"><i></i></button>
+                    <button onClick={() => editCallback(user, data, setData, item)} className="l edit"><i></i></button>
+                    <button onClick={() => deleteCallback(user, data, setData, item)} className="r trash"><i></i></button>
                 </div>
             ))}
         </div>

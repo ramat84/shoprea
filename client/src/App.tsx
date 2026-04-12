@@ -12,10 +12,11 @@ import { CategoriesContext, GetCategories } from './contexts/CategoriesContext'
 import { BasketContext, GetAmounts } from './contexts/BasketContext'
 import { UserContext } from './contexts/UserContext'
 import { UserCheck } from './lib/User.ts'
+import type { Category } from './generated/prisma/client.ts'
 
 function App() {
-    const categoriesState = useState([])
-    const [categories, setCategories] = categoriesState
+    const categoriesState = useState<Category[]>([])
+    const setCategories = categoriesState[1]
 
     const basketStates = {
         amounts: useState([]),
@@ -24,7 +25,7 @@ function App() {
     }
 
     const user = useState(undefined)
-    const [basketAmounts, setBasketAmounts] = basketStates.amounts
+    const setBasketAmounts = basketStates.amounts[1]
 
     useEffect(() => {
         GetCategories(setCategories)
