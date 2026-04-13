@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { useForm } from 'react-hook-form'
 
-import { CreateCategory, RenameCategory, CategoriesOrder, DeleteNow } from '../../lib/Admin/Categories.ts';
+import * as Categories from '../../lib/Admin/Categories.ts';
 import { CategoriesContext } from '../../contexts/CategoriesContext.tsx'
 import { ModalContext } from '../../contexts/ModalContext'
 import { AdminTable } from '../../components/Admin/Table.tsx';
@@ -17,7 +17,7 @@ export const AdminCategories = () => {
 
     const DelForm = useForm()
 
-    const deleteCategory = (user: User, categories: [Category], setCategories, category: Category) => {
+    const DeleteCategory = (user: User, categories: [Category], setCategories, category: Category) => {
         const DeleteDialog = (<div className="delete-category-dialog">
             <h2><i></i> Delete Category - {category.name}</h2>
             <div>Please choose a new category for "{category.name}" products</div>
@@ -46,10 +46,10 @@ export const AdminCategories = () => {
             <AdminTable
                 data={categories}
                 setData={setCategories}
-                orderCallback={CategoriesOrder}
-                createCallback={CreateCategory}
-                editCallback={RenameCategory}
-                deleteCallback={deleteCategory}
+                orderCallback={Categories.CategoriesOrder}
+                createCallback={Categories.CreateCategory}
+                editCallback={Categories.RenameCategory}
+                deleteCallback={DeleteCategory}
                 columns={['name']}
             />
         </div>

@@ -1,20 +1,22 @@
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Link, useParams } from 'react-router'
 
 import { Header } from '../components/Header'
 import { UserSettings } from '../components/Settings/UserSettings'
 import { Orders } from '../components/Settings/Orders'
-import { AdminCategories } from './admin/AdminCategories'
 
 import { ModalContext } from '../contexts/ModalContext'
 import { ModalComponent } from '../components/ModalComponent';
+import { UserContext } from '../contexts/UserContext.tsx';
 
 import '../css/pages/settings.css'
+import { AdminCategories } from './admin/AdminCategories'
 import { AdminProducts } from './admin/AdminProducts'
 
 export const SettingsPage = () => {
     const curPage = useParams().page ?? 'user'
     const modalState = useState(false)
+    const user = (useContext(UserContext))[0]
 
     const PageLink = ({ page, title }: { page: string, title: string }) => {
         return <Link className={page == curPage ? 'active' : ''} to={`/settings/${page}`}>{title}</Link>
@@ -41,7 +43,8 @@ export const SettingsPage = () => {
                     <PageLink page='products' title='Products' />
                 </div>
                 <div className="content">
-                    <Panel />
+                    {!user && <div className='notice'>Please Log in</div>}
+                    {user && <Panel />}
                 </div>
             </div>
             <ModalComponent />

@@ -23,6 +23,7 @@ form.add {
         top: 0;
         justify-content: space-between;
         margin-bottom: 10px;
+        max-height: 50px;
 
         &:first-child .r.arrow,
         &:last-child .l.arrow {
@@ -31,10 +32,10 @@ form.add {
         }
 
         &:has(+.move-up),
-        &.move-up,
-        &.move-down+div,
-        &.move-down {
+        &[class^='move-'],
+        &.move-down+div {
             transition: all 0.33s ease-in-out;
+            transition-delay: 0.01s;
         }
 
         &.move-down,
@@ -45,6 +46,12 @@ form.add {
         &.move-down+div,
         &.move-up {
             top: -50px;
+        }
+
+        &.move-hide {
+            max-height: 0px;
+            margin: 0;
+            overflow: hidden;
         }
 
         div {
@@ -97,7 +104,6 @@ form.add {
             }
         }
     }
-
 
     .order {
         border: 0;

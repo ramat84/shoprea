@@ -2,12 +2,13 @@ import { useEffect } from 'react';
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext.tsx';
-import type { MouseEvent } from 'react';
+import type { ChangeEvent, MouseEvent } from 'react';
 
 import '../../css/pages/admin/table.css'
+import type { Orderable } from '../../types/Orderable.ts';
 
 type tableParams = {
-    data: any,
+    data: Orderable,
     setData: any,
     orderCallback: any,
     editCallback: any,
@@ -17,7 +18,7 @@ type tableParams = {
 }
 
 export const AdminTable = ({ data, setData, orderCallback, editCallback, createCallback, deleteCallback, columns }: tableParams) => {
-    const user = useContext(UserContext)[0]
+    const user = (useContext(UserContext))[0]
 
     const NewForm = useForm()
 
@@ -57,21 +58,48 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
         return true;
     }
 
-    const MoveUp = (e: MouseEvent) => {
-        Move(e, true)
-    }
+    const MoveUp = (e: MouseEvent) => { Move(e, true) }
+    const MoveDown = (e: MouseEvent) => { Move(e, false) }
 
-    const MoveDown = (e: MouseEvent) => {
-        Move(e, false)
-    }
-
-    let i = 0;
+    let i = 0
 
     const AddNew = () => {
         createCallback(user, data, setData, NewForm.getValues('name'))
     }
 
-    var prodOrder = 1;
+    var prodOrder = 0
+
+    const GetDomRow = (num: number): HTMLDivElement | null => {
+        return document.querySelector(`.admin-data > div:nth-child(${num})`)
+    }
+
+    const ChangeOrderNumber = (e: ChangeEvent<HTMLSelectElement>) => {
+        const from = parseInt(e.target.dataset.order ?? '')
+        const to = parseInt(e.target.value)
+
+        let new_data: Orderable = []
+
+        var i = 1;
+
+        data.forEach((row) => {
+            if (i != from) new_data.push(row)
+            if (i == to) new_data.push(data[from - 1])
+            i++;
+        })
+
+        const curRow = GetDomRow(from);
+        curRow?.classList.add('move-hide')
+        setTimeout(() => {
+            curRow?.classList.remove('move-hide');
+            curRow?.classList.add('move-show');
+        }, 400)
+
+        orderCallback(user, data, setData, new_data)
+
+        lock = -1
+
+        return true;
+    }
 
     return <div className="admin-data-page">
         <form className="add" onSubmit={NewForm.handleSubmit(AddNew)}>
@@ -81,9 +109,11 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
         <div className="admin-data">
             {data.map((item: any) => {
                 var orderI = 1
+                prodOrder++
+
                 return <div data-id={item.id} data-order={i++} key={item.id}>
-                    <select className="order" value={prodOrder++}>
-                        {data.map(() => <option>{orderI++}</option>)}
+                    <select className="order" onChange={ChangeOrderNumber} data-order={prodOrder} value={prodOrder}>
+                        {data.map(() => <option key={orderI}>{orderI++}</option>)}
                     </select>
                     <button onClick={MoveDown} className="l arrow"><i></i></button>
                     <button onClick={MoveUp} className="r arrow"><i></i></button>
