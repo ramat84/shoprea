@@ -41,12 +41,26 @@ export const AdminProducts = () => {
     }, [location])
 
     const EditSubmit = (product: Product, user: User) => {
-        axios.put(`http://localhost:4000/api/products/update/${user.session}/${product.id}`, editForm.getValues())
-            .then(() => {
-                confirm(`Successfuly updated ${product.title}`)
-                setModalContent(false)
-                RefreshProducts()
-            })
+        const formData = new FormData();
+
+        Object.entries(editForm.getValues()).forEach(([key, val]) => {
+            if (key == "image") {
+                if (val[0])
+                    formData.append(key, val[0])
+            } else {
+                formData.append(key, val)
+            }
+        });
+
+        axios.put(
+            `http://localhost:4000/api/products/update/${user.session}/${product.id}`,
+            formData,
+            { headers: { "Content-Type": "multipart/form-data" } }
+        ).then(() => {
+            confirm(`Successfuly updated ${product.title}`)
+            setModalContent(false)
+            RefreshProducts()
+        })
     }
 
     const EditProductCallback = (user: User, products: [Product], setProducts, product: Product) => {
@@ -55,7 +69,7 @@ export const AdminProducts = () => {
     }
 
     const NewProductCallback = (user: User, products: [Product], setProducts, newName: string) => {
-        const modalContent = <ProductForm isNew={true} editForm={editForm} submitCallback={() => { }} />
+        const modalContent = <ProductForm categoryId={categoryId} isNew={true} editForm={editForm} submitCallback={() => { }} />
         setModalContent(modalContent);
     }
 
@@ -73,7 +87,7 @@ export const AdminProducts = () => {
                 createCallback={NewProductCallback}
                 editCallback={EditProductCallback}
                 deleteCallback={() => { }}
-                columns={['image', 'title']}
+                columns={['image', 'title', 'price']}
             />
         </div>
     )

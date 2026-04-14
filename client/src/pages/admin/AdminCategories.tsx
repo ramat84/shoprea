@@ -18,23 +18,24 @@ export const AdminCategories = () => {
     const DelForm = useForm()
 
     const DeleteCategory = (user: User, categories: [Category], setCategories, category: Category) => {
-        const DeleteDialog = (<div className="delete-category-dialog">
-            <h2><i></i> Delete Category - {category.name}</h2>
-            <div>Please choose a new category for "{category.name}" products</div>
-            <form className="modal-wrap" onSubmit={DelForm.handleSubmit(() => DeleteNow(user, categories, setCategories, category, DelForm, setModalContent))}>
-                <label htmlFor="move-category">Move Products to:</label>
-                <select {...DelForm.register('moveTo')}>
-                    <option value="0"></option>
-                    {categories.map((item: Item) => (
-                        category.id != item.id && <option value={item.id} >{item.name}</option>
-                    ))}
-                </select>
-                <div>
-                    <button className="btn-delete">Delete Now</button>
-                    <button onClick={() => setModalContent(false)} className="btn-cancel">Cancel</button>
-                </div>
-            </form>
-        </div>
+        const DeleteDialog = (
+            <div className="delete-category-dialog">
+                <h2><i></i> Delete Category - {category.name}</h2>
+                <div>Please choose a new category for "{category.name}" products</div>
+                <form className="modal-wrap" onSubmit={DelForm.handleSubmit(() => Categories.DeleteNow(user, categories, setCategories, category, DelForm, setModalContent))}>
+                    <label htmlFor="move-category">Move Products to:</label>
+                    <select {...DelForm.register('moveTo')}>
+                        <option value="0"></option>
+                        {categories.map((item: Item) => (
+                            category.id != item.id && <option value={item.id} >{item.name}</option>
+                        ))}
+                    </select>
+                    <div>
+                        <button className="btn-delete">Delete Now</button>
+                        <button onClick={() => setModalContent(false)} className="btn-cancel">Cancel</button>
+                    </div>
+                </form>
+            </div>
         )
 
         setModalContent(DeleteDialog)

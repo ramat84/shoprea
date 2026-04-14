@@ -118,7 +118,7 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
                     <button onClick={MoveDown} className="l arrow"><i></i></button>
                     <button onClick={MoveUp} className="r arrow"><i></i></button>
                     {columns.map((fieldName: string) => (
-                        fieldName == 'image' ? <img src={item[fieldName]} /> : <div>{item[fieldName]}</div>
+                        fieldName == 'image' ? <img src={item[fieldName]} /> : <div className={`col-${fieldName}`}>{item[fieldName]}</div>
                     ))}
                     <button onClick={() => editCallback(user, data, setData, item)} className="l edit"><i></i></button>
                     <button onClick={() => deleteCallback(user, data, setData, item)} className="r trash"><i></i></button>

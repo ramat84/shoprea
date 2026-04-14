@@ -38,3 +38,11 @@
         line-height: 36px;
     }
 }
+
+.col-price {
+    max-width: 10%;
+
+    &:before {
+        content: "$";
+    }
+}

@@ -1,5 +1,7 @@
 import express from 'express'
 import cors from 'cors'
+import fileUpload from 'express-fileupload';
+
 const app = express()
 app.use(express.json())
 
@@ -10,6 +12,7 @@ import * as User from './api/users.ts'
 import * as ProductAdmin from './api/admin/products.ts'
 
 app.use(cors({ origin: 'http://localhost:3000' }))
+app.use(fileUpload())
 
 // Website
 app.get('/api/products', Product.GetAll)

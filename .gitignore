@@ -26,6 +26,7 @@ TODO.md
 
 /src/generated/prisma
 public/images/*
+*/public/images
 shop.db
 
 .claude

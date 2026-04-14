@@ -5,6 +5,7 @@ const adapter = new PrismaBetterSqlite3({ url: 'file:./shop.db' })
 const prisma = new PrismaClient({ adapter })
 
 import { GetSessionEmail } from "../users.ts";
+import type { describe } from 'node:test'
 
 interface Params {
     id: string,
@@ -45,15 +46,23 @@ export const PutProductsOrder = async (req: Request<Params>, res: Response) => {
 export const PutProduct = async (req: Request<Params>, res: Response) => {
     if (!GetSessionEmail(req.params.session)) return;
 
-    console.log(req.params)
+    let data: { title: string, description: string, price: number, image?: string } = {
+        title: req.body.title,
+        description: req.body.description,
+        price: parseInt(req.body.price),
+    }
+
+    if (req.files && req.files.image) {
+        if (req.files.image.mimetype.indexOf("image") === -1)
+            return res.json({ status: 500, message: "You can only upload images" })
+
+        req.files.image.mv(`./public/images/${req.files.image.name}`, (err: string) => { if (err) console.log('UPLOAD ERROR', err) })
+        data.image = `/images/${req.files.image.name}`
+    }
 
     await prisma.product.update({
         where: { id: parseInt(req.params.id) },
-        data: {
-            title: req.body.title,
-            description: req.body.description,
-            price: parseInt(req.body.price),
-        }
+        data: data
     })
 
     return res.json({ status: 200 })
