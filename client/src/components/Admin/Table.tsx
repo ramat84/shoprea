@@ -75,17 +75,17 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
 
     const ChangeOrderNumber = (e: ChangeEvent<HTMLSelectElement>) => {
         const from = parseInt(e.target.dataset.order ?? '')
-        const to = parseInt(e.target.value)
+        let to = parseInt(e.target.value)
 
-        let new_data: Orderable = []
+        let new_data: Orderable = [...data]
 
-        var i = 1;
-
-        data.forEach((row) => {
-            if (i != from) new_data.push(row)
-            if (i == to) new_data.push(data[from - 1])
-            i++;
-        })
+        if (to > from) {
+            new_data.splice(to, 0, data[from - 1])
+            new_data.splice(from - 1, 1)
+        } else {
+            new_data.splice(to - 1, 0, data[from - 1])
+            new_data.splice(from, 1)
+        }
 
         const curRow = GetDomRow(from);
         curRow?.classList.add('move-hide')

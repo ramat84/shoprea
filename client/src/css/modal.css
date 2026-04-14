@@ -36,7 +36,7 @@ div.modal-small.ReactModal__Content[class] {
         margin: auto;
         background: rgba(255, 255, 255, 0.4) !important;
         border-radius: 10px !important;
-        box-shadow: 5px 5px 5px silver;
+        box-shadow: 5px 5px 15px silver;
         padding: 0 !important;
         backdrop-filter: blur(5px);
 

@@ -34,6 +34,7 @@ export const GetCategoryProducts = async (req: Request, res: Response) => {
         where: {
             categories: { some: { categoryID: Number(req.params.category) } }
         },
+        include: { categories: true },
         orderBy: { order: "asc" }
     })
     return res.json(results)
