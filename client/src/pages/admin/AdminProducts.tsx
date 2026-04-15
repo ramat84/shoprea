@@ -40,36 +40,39 @@ export const AdminProducts = () => {
         RefreshProducts()
     }, [location])
 
-    const EditSubmit = (product: Product, user: User) => {
+    const Submit = (product: Product, user: User) => {
         const formData = new FormData();
-
-        Object.entries(editForm.getValues()).forEach(([key, val]) => {
+        const isNew = !product
+        const formValues = editForm.getValues()
+        Object.entries(formValues).forEach(([key, val]) => {
             if (key == "image") {
                 if (val[0])
                     formData.append(key, val[0])
-            } else {
-                formData.append(key, val)
+                return;
             }
+
+            formData.append(key, val)
         });
 
-        axios.put(
-            `http://localhost:4000/api/products/update/${user.session}/${product.id}`,
-            formData,
-            { headers: { "Content-Type": "multipart/form-data" } }
+        const url = `http://localhost:4000/api/products/${isNew ? 'create' : 'update'}/${user.session}${isNew ? '' : '/' + product.id}`
+
+        const axiosCall = isNew ? axios.post : axios.put;
+
+        axiosCall(url, formData, { headers: { "Content-Type": "multipart/form-data" } }
         ).then(() => {
-            confirm(`Successfuly updated ${product.title}`)
+            confirm(`Successfuly ${isNew ? 'created' : 'updated'} - ${formValues.title}`)
             setModalContent(false)
             RefreshProducts()
         })
     }
 
     const EditProductCallback = (user: User, products: [Product], setProducts, product: Product) => {
-        const modalContent = <ProductForm product={product} editForm={editForm} submitCallback={EditSubmit} />
+        const modalContent = <ProductForm product={product} editForm={editForm} submitCallback={Submit} />
         setModalContent(modalContent);
     }
 
     const NewProductCallback = (user: User, products: [Product], setProducts, newName: string) => {
-        const modalContent = <ProductForm categoryId={categoryId} isNew={true} editForm={editForm} submitCallback={() => { }} />
+        const modalContent = <ProductForm categoryId={categoryId} isNew={true} editForm={editForm} submitCallback={Submit} name={newName} />
         setModalContent(modalContent);
     }
 

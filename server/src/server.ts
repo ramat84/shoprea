@@ -39,6 +39,7 @@ app.post('/api/categories/create/:session', ProductAdmin.CreateCategory)
 // Admin - products
 app.put('/api/products/order/:session/:ids', ProductAdmin.PutProductsOrder)
 app.put('/api/products/update/:session/:id', ProductAdmin.PutProduct)
+app.post('/api/products/create/:session', ProductAdmin.PostProduct)
 
 app.listen(4000, () => {
     console.log("Server is running - http://localhost:4000")

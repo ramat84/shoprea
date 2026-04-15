@@ -9,14 +9,15 @@ type ProductFormParams = {
     editForm: any,
     submitCallback: any,
     isNew?: boolean,
-    categoryId?: number
+    categoryId?: number,
+    name?: string | null
 }
 
-export const ProductForm = ({ product, editForm, submitCallback, isNew = false, categoryId = 0 }: ProductFormParams) => {
+export const ProductForm = ({ product, editForm, submitCallback, isNew = false, categoryId = 0, name = null }: ProductFormParams) => {
     const categoriesContext = useContext(CategoriesContext)
     const categories = categoriesContext[0]
     const user = (useContext(UserContext))[0]
-    const [image, setImage] = useState<string>('about:blank')
+    const [image, setImage] = useState<string>('')
 
     categoryId = categoryId || product.categories[0].categoryID
 
@@ -41,7 +42,7 @@ export const ProductForm = ({ product, editForm, submitCallback, isNew = false, 
         <div className="row">
             <div className="col7">
                 <SelectRow form={editForm} name="category" label="Category" values={categories} value={categoryId} />
-                <InputRow form={editForm} name="title" label="Name" value={isNew ? '' : product.title} />
+                <InputRow form={editForm} name="title" label="Name" value={isNew ? name : product.title} />
                 <TextareaRow form={editForm} name="description" label="Description" value={isNew ? '' : product.description} />
                 <InputRow form={editForm} name="price" label="Price" value={isNew ? '' : product.price} />
                 <FileRow form={editForm} name="image" callback={ChangeImage} />

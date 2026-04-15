@@ -66,6 +66,45 @@ const UpdateProductCategory = async (productId: number, categoryId: number) => {
     return true
 }
 
+const UploadImage = (req: Request) => {
+    if (req.files && req.files.image) {
+        if (req.files.image.mimetype.indexOf("image") === -1)
+            return res.json({ status: 500, message: "You can only upload images" })
+
+        req.files.image.mv(`./public/images/${req.files.image.name}`, (err: string) => { if (err) console.log('UPLOAD ERROR', err) })
+        return `/images/${req.files.image.name}`
+    }
+    return null
+}
+
+export const PostProduct = async (req: Request<Params>, res: Response) => {
+    if (!GetSessionEmail(req.params.session)) return;
+
+
+    let data: { title: string, description: string, shortDesc: string, price: number, image?: string, order?: number } = {
+        title: req.body.title,
+        shortDesc: '',
+        description: req.body.description,
+        price: parseInt(req.body.price),
+        order: 0
+    }
+
+    const image = UploadImage(req)
+    if (image)
+        data.image = image
+
+    const newProduct = await prisma.product.create({ data: data })
+
+    await prisma.productCategory.create({
+        data: {
+            categoryID: parseInt(req.body.category),
+            productID: newProduct.id
+        }
+    })
+
+    return res.json({ status: 200 })
+}
+
 export const PutProduct = async (req: Request<Params>, res: Response) => {
     if (!GetSessionEmail(req.params.session)) return;
 
@@ -76,13 +115,9 @@ export const PutProduct = async (req: Request<Params>, res: Response) => {
         price: parseInt(req.body.price),
     }
 
-    if (req.files && req.files.image) {
-        if (req.files.image.mimetype.indexOf("image") === -1)
-            return res.json({ status: 500, message: "You can only upload images" })
-
-        req.files.image.mv(`./public/images/${req.files.image.name}`, (err: string) => { if (err) console.log('UPLOAD ERROR', err) })
-        data.image = `/images/${req.files.image.name}`
-    }
+    const image = UploadImage(req)
+    if (image)
+        data.image = image
 
     const movedCategory = await UpdateProductCategory(parseInt(req.params.id), parseInt(req.body.category));
 
