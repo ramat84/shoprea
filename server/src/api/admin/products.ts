@@ -42,10 +42,35 @@ export const PutProductsOrder = async (req: Request<Params>, res: Response) => {
     return res.json({ status: 200 })
 }
 
+const UpdateProductCategory = async (productId: number, categoryId: number) => {
+    const oldProductCategory = await prisma.productCategory.findMany({
+        where: { productID: productId, categoryID: categoryId }
+    })
+
+    if (oldProductCategory.length > 0)
+        return false;
+
+    console.log(oldProductCategory)
+
+    await prisma.productCategory.deleteMany({
+        where: { productID: productId },
+    })
+
+    await prisma.productCategory.create({
+        data: {
+            categoryID: categoryId,
+            productID: productId
+        }
+    })
+
+    return true
+}
+
 export const PutProduct = async (req: Request<Params>, res: Response) => {
     if (!GetSessionEmail(req.params.session)) return;
 
-    let data: { title: string, description: string, price: number, image?: string } = {
+
+    let data: { title: string, description: string, price: number, image?: string, order?: number } = {
         title: req.body.title,
         description: req.body.description,
         price: parseInt(req.body.price),
@@ -59,14 +84,14 @@ export const PutProduct = async (req: Request<Params>, res: Response) => {
         data.image = `/images/${req.files.image.name}`
     }
 
+    const movedCategory = await UpdateProductCategory(parseInt(req.params.id), parseInt(req.body.category));
+
+    if (movedCategory)
+        data.order = 0
+
     await prisma.product.update({
         where: { id: parseInt(req.params.id) },
         data: data
-    })
-
-    await prisma.productCategory.updateMany({
-        data: { categoryID: parseInt(req.body.category) },
-        where: { productID: parseInt(req.params.id) },
     })
 
     return res.json({ status: 200 })
