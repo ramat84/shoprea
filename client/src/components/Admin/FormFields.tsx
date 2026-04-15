@@ -29,10 +29,10 @@ export const TextareaRow = ({ name, label, form, value }) => {
     return <Row input={Input} label={label} />
 }
 
-export const FileRow = ({ form, name }) => {
+export const FileRow = ({ form, name, callback }) => {
     const submitButton = (
         <div>
-            <input {...form.register(name)} type="file" />
+            <input {...form.register(name)} onChange={callback} type="file" />
         </div>
     )
 
