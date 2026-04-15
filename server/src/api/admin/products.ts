@@ -5,7 +5,6 @@ const adapter = new PrismaBetterSqlite3({ url: 'file:./shop.db' })
 const prisma = new PrismaClient({ adapter })
 
 import { GetSessionEmail } from "../users.ts";
-import type { describe } from 'node:test'
 
 interface Params {
     id: string,
@@ -63,6 +62,11 @@ export const PutProduct = async (req: Request<Params>, res: Response) => {
     await prisma.product.update({
         where: { id: parseInt(req.params.id) },
         data: data
+    })
+
+    await prisma.productCategory.updateMany({
+        data: { categoryID: parseInt(req.body.category) },
+        where: { productID: parseInt(req.params.id) },
     })
 
     return res.json({ status: 200 })
