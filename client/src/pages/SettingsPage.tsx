@@ -13,7 +13,7 @@ import '../css/pages/settings.css'
 import { AdminCategories } from './admin/AdminCategories'
 import { AdminProducts } from './admin/AdminProducts'
 
-export const SettingsPage = () => {
+const SettingsPage = () => {
     const curPage = useParams().page ?? 'user'
     const modalState = useState(false)
     const user = (useContext(UserContext))[0]
@@ -51,3 +51,5 @@ export const SettingsPage = () => {
         </ModalContext.Provider>
     )
 }
+
+export default SettingsPage

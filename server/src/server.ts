@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import fileUpload from 'express-fileupload';
+import { GetSessionEmail } from './api/users.ts';
 
 const app = express()
 app.use(express.json())
@@ -30,6 +31,8 @@ app.get('/api/location/countries/:country/cities', Loc.GetCountryCities)
 app.post('/api/signin', User.SignIn)
 app.get('/api/session/:session', User.GetSession)
 
+
+//if (GetSessionEmail(req.params.session)) {
 // Admin - categories
 app.put('/api/categories/order/:session/:ids', ProductAdmin.PutCategoriesOrder)
 app.put('/api/categories/name/:session/:id', ProductAdmin.PutCategoriesName)
@@ -40,6 +43,8 @@ app.post('/api/categories/create/:session', ProductAdmin.CreateCategory)
 app.put('/api/products/order/:session/:ids', ProductAdmin.PutProductsOrder)
 app.put('/api/products/update/:session/:id', ProductAdmin.PutProduct)
 app.post('/api/products/create/:session', ProductAdmin.PostProduct)
+app.delete('/api/products/delete/:session', ProductAdmin.DeleteProduct)
+// }
 
 app.listen(4000, () => {
     console.log("Server is running - http://localhost:4000")

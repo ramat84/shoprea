@@ -16,7 +16,7 @@ type FormFields = {
     password: string;
 }
 
-export const Welcome = () => {
+const Welcome = () => {
     const [user, setUser] = useContext<[any, any]>(UserContext)
 
     return (
@@ -28,7 +28,7 @@ export const Welcome = () => {
     )
 }
 
-export const Form = () => {
+const Form = () => {
     const [user, setUser] = useContext(UserContext)
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormFields>()
 
@@ -86,7 +86,7 @@ export const Form = () => {
     )
 }
 
-export const SigninForm = () => {
+const SigninForm = () => {
     const [user, setUser] = useContext(UserContext)
 
     return (
@@ -96,3 +96,5 @@ export const SigninForm = () => {
         </>
     )
 }
+
+export default SigninForm

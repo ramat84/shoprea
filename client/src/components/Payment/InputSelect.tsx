@@ -37,13 +37,18 @@ export const InputSelect = ({ inputProps }: { inputProps: InputProps }) => {
         ChangeValue(selectedOption)
     }
 
-    const Options = () => {
+    const Options = ({ name }: { name: string }) => {
         return <>
             {
                 filterValue != '' &&
                 values.map((value: { code: string, name: string }) => {
                     const pos = value.name.toLowerCase().indexOf(filterValue.toLowerCase())
-                    return pos == 0 && (<option key={value.code} value={value.code}>{value.name}</option>)
+
+                    return pos == 0 && (
+                        <option key={'selval' + name + value.code} value={value.code}>
+                            {value.name}
+                        </option>
+                    )
                 })
             }
             {
@@ -72,10 +77,9 @@ export const InputSelect = ({ inputProps }: { inputProps: InputProps }) => {
                 onChange={(e) => SelectValue(e)}
                 onClick={(e) => SelectValue(e)}
                 value={inputValue}>
-                <Options key={name} />
+                <Options name={name} />
             </select>
             <div className="selected-text">{selectedText}</div>
         </>
     )
 }
-

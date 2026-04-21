@@ -1,5 +1,7 @@
+import type { ChangeEvent } from "react"
+import type { Product } from "../../generated/prisma/client.ts"
+
 import { useContext, useEffect, useState } from "react"
-import type { Product, Category } from "../../generated/prisma/client.ts"
 import { CategoriesContext } from '../../contexts/CategoriesContext.tsx'
 import { UserContext } from '../../contexts/UserContext.tsx';
 import { SelectRow, InputRow, TextareaRow, SubmitRow, FileRow } from './FormFields.tsx'
@@ -16,7 +18,7 @@ type ProductFormParams = {
 export const ProductForm = ({ product, editForm, submitCallback, isNew = false, categoryId = 0, name = null }: ProductFormParams) => {
     const categoriesContext = useContext(CategoriesContext)
     const categories = categoriesContext[0]
-    const user = (useContext(UserContext))[0]
+    const userState = (useContext(UserContext))[0]
     const [image, setImage] = useState<string>('')
 
     categoryId = categoryId || product.categories[0].categoryID
@@ -26,18 +28,20 @@ export const ProductForm = ({ product, editForm, submitCallback, isNew = false, 
             setImage(product.image)
     }, [])
 
-    const ChangeImage = (e) => {
+    const ChangeImage = (e: ChangeEvent<HTMLInputElement>) => {
+        if (!e.target.files) return;
+
         const file = e.target.files[0];
         const reader = new FileReader();
 
-        reader.onloadend = (e) => {
-            setImage(reader.result)
+        reader.onloadend = () => {
+            setImage(reader.result as string)
         }
 
         reader.readAsDataURL(file)
     }
 
-    return <form className="edit-dialog" onSubmit={editForm.handleSubmit(() => submitCallback(product, user))}>
+    return <form className="edit-dialog" onSubmit={editForm.handleSubmit(() => submitCallback(product, userState))}>
         <h4>{isNew ? 'New' : 'Edit'} {isNew ? '' : product.title}</h4>
         <div className="row">
             <div className="col7">

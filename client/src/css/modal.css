@@ -2,6 +2,21 @@
     padding-bottom: 80px;
 }
 
+.ReactModal__Content {
+    animation: show 0.35s ease-out;
+}
+
+@keyframes show {
+    from {
+        transform: translateX(-100%) translateY(-50%);
+    }
+
+    to {
+        transform: translateY(-50%);
+    }
+}
+
+
 div.modal-small.ReactModal__Content[class] {
     top: 50%;
     transform: translateY(-50%);

@@ -8,7 +8,7 @@ import { CategoriesContext } from '../contexts/CategoriesContext'
 import '../css/components/products.css'
 import '../css/components/products-mobile.css'
 
-export const CategoryPage = () => {
+const CategoryPage = () => {
     const [title, setCategoryTitle] = useState('')
 
     const currentCategoryID = parseInt(useParams().id ?? '0')
@@ -34,3 +34,5 @@ export const CategoryPage = () => {
         <Products categoryID={currentCategoryID} />
     </>
 }
+
+export default CategoryPage

@@ -10,7 +10,7 @@ import { Price } from '../components/Price'
 
 import '../css/pages/product.css'
 
-export const ProductPage = () => {
+const ProductPage = () => {
     const [product, setProduct] = useState({})
     const [category, setCategory] = useState(0)
 
@@ -48,3 +48,5 @@ export const ProductPage = () => {
         </div>
     </>
 }
+
+export default ProductPage

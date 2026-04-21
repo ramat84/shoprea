@@ -153,7 +153,6 @@ export const PutCategoriesName = async (req: Request<Params>, res: Response) => 
 }
 
 export const DeleteCategory = async (req: Request, res: Response) => {
-    console.log(req.params)
     if (!req.params.id || !req.params.to)
         return;
 
@@ -185,3 +184,5 @@ export const CreateCategory = async (req: Request, res: Response) => {
     res.json({ status: 200 })
 }
 
+export const DeleteProduct = async (req: Request<Params>, res: Response) => {
+}

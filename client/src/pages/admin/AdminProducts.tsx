@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react"
+import axios from "axios"
+import { useContext, useEffect, useState, type Dispatch } from "react"
 import { useNavigate, useParams } from "react-router"
 
 import { AdminTable } from "../../components/Admin/Table"
 import { Filter } from "../../components/Admin/Filter"
 import { GetProductsByCategory } from "../../lib/Products"
 import * as Products from '../../lib/Admin/Products.ts'
-import type { Product, User } from "../../generated/prisma/client.ts"
 
 import { CategoriesContext } from '../../contexts/CategoriesContext'
 import { ModalContext } from "../../contexts/ModalContext.tsx"
@@ -13,15 +13,18 @@ import { ProductForm } from "../../components/Admin/ProductForm.tsx"
 
 import '../../css/pages/admin/products.css'
 import { useForm } from "react-hook-form"
-import axios from "axios"
+
+import type { Product, User } from "../../generated/prisma/client.ts"
+import type { PageParams } from "../../types/PageParams.ts"
 
 export const AdminProducts = () => {
     const [products, setProducts] = useState([])
     const setModalContent = useContext(ModalContext)[1]
     const [categoryId, setCategoryId] = useState(0)
-    const [categories, setCategories] = useContext(CategoriesContext)
+    const categoriesContext = useContext(CategoriesContext)
+    const categories = categoriesContext[0]
     const navigate = useNavigate()
-    const params = useParams()
+    const params = useParams<PageParams>()
     const editForm = useForm()
 
     const setFilterCategory = (e: { filter: string }) => {
@@ -31,7 +34,8 @@ export const AdminProducts = () => {
     }
 
     const RefreshProducts = () => {
-        GetProductsByCategory(parseInt(params.id), setProducts)
+        if (params.id)
+            GetProductsByCategory(parseInt(params.id), setProducts)
     }
 
     useEffect(() => {
@@ -40,7 +44,7 @@ export const AdminProducts = () => {
         RefreshProducts()
     }, [location])
 
-    const Submit = (product: Product, user: User) => {
+    const Submit = (product: Product, userState: User) => {
         const formData = new FormData();
         const isNew = !product
         const formValues = editForm.getValues()
@@ -54,7 +58,7 @@ export const AdminProducts = () => {
             formData.append(key, val)
         });
 
-        const url = `http://localhost:4000/api/products/${isNew ? 'create' : 'update'}/${user.session}${isNew ? '' : '/' + product.id}`
+        const url = `http://localhost:4000/api/products/${isNew ? 'create' : 'update'}/${userState.session}${isNew ? '' : '/' + product.id}`
 
         const axiosCall = isNew ? axios.post : axios.put;
 
@@ -66,14 +70,27 @@ export const AdminProducts = () => {
         })
     }
 
-    const EditProductCallback = (user: User, products: [Product], setProducts, product: Product) => {
+    const EditCallback = (userState: User, products: [Product], setProducts, product: Product) => {
         const modalContent = <ProductForm product={product} editForm={editForm} submitCallback={Submit} />
         setModalContent(modalContent);
     }
 
-    const NewProductCallback = (user: User, products: [Product], setProducts, newName: string) => {
+    const NewCallback = (userState: User, products: [Product], setProducts, newName: string) => {
         const modalContent = <ProductForm categoryId={categoryId} isNew={true} editForm={editForm} submitCallback={Submit} name={newName} />
         setModalContent(modalContent);
+    }
+
+
+    const DeleteCallback = ({ userState, data, setData, item }: { userState: User, data: [Product], setData: Dispatch<[Product]>, item: Product }) => {
+        if (!confirm(`Are you sure you want to delete this product - ${item.name} ?`))
+            return;
+
+        axios.delete(`http://localhost:4000/api/products/delete/${userState.session}/${item.id}`)
+            .then(() => {
+                confirm(`Succesfully deleted ${item.name}`)
+                setModalContent(false)
+                setData(data.map(prod => item.id == prod.id ? null : prod))
+            })
     }
 
     return (
@@ -87,9 +104,9 @@ export const AdminProducts = () => {
                 data={products}
                 setData={setProducts}
                 orderCallback={Products.ProductsOrder}
-                createCallback={NewProductCallback}
-                editCallback={EditProductCallback}
-                deleteCallback={() => { }}
+                createCallback={NewCallback}
+                editCallback={EditCallback}
+                deleteCallback={DeleteCallback}
                 columns={['image', 'title', 'price']}
             />
         </div>

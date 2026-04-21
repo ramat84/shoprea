@@ -14,7 +14,7 @@ export const PaymentProducts = () => {
         <h4>Products: </h4>
         <div className="paymentProducts">
             {basketProducts.length > 0 && basketProducts.map((product: ProductType) => (
-                <div key={product.id} >
+                <div key={'payprod' + product.id} >
                     {product.title}
                     <span>
                         <Price price={product.price} />

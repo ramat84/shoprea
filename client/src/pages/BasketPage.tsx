@@ -11,7 +11,7 @@ import '../css/pages/basket.css'
 import { ModalContext } from '../contexts/ModalContext'
 import { ModalComponent } from '../components/ModalComponent';
 
-export const BasketPage = () => {
+const BasketPage = () => {
     const basketContext = useContext(BasketContext)
     const [basketProducts, setBasketProducts] = basketContext.products
     const [basketTotal, setBasketTotal] = basketContext.total
@@ -54,3 +54,5 @@ export const BasketPage = () => {
         </ModalContext.Provider>
     )
 }
+
+export default BasketPage

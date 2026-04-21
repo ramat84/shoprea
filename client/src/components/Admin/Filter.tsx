@@ -15,7 +15,7 @@ export const Filter = ({ label, values, callback }) => {
             <select {...register('filter')} onClick={handleSubmit(callback)}>
                 <option value="">{label}</option>
                 {values.map((item: Item) => (
-                    <option value={item.id}>{item.name}</option>
+                    <option key={'filter' + label + item.id} value={item.id}>{item.name}</option>
                 ))}
             </select>
         </form>

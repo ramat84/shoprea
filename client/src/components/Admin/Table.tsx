@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext.tsx';
@@ -18,18 +17,11 @@ type tableParams = {
 }
 
 export const AdminTable = ({ data, setData, orderCallback, editCallback, createCallback, deleteCallback, columns }: tableParams) => {
-    const user = (useContext(UserContext))[0]
+    const [user] = useContext(UserContext)
 
     const NewForm = useForm()
 
     let lock = -1
-
-    useEffect(() => {
-        document.querySelectorAll(".move-up,.move-down").forEach((el) => {
-            el.classList.remove("move-up")
-            el.classList.remove("move-down")
-        })
-    }, [data])
 
     const Move = (e: MouseEvent, isup = true) => {
         const targetEl = e.target as HTMLElement
@@ -47,13 +39,19 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
         const otherItem = data[curOrder + direction]
         const curItem = data[curOrder]
 
-        let new_data = [...data]
-        new_data[curOrder] = otherItem;
-        new_data[curOrder + direction] = curItem;
+        let newData = [...data]
+        newData[curOrder] = otherItem;
+        newData[curOrder + direction] = curItem;
 
-        orderCallback(user, data, setData, new_data)
+        orderCallback({ user, data, setData, newData })
 
-        setTimeout(() => { lock = -1; }, 340)
+        setTimeout(() => {
+            lock = -1;
+            document.querySelectorAll(".move-up,.move-down").forEach((el) => {
+                el.classList.remove("move-up")
+                el.classList.remove("move-down")
+            })
+        }, 340)
 
         return true;
     }
@@ -64,7 +62,8 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
     let i = 0
 
     const AddNew = () => {
-        createCallback(user, data, setData, NewForm.getValues('name'))
+        const newName = NewForm.getValues('name')
+        createCallback({ user, data, setData, newName })
     }
 
     var prodOrder = 0
@@ -77,24 +76,25 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
         const from = parseInt(e.target.dataset.order ?? '')
         let to = parseInt(e.target.value)
 
-        let new_data: Orderable = [...data]
+        let newData: Orderable = [...data]
 
         if (to > from) {
-            new_data.splice(to, 0, data[from - 1])
-            new_data.splice(from - 1, 1)
+            newData.splice(to, 0, data[from - 1])
+            newData.splice(from - 1, 1)
         } else {
-            new_data.splice(to - 1, 0, data[from - 1])
-            new_data.splice(from, 1)
+            newData.splice(to - 1, 0, data[from - 1])
+            newData.splice(from, 1)
         }
 
         const curRow = GetDomRow(from);
         curRow?.classList.add('move-hide')
+
         setTimeout(() => {
             curRow?.classList.remove('move-hide');
             curRow?.classList.add('move-show');
         }, 400)
 
-        orderCallback(user, data, setData, new_data)
+        orderCallback({ user, data, setData, newData })
 
         lock = -1
 
@@ -111,19 +111,23 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
                 var orderI = 1
                 prodOrder++
 
-                return <div data-id={item.id} data-order={i++} key={item.id}>
+                return <div data-id={'tableRow' + item.id} data-order={i++} key={'tablerow' + item.id}>
                     <select className="order" onChange={ChangeOrderNumber} data-order={prodOrder} value={prodOrder}>
-                        {data.map(() => <option key={orderI}>{orderI++}</option>)}
+                        {data.map(() => <option key={'orderOption' + orderI}>{orderI++}</option>)}
                     </select>
                     <button onClick={MoveDown} className="l arrow"><i></i></button>
                     <button onClick={MoveUp} className="r arrow"><i></i></button>
                     {columns.map((fieldName: string) => (
-                        fieldName == 'image' ? <img src={item[fieldName]} /> : <div className={`col-${fieldName}`}>{item[fieldName]}</div>
+                        fieldName == 'image' ?
+                            <img key={'tableCol' + fieldName} src={item[fieldName]} /> :
+                            <div key={'tableCol' + fieldName} className={`col-${fieldName}`}>
+                                {item[fieldName]}
+                            </div>
                     ))}
-                    <button onClick={() => editCallback(user, data, setData, item)} className="l edit"><i></i></button>
-                    <button onClick={() => deleteCallback(user, data, setData, item)} className="r trash"><i></i></button>
+                    <button onClick={() => editCallback({ user, data, setData, item })} className="l edit"><i></i></button>
+                    <button onClick={() => deleteCallback({ user, data, setData, item })} className="r trash"><i></i></button>
                 </div>
             })}
         </div>
-    </div>
+    </div >
 }
