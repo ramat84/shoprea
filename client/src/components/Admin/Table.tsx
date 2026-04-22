@@ -1,23 +1,16 @@
+import type { User } from "../../generated/prisma/client.ts"
+import type { ChangeEvent, MouseEvent } from 'react';
+import type { Orderable } from '../../types/Orderable.ts';
+import type { TableCallbackParams, TableParams } from '../../types/Table.ts';
+
 import { useForm } from 'react-hook-form'
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext.tsx';
-import type { ChangeEvent, MouseEvent } from 'react';
 
 import '../../css/pages/admin/table.css'
-import type { Orderable } from '../../types/Orderable.ts';
 
-type tableParams = {
-    data: Orderable,
-    setData: any,
-    orderCallback: any,
-    editCallback: any,
-    createCallback: any,
-    deleteCallback: any,
-    columns: string[]
-}
-
-export const AdminTable = ({ data, setData, orderCallback, editCallback, createCallback, deleteCallback, columns }: tableParams) => {
-    const [user] = useContext(UserContext)
+export const AdminTable = ({ data, setData, orderCallback, editCallback, createCallback, deleteCallback, columns }: TableParams) => {
+    const [user] = useContext<User>(UserContext)
 
     const NewForm = useForm()
 
@@ -94,7 +87,7 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
             curRow?.classList.add('move-show');
         }, 400)
 
-        orderCallback({ user, data, setData, newData })
+        orderCallback({ user, data, setData, newData } as TableCallbackParams)
 
         lock = -1
 

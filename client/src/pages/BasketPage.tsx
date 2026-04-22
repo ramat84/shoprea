@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { useState, useEffect, useContext } from 'react'
 
-import { Header } from '../components/Header'
 import { Checkout } from './Checkout'
 import { BasketContext, GetAmounts } from '../contexts/BasketContext'
 import { BasketProducts } from '../components/Basket/BasketProducts'
@@ -34,7 +33,6 @@ const BasketPage = () => {
 
     return (
         <ModalContext.Provider value={modalState}>
-            <Header />
             <h2>Cart</h2>
             <div className="basketPage">
                 <div className="basketProducts">

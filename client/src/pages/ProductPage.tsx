@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import { Link } from 'react-router'
 
 import axios from 'axios'
-import { Header } from '../components/Header'
 import { ProductButtons } from '../components/ProductButtons'
 import { Products } from '../components/Products'
 import { Price } from '../components/Price'
@@ -28,11 +27,10 @@ const ProductPage = () => {
     useEffect(LoadProduct, [location.pathname])
 
     return <>
-        <Header />
         <div className='productPage'>
             <h2>{product.title}</h2>
             <Link className="product-image" to={`/p/${product.id}/${product.title}`}>
-                <img src={product.image} />
+                <img loading="lazy" src={product.image} />
             </Link>
             <p>
                 {product.description}

@@ -5,7 +5,6 @@ import { useForm, type SubmitHandler } from "react-hook-form"
 import Cookies from "js-cookie"
 import { sha256 } from "js-sha256"
 
-import { Header } from '../components/Header'
 import { UserContext } from "../contexts/UserContext"
 
 import '../css/pages/signin.css'
@@ -91,7 +90,6 @@ const SigninForm = () => {
 
     return (
         <>
-            <Header />
             {user ? <Welcome /> : <Form />}
         </>
     )

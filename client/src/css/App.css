@@ -13,6 +13,22 @@ body {
     font-family: Arimo;
 }
 
+.loading {
+    display: none;
+    animation: delayShow;
+    animation-delay: 1s;
+}
+
+@keyframes delayShow {
+    0% {
+        display: none
+    }
+
+    to {
+        display: block
+    }
+}
+
 #root {
     max-width: 1200px;
     margin: auto;

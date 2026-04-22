@@ -1,7 +1,6 @@
 import { useState, useContext } from 'react'
 import { Link, useParams } from 'react-router'
 
-import { Header } from '../components/Header'
 import { UserSettings } from '../components/Settings/UserSettings'
 import { Orders } from '../components/Settings/Orders'
 
@@ -33,7 +32,6 @@ const SettingsPage = () => {
 
     return (
         <ModalContext.Provider value={modalState}>
-            <Header />
             <h2>User Settings</h2>
             <div className="settings-container">
                 <div className="panel">

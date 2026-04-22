@@ -1,4 +1,2 @@
-export type Item = {
-    id: number,
-    name: string
-}
+import type { Category, Product } from "../generated/prisma/client.ts"
+export type Item = Category | Product

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useContext, useEffect, useState, type Dispatch } from "react"
+import { useContext, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router"
 
 import { AdminTable } from "../../components/Admin/Table"
@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form"
 
 import type { Product, User } from "../../generated/prisma/client.ts"
 import type { PageParams } from "../../types/PageParams.ts"
+import type { TableCallbackParams } from "../../types/Table.ts"
 
 export const AdminProducts = () => {
     const [products, setProducts] = useState([])
@@ -48,6 +49,7 @@ export const AdminProducts = () => {
         const formData = new FormData();
         const isNew = !product
         const formValues = editForm.getValues()
+
         Object.entries(formValues).forEach(([key, val]) => {
             if (key == "image") {
                 if (val[0])
@@ -70,22 +72,22 @@ export const AdminProducts = () => {
         })
     }
 
-    const EditCallback = (userState: User, products: [Product], setProducts, product: Product) => {
-        const modalContent = <ProductForm product={product} editForm={editForm} submitCallback={Submit} />
+    const EditCallback = ({ item }: TableCallbackParams) => {
+        const modalContent = <ProductForm product={item} editForm={editForm} submitCallback={Submit} />
         setModalContent(modalContent);
     }
 
-    const NewCallback = (userState: User, products: [Product], setProducts, newName: string) => {
+    const NewCallback = ({ newName }: TableCallbackParams) => {
         const modalContent = <ProductForm categoryId={categoryId} isNew={true} editForm={editForm} submitCallback={Submit} name={newName} />
         setModalContent(modalContent);
     }
 
 
-    const DeleteCallback = ({ userState, data, setData, item }: { userState: User, data: [Product], setData: Dispatch<[Product]>, item: Product }) => {
+    const DeleteCallback = ({ user, data, setData, item }: TableCallbackParams) => {
         if (!confirm(`Are you sure you want to delete this product - ${item.name} ?`))
             return;
 
-        axios.delete(`http://localhost:4000/api/products/delete/${userState.session}/${item.id}`)
+        axios.delete(`http://localhost:4000/api/products/delete/${user.session}/${item.id}`)
             .then(() => {
                 confirm(`Succesfully deleted ${item.name}`)
                 setModalContent(false)
