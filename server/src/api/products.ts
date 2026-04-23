@@ -5,7 +5,7 @@ import { PrismaBetterSqlite3 } from '@prisma/adapter-better-sqlite3'
 const adapter = new PrismaBetterSqlite3({ url: 'file:./shop.db' })
 const prisma = new PrismaClient({ adapter })
 
-export const GetAll = async (req: Request, res: Response) => {
+export const GetAll = async (_req: Request, res: Response) => {
     const results = await prisma.product.findMany()
     return res.json(results)
 }
@@ -33,14 +33,15 @@ export const GetCategoryProducts = async (req: Request, res: Response) => {
     const results = await prisma.product.findMany({
         where: {
             categories: { some: { categoryID: Number(req.params.category) } }
-        }
+        },
+        include: { categories: true },
+        orderBy: { order: "asc" }
     })
     return res.json(results)
 }
 
 export const GetMultipleProducts = async (req: Request, res: Response) => {
     const ids = (req.params.ids as string).match(/[0-9]+/g)?.map((id) => parseInt(id)) ?? []
-    console.log(ids)
 
     if (ids.length == 0) throw new Error("Missing numbers")
 
@@ -50,8 +51,9 @@ export const GetMultipleProducts = async (req: Request, res: Response) => {
     return res.json(results)
 }
 
-export const GetCategories = async (req: Request, res: Response) => {
-    const results = await prisma.category.findMany()
+export const GetCategories = async (_req: Request, res: Response) => {
+    const results = await prisma.category.findMany({
+        orderBy: { order: "asc" }
+    })
     return res.json(results)
 }
-

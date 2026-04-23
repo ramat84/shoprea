@@ -3,23 +3,24 @@ import { useParams } from 'react-router-dom'
 import { Link } from 'react-router'
 
 import axios from 'axios'
-import { Header } from '../components/Header'
 import { ProductButtons } from '../components/ProductButtons'
 import { Products } from '../components/Products'
 import { Price } from '../components/Price'
 
 import '../css/pages/product.css'
 
+import type { Product } from "../generated/prisma/client.ts"
+
 export const ProductPage = () => {
-    const [product, setProduct] = useState({})
-    const [category, setCategory] = useState(0)
+    const [product, setProduct] = useState<Product>({})
+    const [categoryID, setCategoryID] = useState<number>(0)
 
     const productID = useParams().id
 
     const LoadProduct = () => {
         axios.get('http://localhost:4000/api/product/' + productID)
             .then((res) => {
-                setCategory(res.data.categories[0])
+                setCategoryID(res.data.categories[0])
                 setProduct(res.data)
             })
     }
@@ -28,11 +29,10 @@ export const ProductPage = () => {
     useEffect(LoadProduct, [location.pathname])
 
     return <>
-        <Header />
         <div className='productPage'>
             <h2>{product.title}</h2>
             <Link className="product-image" to={`/p/${product.id}/${product.title}`}>
-                <img src={product.image} />
+                <img loading="lazy" src={product.image} />
             </Link>
             <p>
                 {product.description}
@@ -44,7 +44,9 @@ export const ProductPage = () => {
         </div>
         <div className="products-container">
             <h2>Similar products</h2>
-            <Products categoryID={category} />
+            <Products categoryID={categoryID} />
         </div>
     </>
 }
+
+export default ProductPage

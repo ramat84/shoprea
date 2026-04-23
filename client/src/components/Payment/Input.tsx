@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState, type ChangeEvent } from "react"
+import { useEffect, type ChangeEvent } from "react"
 import { InputSelect } from "./InputSelect"
 import type { InputProps } from "../../types/InputProps";
 import { useFormContext } from "react-hook-form";
 
 export const Input = (props: InputProps) => {
-    const { isEnabled = true, name, label, icon = '', values = [], callback = false, register = {}, emptyOn = null, double = false }: InputProps = props;
+    const { isEnabled = true, name, label, icon = '', values = [], register = {}, emptyOn = null, double = false }: InputProps = props;
 
     const { formState: { errors }, setValue, watch } = useFormContext()
 

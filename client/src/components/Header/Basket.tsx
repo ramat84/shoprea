@@ -5,7 +5,7 @@ import { BasketContext } from '../../contexts/BasketContext'
 
 export const Basket = () => {
     const [basketCount, setBasketCount] = useState<number>(0)
-    const [basketAmounts, setBasketAmounts] = useContext(BasketContext).amounts
+    const [basketAmounts] = useContext(BasketContext).amounts
 
     useEffect(() => {
         const values = Object.values(basketAmounts)

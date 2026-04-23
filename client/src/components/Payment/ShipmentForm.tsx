@@ -1,6 +1,5 @@
 import { useEffect, useState, useContext } from "react"
-import { useForm, FormProvider, useFormContext } from "react-hook-form"
-import type { SubmitHandler } from "react-hook-form"
+import { useForm, FormProvider } from "react-hook-form"
 import axios from "axios";
 
 import { ModalContext } from '../../contexts/ModalContext'
@@ -10,8 +9,8 @@ import { Input } from "./Input";
 
 export const ShipmentForm = () => {
     const form = useForm<FormFields>()
-    const { register, handleSubmit, setValue, getValues, reset, watch, trigger } = form
-    const [modalContent, setModalContent] = useContext(ModalContext)
+    const { register, handleSubmit, setValue, reset, watch, trigger } = form
+    const [, setModalContent] = useContext(ModalContext)
 
     const country = watch('country')
     const state = watch('state')
@@ -87,7 +86,7 @@ export const ShipmentForm = () => {
     }
 
 
-    const onSubmit = (data: any) => {
+    const onSubmit = () => {
         if (payType == 'paypal')
             setModalContent(<Paypal />)
         return true
@@ -119,16 +118,6 @@ export const ShipmentForm = () => {
                 message: "Enter a valid Phone number"
             }
         }),
-    }
-
-    const setInputCountry = (val: string) => {
-        setValue('city', val)
-        setValue('state', '')
-    }
-
-    const setInputState = (val: string) => {
-        setValue('state', val)
-        setValue('city', '')
     }
 
     const SetInputValue = (name: any, value: string) => {

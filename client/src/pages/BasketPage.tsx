@@ -1,7 +1,6 @@
 import axios from 'axios'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, type ReactNode } from 'react'
 
-import { Header } from '../components/Header'
 import { Checkout } from './Checkout'
 import { BasketContext, GetAmounts } from '../contexts/BasketContext'
 import { BasketProducts } from '../components/Basket/BasketProducts'
@@ -13,8 +12,8 @@ import { ModalComponent } from '../components/ModalComponent';
 
 export const BasketPage = () => {
     const basketContext = useContext(BasketContext)
-    const [basketProducts, setBasketProducts] = basketContext.products
-    const [basketTotal, setBasketTotal] = basketContext.total
+    const [, setBasketProducts] = basketContext.products
+    const [basketTotal] = basketContext.total
 
 
     useEffect(() => {
@@ -29,12 +28,11 @@ export const BasketPage = () => {
                 })
     }, [])
 
-    const modalState = useState(false)
+    const modalState = useState<ReactNode>(false)
     const setModalContent = modalState[1]
 
     return (
         <ModalContext.Provider value={modalState}>
-            <Header />
             <h2>Cart</h2>
             <div className="basketPage">
                 <div className="basketProducts">
@@ -54,3 +52,5 @@ export const BasketPage = () => {
         </ModalContext.Provider>
     )
 }
+
+export default BasketPage

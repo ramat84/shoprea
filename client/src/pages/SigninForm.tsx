@@ -5,19 +5,18 @@ import { useForm, type SubmitHandler } from "react-hook-form"
 import Cookies from "js-cookie"
 import { sha256 } from "js-sha256"
 
-import { Header } from '../components/Header'
 import { UserContext } from "../contexts/UserContext"
 
 import '../css/pages/signin.css'
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 
 type FormFields = {
     email: string;
     password: string;
 }
 
-export const Welcome = () => {
-    const [user, setUser] = useContext<[any, any]>(UserContext)
+const Welcome = () => {
+    const [user] = useContext<[any, any]>(UserContext)
 
     return (
         <div className="popup-signin">
@@ -28,8 +27,8 @@ export const Welcome = () => {
     )
 }
 
-export const Form = () => {
-    const [user, setUser] = useContext(UserContext)
+const Form = () => {
+    const [, setUser] = useContext(UserContext)
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormFields>()
 
     const onSubmit: SubmitHandler<FormFields> = (userData) => {
@@ -87,12 +86,13 @@ export const Form = () => {
 }
 
 export const SigninForm = () => {
-    const [user, setUser] = useContext(UserContext)
+    const [user] = useContext(UserContext)
 
     return (
         <>
-            <Header />
             {user ? <Welcome /> : <Form />}
         </>
     )
 }
+
+export default SigninForm

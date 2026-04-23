@@ -6,8 +6,7 @@ export const InputKeyboard = (
     inputStates: any,
     callback: Function) => {
 
-    const [selectedText, setSelectedText] = inputStates.selected
-    const [selectedValue, setSelectedValue] = inputStates.value
+    const [, setSelectedValue] = inputStates.value
 
     const SelectValue = (target: HTMLOptionElement | HTMLSelectElement) => {
         const selectedOption: HTMLOptionElement = (target.tagName == "OPTION")
@@ -30,7 +29,6 @@ export const InputKeyboard = (
             break;
 
         case 'ArrowDown':
-            console.log(selectSelector + " option:checked ~ option")
             const nextOption: (HTMLOptionElement | null) = document.querySelector(selectSelector + " option:checked ~ option")
             nextOption && setSelectedValue(nextOption.value)
             break;

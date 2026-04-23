@@ -17,7 +17,6 @@
     /* Linting */
     "strict": true,
     "noUnusedLocals": true,
-    "noUnusedVars": false,
     "noUnusedParameters": false,
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,

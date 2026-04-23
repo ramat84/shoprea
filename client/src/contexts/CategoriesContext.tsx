@@ -1,7 +1,8 @@
-import { createContext } from 'react';
 import axios from "axios"
 
-export const CategoriesContext = createContext([])
+import { createContext } from 'react';
+
+export const CategoriesContext = createContext<any>([])
 
 export const GetCategories = (callback) => {
     axios.get('http://localhost:4000/api/categories')

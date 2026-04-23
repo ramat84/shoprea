@@ -7,8 +7,8 @@ import { Price } from '../Price'
 export const BasketProducts = ({ allowChange }: { allowChange: boolean }) => {
     const basketContext = useContext(BasketContext)
 
-    const [basketProducts, setBasketProducts] = basketContext.products
-    const [basketAmounts, setBasketAmounts] = basketContext.amounts
+    const [basketProducts] = basketContext.products
+    const [basketAmounts] = basketContext.amounts
 
     const BasketHeader = () => (
         <div key="basket-header" className="row">

@@ -2,7 +2,6 @@ import { useEffect, useState, useContext } from "react"
 import { useParams } from 'react-router-dom'
 
 import { Products } from '../components/Products'
-import { Header } from '../components/Header'
 import { CategoriesContext } from '../contexts/CategoriesContext'
 
 import '../css/components/products.css'
@@ -12,7 +11,7 @@ export const CategoryPage = () => {
     const [title, setCategoryTitle] = useState('')
 
     const currentCategoryID = parseInt(useParams().id ?? '0')
-    const categories = useContext(CategoriesContext)
+    const [categories] = useContext(CategoriesContext)
 
     const refreshCategoryTitle = () => {
         if (currentCategoryID == 0) {
@@ -29,8 +28,9 @@ export const CategoryPage = () => {
     useEffect(() => { refreshCategoryTitle() }, [location.pathname])
 
     return <>
-        <Header />
         <h2>{title}</h2>
         <Products categoryID={currentCategoryID} />
     </>
 }
+
+export default CategoryPage

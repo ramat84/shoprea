@@ -23,6 +23,23 @@ export const Paypal = ({amount} : {amount: number}) => {
                 ],
             });
         }
+        /*
+
+            <PayPalOneTimePaymentButton
+                createOrder={async () => {
+                    const response = await fetch("/api/create-order", {
+                        method: "POST",
+                    });
+                    const { orderId } = await response.json();
+                    return { orderId };
+                }}
+                onApprove={async ({ orderId }: OnApproveDataOneTimePayments) => {
+                    await fetch(`/api/capture-order/${orderId}`, {
+                        method: "POST",
+                    });
+                }}
+            />
+           */
 
         const onApproveOrder = (data,actions) => {
             return actions.order.capture().then((details) => {

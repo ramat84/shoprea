@@ -1,13 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useEffect, useContext } from "react";
 import type { ProductType } from "../../types/ProductType";
 import { BasketContext } from "../../contexts/BasketContext";
 import { Price } from "../Price";
 
 export const BasketFooter = () => {
     const basketContext = useContext(BasketContext)
-    const [basketAmounts, setBasketAmounts] = basketContext.amounts
+    const [basketAmounts] = basketContext.amounts
     const [basketTotal, setBasketTotal] = basketContext.total
-    const [basketProducts, setBasketProducts] = basketContext.products
+    const [basketProducts] = basketContext.products
 
     const GetTotal = () => {
         let total = 0

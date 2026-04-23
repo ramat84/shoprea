@@ -4,7 +4,7 @@ import './css/App.css'
 import './css/bootstrap.css'
 import './css/config.css'
 
-import { useEffect, useEffectEvent, useState } from 'react'
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 
 import { BottomMenu } from './components/Header/Menu'
 import { Copyright } from './components/Copyright'
@@ -15,28 +15,36 @@ import { BasketContext, GetAmounts } from './contexts/BasketContext'
 import { UserContext } from './contexts/UserContext'
 import { UserCheck } from './lib/User.ts'
 
+import type { Product, Category } from './generated/prisma/client.ts'
+import type { AmountsType } from './contexts/BasketContext'
+
+// import { modeReducer, type ModeAction } from './lib/Mode.ts'
+
 function App() {
-    const [categories, setCategories] = useState([])
+    const categoriesState = useState<Category[]>([])
+    const [, setCategories] = categoriesState
+    // const [mode, dispatchMode] = useReducer(modeReducer, { mode: 'light' })
 
     const basketStates = {
-        amounts: useState([]),
-        products: useState([]),
-        total: useState(0)
+        amounts: [{}, () => { }] as [AmountsType, Dispatch<SetStateAction<AmountsType>>],
+        products: [[], () => { }] as [Product[], Dispatch<SetStateAction<Product[]>>],
+        total: [0, () => { }] as [number, Dispatch<SetStateAction<number>>]
     }
 
-    const user = useState(undefined)
-    const [basketAmounts, setBasketAmounts] = basketStates.amounts
+    const userState = useState(undefined)
+    const [, setUser] = userState;
+    const [, setBasketAmounts] = basketStates.amounts
 
     useEffect(() => {
-        GetCategories(setCategories)
         setBasketAmounts(GetAmounts())
-        UserCheck(user[1])
+        GetCategories(setCategories)
+        UserCheck(setUser)
     }, [])
 
     return (
-        <CategoriesContext.Provider value={categories}>
+        <CategoriesContext.Provider value={categoriesState}>
             <BasketContext.Provider value={basketStates}>
-                <UserContext.Provider value={user}>
+                <UserContext.Provider value={userState}>
                     <Router />
                     <footer>
                         <BottomMenu />

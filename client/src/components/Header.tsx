@@ -4,6 +4,7 @@ import { TopMenu } from './Header/Menu'
 import { Basket } from './Header/Basket'
 import { Search } from './Header/Search'
 import { User } from './Header/User'
+// import { ModeSwitcher } from './Header/ModeSwitcher'
 
 import '../css/components/header.css'
 
@@ -14,5 +15,6 @@ export const Header = () => (
         <User />
         <Basket />
         <Search />
+        {/* <ModeSwitcher /> */}
     </header>
 )
