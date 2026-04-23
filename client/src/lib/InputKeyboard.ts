@@ -6,8 +6,7 @@ export const InputKeyboard = (
     inputStates: any,
     callback: Function) => {
 
-    const [selectedText, setSelectedText] = inputStates.selected
-    const [selectedValue, setSelectedValue] = inputStates.value
+    const [, setSelectedValue] = inputStates.value
 
     const SelectValue = (target: HTMLOptionElement | HTMLSelectElement) => {
         const selectedOption: HTMLOptionElement = (target.tagName == "OPTION")

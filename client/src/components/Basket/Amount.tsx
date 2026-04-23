@@ -1,11 +1,12 @@
 import { useContext } from "react"
 import { BasketContext } from "../../contexts/BasketContext"
 import type { Product } from "../../../../server/src/generated/prisma/client.ts";
+import type { AmountsType } from "../../contexts/BasketContext";
 
-export const Amount = ({ e, product }: { e: any, product: Product }) => {
+export const Amount = ({ product }: { product: Product }) => {
     const basketContext = useContext(BasketContext)
     const [basketAmounts, setBasketAmounts] = basketContext.amounts
-    const [basketProducts, setBasketProducts] = basketContext.products
+    const [, setBasketProducts] = basketContext.products
 
     const UpdateBasket = (productId: number, amount: number) => {
         if (amount === 0) {
@@ -18,7 +19,7 @@ export const Amount = ({ e, product }: { e: any, product: Product }) => {
             return;
         }
 
-        setBasketAmounts(prev => {
+        setBasketAmounts((prev: AmountsType) => {
             let new_amounts = { ...prev };
             new_amounts[productId] = amount;
 

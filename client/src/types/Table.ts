@@ -1,10 +1,9 @@
 import type { Dispatch } from "react";
 import type { User, Category, Product } from "../generated/prisma/client.ts"
-
-export type Data = (Product | null)[] | (Category | null)[];
+import type { Items } from "./Item.ts";
 
 export type TableParams = {
-    data: Data,
+    data: Items,
     setData: any,
     orderCallback: any,
     editCallback: any,
@@ -15,8 +14,8 @@ export type TableParams = {
 
 export type TableCallbackParams = {
     user: User,
-    data: Data,
-    setData: Dispatch<Data>,
+    data: Items,
+    setData: Dispatch<Items>,
     item?: Product | Category,
     newName?: string | null
 }

@@ -1,8 +1,8 @@
 import { useState, useContext } from 'react'
 import { Link, useParams } from 'react-router'
 
-import { UserSettings } from '../components/Settings/UserSettings'
-import { Orders } from '../components/Settings/Orders'
+import { UserSettings } from '../components/Settings/UserSettings.tsx'
+import { Orders } from '../components/Settings/Orders.tsx'
 
 import { ModalContext } from '../contexts/ModalContext'
 import { ModalComponent } from '../components/ModalComponent';
@@ -12,7 +12,7 @@ import '../css/pages/settings.css'
 import { AdminCategories } from './admin/AdminCategories'
 import { AdminProducts } from './admin/AdminProducts'
 
-const SettingsPage = () => {
+export const SettingsPage = () => {
     const curPage = useParams().page ?? 'user'
     const modalState = useState(false)
     const user = (useContext(UserContext))[0]

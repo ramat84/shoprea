@@ -9,16 +9,18 @@ import { Price } from '../components/Price'
 
 import '../css/pages/product.css'
 
-const ProductPage = () => {
-    const [product, setProduct] = useState({})
-    const [category, setCategory] = useState(0)
+import type { Product } from "../generated/prisma/client.ts"
+
+export const ProductPage = () => {
+    const [product, setProduct] = useState<Product>({})
+    const [categoryID, setCategoryID] = useState<number>(0)
 
     const productID = useParams().id
 
     const LoadProduct = () => {
         axios.get('http://localhost:4000/api/product/' + productID)
             .then((res) => {
-                setCategory(res.data.categories[0])
+                setCategoryID(res.data.categories[0])
                 setProduct(res.data)
             })
     }
@@ -42,7 +44,7 @@ const ProductPage = () => {
         </div>
         <div className="products-container">
             <h2>Similar products</h2>
-            <Products categoryID={category} />
+            <Products categoryID={categoryID} />
         </div>
     </>
 }

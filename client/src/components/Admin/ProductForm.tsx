@@ -45,7 +45,7 @@ export const ProductForm = ({ product, editForm, submitCallback, isNew = false, 
         <h4>{isNew ? 'New' : 'Edit'} {isNew ? '' : product.title}</h4>
         <div className="row">
             <div className="col7">
-                <SelectRow form={editForm} name="category" label="Category" values={categories} value={categoryId} />
+                <SelectRow form={editForm} name="category" label="Category" values={categories} value={categoryId.toString()} />
                 <InputRow form={editForm} name="title" label="Name" value={isNew ? name : product.title} />
                 <TextareaRow form={editForm} name="description" label="Description" value={isNew ? '' : product.description} />
                 <InputRow form={editForm} name="price" label="Price" value={isNew ? '' : product.price} />

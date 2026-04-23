@@ -2,7 +2,7 @@ import './css/App.css'
 import './css/bootstrap.css'
 import './css/config.css'
 
-import { useEffect, useReducer, useState, type ActionDispatch, type Dispatch } from 'react'
+import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 
 import { BottomMenu } from './components/Header/Menu'
 import { Copyright } from './components/Copyright'
@@ -12,7 +12,10 @@ import { CategoriesContext, GetCategories } from './contexts/CategoriesContext'
 import { BasketContext, GetAmounts } from './contexts/BasketContext'
 import { UserContext } from './contexts/UserContext'
 import { UserCheck } from './lib/User.ts'
-import type { Category } from './generated/prisma/client.ts'
+
+import type { Product, Category } from './generated/prisma/client.ts'
+import type { AmountsType } from './contexts/BasketContext'
+
 // import { modeReducer, type ModeAction } from './lib/Mode.ts'
 
 function App() {
@@ -21,9 +24,9 @@ function App() {
     // const [mode, dispatchMode] = useReducer(modeReducer, { mode: 'light' })
 
     const basketStates = {
-        amounts: useState([]),
-        products: useState([]),
-        total: useState(0)
+        amounts: [{}, () => { }] as [AmountsType, Dispatch<SetStateAction<AmountsType>>],
+        products: [[], () => { }] as [Product[], Dispatch<SetStateAction<Product[]>>],
+        total: [0, () => { }] as [number, Dispatch<SetStateAction<number>>]
     }
 
     const userState = useState(undefined)

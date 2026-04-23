@@ -6,7 +6,7 @@ import { ModalContext } from '../contexts/ModalContext'
 import { PaymentPage } from '../pages/PaymentPage'
 
 export const Checkout = () => {
-    const [modalContent, setModalContent] = useContext(ModalContext)
+    const [, setModalContent] = useContext(ModalContext)
 
     return (
         <div className="modal-wrapper">

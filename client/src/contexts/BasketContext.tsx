@@ -1,10 +1,12 @@
-import { createContext, useContext } from 'react';
-import type { ProductType } from '../types/ProductType.ts'
+import { createContext, type Dispatch, type SetStateAction } from 'react';
+import type { Product } from "../generated/prisma/client.ts"
 
-export const BasketContext = createContext<any>({
-    amounts: [{}, () => { }],
-    products: [[], () => { }],
-    total: [0, () => { }]
+export type AmountsType = { [key: number]: number }
+
+export const BasketContext = createContext({
+    amounts: [{}, () => { }] as [AmountsType, Dispatch<SetStateAction<AmountsType>>],
+    products: [[], () => { }] as [Product[], Dispatch<SetStateAction<Product[]>>],
+    total: [0, () => { }] as [number, Dispatch<SetStateAction<number>>]
 })
 
 export const GetAmounts = () => {

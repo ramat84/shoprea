@@ -1,14 +1,14 @@
 import type { ProductType } from '../../types/ProductType'
-import { useContext, useEffect } from 'react'
+import { useContext } from 'react'
 import { BasketContext } from '../../contexts/BasketContext'
 import { Price } from '../Price'
 
 export const PaymentProducts = () => {
     const basketContext = useContext(BasketContext)
 
-    const [basketProducts, setBasketProducts] = basketContext.products
-    const [basketAmounts, setBasketAmounts] = basketContext.amounts
-    const [basketTotal, setBasketTotal] = basketContext.total
+    const [basketProducts] = basketContext.products
+    const [basketAmounts] = basketContext.amounts
+    const [basketTotal] = basketContext.total
 
     return (<>
         <h4>Products: </h4>

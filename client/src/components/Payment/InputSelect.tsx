@@ -4,7 +4,7 @@ import type { InputProps } from "../../types/InputProps";
 import { InputKeyboard } from '../../lib/InputKeyboard.ts'
 
 export const InputSelect = ({ inputProps }: { inputProps: InputProps }) => {
-    const { name, label, isEnabled = true, values = [], callback = false } = inputProps;
+    const { name, values = [], callback = false } = inputProps;
 
     const inputStates = {
         selected: useState(''),
@@ -12,7 +12,7 @@ export const InputSelect = ({ inputProps }: { inputProps: InputProps }) => {
     }
 
     const [selectedText, setSelectedText] = inputStates.selected
-    const [inputValue, setInputValue] = inputStates.value
+    const [inputValue] = inputStates.value
     const [filterValue, setFilterValue] = useState('')
 
     const { setValue } = useFormContext()

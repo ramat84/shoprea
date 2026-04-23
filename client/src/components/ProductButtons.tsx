@@ -6,7 +6,7 @@ import type { ProductType } from '../types/ProductType'
 
 export const ProductButtons = ({ renderView, renderAdd, product }: { renderView?: boolean, renderAdd?: boolean, product: ProductType }) => {
     const basketContext = useContext(BasketContext)
-    const [basketAmounts, setBasketAmounts] = basketContext.amounts
+    const [, setBasketAmounts] = basketContext.amounts
 
     const AddToBasket = (productId: number, amount: number = 1) => {
         setBasketAmounts(prev => {

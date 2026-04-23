@@ -7,11 +7,11 @@ import { CategoriesContext } from '../contexts/CategoriesContext'
 import '../css/components/products.css'
 import '../css/components/products-mobile.css'
 
-const CategoryPage = () => {
+export const CategoryPage = () => {
     const [title, setCategoryTitle] = useState('')
 
     const currentCategoryID = parseInt(useParams().id ?? '0')
-    const [categories, setCategories] = useContext(CategoriesContext)
+    const [categories] = useContext(CategoriesContext)
 
     const refreshCategoryTitle = () => {
         if (currentCategoryID == 0) {

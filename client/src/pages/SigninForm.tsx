@@ -8,7 +8,7 @@ import { sha256 } from "js-sha256"
 import { UserContext } from "../contexts/UserContext"
 
 import '../css/pages/signin.css'
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 
 type FormFields = {
     email: string;
@@ -16,7 +16,7 @@ type FormFields = {
 }
 
 const Welcome = () => {
-    const [user, setUser] = useContext<[any, any]>(UserContext)
+    const [user] = useContext<[any, any]>(UserContext)
 
     return (
         <div className="popup-signin">
@@ -28,7 +28,7 @@ const Welcome = () => {
 }
 
 const Form = () => {
-    const [user, setUser] = useContext(UserContext)
+    const [, setUser] = useContext(UserContext)
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormFields>()
 
     const onSubmit: SubmitHandler<FormFields> = (userData) => {
@@ -85,8 +85,8 @@ const Form = () => {
     )
 }
 
-const SigninForm = () => {
-    const [user, setUser] = useContext(UserContext)
+export const SigninForm = () => {
+    const [user] = useContext(UserContext)
 
     return (
         <>

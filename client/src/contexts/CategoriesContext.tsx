@@ -1,7 +1,6 @@
 import axios from "axios"
 
 import { createContext } from 'react';
-import type { Dispatch, SetStateAction } from 'react';
 
 export const CategoriesContext = createContext<any>([])
 

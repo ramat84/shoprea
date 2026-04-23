@@ -1,8 +1,14 @@
 import { useParams } from "react-router"
-import { useForm } from "react-hook-form"
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form"
 import type { Item } from "../../types/Item"
 
-export const Filter = ({ label, values, callback }) => {
+type LabelCallType = {
+    label: string,
+    values: Item[],
+    callback: SubmitHandler<FieldValues>
+}
+
+export const Filter = ({ label, values, callback }: LabelCallType) => {
     const { register, setValue, handleSubmit } = useForm()
 
     const params = useParams()
