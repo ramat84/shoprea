@@ -1,8 +1,8 @@
 import { ProductButtons } from "./ProductButtons";
-import type { ProductType } from '../types/ProductType'
+import type { BasketProductType } from '../types/BasketProductType'
 import { Price } from "./Price";
 
-export const Product = ({ product }: { product: ProductType }) => (
+export const Product = ({ product }: { product: BasketProductType }) => (
     <div className="product" >
         <div className="image">
             <img src={product.image} alt={product.title} />

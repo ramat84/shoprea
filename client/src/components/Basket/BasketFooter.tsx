@@ -1,5 +1,5 @@
 import { useEffect, useContext } from "react";
-import type { ProductType } from "../../types/ProductType";
+import type { BasketProductType } from "../../types/BasketProductType";
 import { BasketContext } from "../../contexts/BasketContext";
 import { Price } from "../Price";
 
@@ -12,7 +12,7 @@ export const BasketFooter = () => {
     const GetTotal = () => {
         let total = 0
 
-        basketProducts.forEach((prod: ProductType) => {
+        basketProducts.forEach((prod: BasketProductType) => {
             total += prod.price * basketAmounts[prod.id]
         })
 

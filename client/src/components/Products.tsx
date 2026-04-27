@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
-import type { ProductType } from '../types/ProductType'
+import type { BasketProductType } from '../types/BasketProductType'
 import { Product } from "./Product";
 import { GetProductsByCategory } from "../lib/Products";
 
 export const Products = ({ categoryID }: { categoryID: number }) => {
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState<Product[]>([])
 
     useEffect(() => {
         GetProductsByCategory(categoryID, setProducts)
@@ -13,7 +13,7 @@ export const Products = ({ categoryID }: { categoryID: number }) => {
 
     return (
         <div className="products">
-            {products.map((prod: ProductType) => <Product key={prod.id} product={prod} />)}
+            {products.map((prod: BasketProductType) => <Product key={prod.id} product={prod} />)}
         </div>
     )
 }

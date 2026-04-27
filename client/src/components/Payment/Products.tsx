@@ -1,4 +1,4 @@
-import type { ProductType } from '../../types/ProductType'
+import type { BasketProductType } from '../../types/BasketProductType'
 import { useContext } from 'react'
 import { BasketContext } from '../../contexts/BasketContext'
 import { Price } from '../Price'
@@ -13,7 +13,7 @@ export const PaymentProducts = () => {
     return (<>
         <h4>Products: </h4>
         <div className="paymentProducts">
-            {basketProducts.length > 0 && basketProducts.map((product: ProductType) => (
+            {basketProducts.length > 0 && basketProducts.map((product: BasketProductType) => (
                 <div key={'payprod' + product.id} >
                     {product.title}
                     <span>

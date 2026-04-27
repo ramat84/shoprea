@@ -12,14 +12,14 @@ import { ModalContext } from "../../contexts/ModalContext.tsx"
 import { ProductForm } from "../../components/Admin/ProductForm.tsx"
 
 import '../../css/pages/admin/products.css'
-import { useForm } from "react-hook-form"
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form"
 
 import type { Product, User } from "../../generated/prisma/client.ts"
 import type { PageParams } from "../../types/PageParams.ts"
 import type { TableCallbackParams } from "../../types/Table.ts"
 
 export const AdminProducts = () => {
-    const [products, setProducts] = useState([])
+    const [products, setProducts] = useState<Product[]>([])
     const setModalContent = useContext(ModalContext)[1]
     const [categoryId, setCategoryId] = useState(0)
     const categoriesContext = useContext(CategoriesContext)
@@ -28,7 +28,7 @@ export const AdminProducts = () => {
     const params = useParams<PageParams>()
     const editForm = useForm()
 
-    const setFilterCategory = (e: { filter: string }) => {
+    const setFilterCategory: SubmitHandler<FieldValues> = (e) => {
         if (!e.filter || parseInt(e.filter) == categoryId) return;
 
         navigate(`/settings/products/${e.filter}`, { replace: true })

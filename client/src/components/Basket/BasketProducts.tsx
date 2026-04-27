@@ -1,4 +1,4 @@
-import type { ProductType } from '../../types/ProductType.ts'
+import type { BasketProductType } from '../../types/BasketProductType.ts'
 import { useContext } from 'react'
 import { BasketContext } from '../../contexts/BasketContext.tsx'
 import { Amount } from './Amount.tsx'
@@ -22,7 +22,7 @@ export const BasketProducts = ({ allowChange }: { allowChange: boolean }) => {
 
     return <>
         <BasketHeader />
-        {basketProducts.length > 0 && basketProducts.map((product: ProductType) => (
+        {basketProducts.length > 0 && basketProducts.map((product: BasketProductType) => (
             <div key={product.id} className="row">
                 <img className="image" src={product.image} />
                 <div className="title">{product.title}</div>

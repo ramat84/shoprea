@@ -16,17 +16,21 @@ import { UserCheck } from './lib/User.ts'
 import type { Product, Category } from './generated/prisma/client.ts'
 import type { AmountsType } from './contexts/BasketContext'
 
-// import { modeReducer, type ModeAction } from './lib/Mode.ts'
-
 function App() {
     const categoriesState = useState<Category[]>([])
     const [, setCategories] = categoriesState
-    // const [mode, dispatchMode] = useReducer(modeReducer, { mode: 'light' })
 
-    const basketStates = {
-        amounts: [{}, () => { }] as [AmountsType, Dispatch<SetStateAction<AmountsType>>],
-        products: [[], () => { }] as [Product[], Dispatch<SetStateAction<Product[]>>],
-        total: [0, () => { }] as [number, Dispatch<SetStateAction<number>>]
+
+    type BasketStatesType = {
+        amounts: [AmountsType, Dispatch<AmountsType>],
+        products: [Product[], Dispatch<Product[]>],
+        total: [number, Dispatch<number>]
+    }
+
+    const basketStates: BasketStatesType = {
+        amounts: useState<AmountsType>([]),
+        products: useState<Product[]>([]),
+        total: useState<number>(0),
     }
 
     const userState = useState(undefined)
@@ -38,7 +42,6 @@ function App() {
         GetCategories(setCategories)
         UserCheck(setUser)
     }, [])
-
     return (
         <CategoriesContext.Provider value={categoriesState}>
             <BasketContext.Provider value={basketStates}>

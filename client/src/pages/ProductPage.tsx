@@ -8,6 +8,8 @@ import { Products } from '../components/Products'
 import { Price } from '../components/Price'
 
 import '../css/pages/product.css'
+import '../css/components/products.css'
+import '../css/components/products-mobile.css'
 
 import type { Product } from "../generated/prisma/client.ts"
 

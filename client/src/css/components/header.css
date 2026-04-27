@@ -21,3 +21,32 @@ header {
         }
     }
 }
+
+.search-results {
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 20vw;
+    max-width: 280px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px silver;
+    line-height: 30px;
+    overflow: hidden;
+
+    &:not(:has(.result)) {
+        display: none;
+    }
+
+    .result {
+        display: block;
+        text-decoration: none;
+        color: var(--bs-blue);
+        padding: 10px 20px;
+
+        &.selected {
+            background: var(--bs-purple);
+            color: #fff;
+        }
+    }
+}
