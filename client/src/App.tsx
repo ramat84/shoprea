@@ -4,8 +4,6 @@ import './css/config.css'
 
 import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 
-import { BottomMenu } from './components/Header/Menu'
-import { Copyright } from './components/Copyright'
 import { Router } from './Router'
 
 import { CategoriesContext, GetCategories } from './contexts/CategoriesContext'
@@ -20,6 +18,7 @@ function App() {
     const categoriesState = useState<Category[]>([])
     const [, setCategories] = categoriesState
 
+import { Footer } from './components/Footer.tsx'
 
     type BasketStatesType = {
         amounts: [AmountsType, Dispatch<AmountsType>],
@@ -47,10 +46,7 @@ function App() {
             <BasketContext.Provider value={basketStates}>
                 <UserContext.Provider value={userState}>
                     <Router />
-                    <footer>
-                        <BottomMenu />
-                        <Copyright />
-                    </footer>
+                    <Footer />
                 </UserContext.Provider>
             </BasketContext.Provider>
         </CategoriesContext.Provider>
