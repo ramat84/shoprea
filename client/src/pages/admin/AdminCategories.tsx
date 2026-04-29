@@ -1,13 +1,11 @@
-import { useContext } from 'react';
-
 import * as Categories from '../../lib/Admin/Categories.tsx';
-import { CategoriesContext } from '../../contexts/CategoriesContext.tsx'
 import { AdminTable } from '../../components/Admin/Table.tsx';
 
 import '../../css/pages/admin/categories.css'
+import { useCategories } from '../../contexts/CategoriesContext.tsx';
 
 export const AdminCategories = () => {
-    const [categories, setCategories] = useContext(CategoriesContext)
+    const [categories, setCategories] = useCategories()
 
     return (
         <div className="admin-categories">

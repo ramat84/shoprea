@@ -2,9 +2,9 @@ import type { ChangeEvent } from "react"
 import type { Product } from "../../generated/prisma/client.ts"
 
 import { useContext, useEffect, useState } from "react"
-import { CategoriesContext } from '../../contexts/CategoriesContext.tsx'
 import { UserContext } from '../../contexts/UserContext.tsx';
 import { SelectRow, InputRow, TextareaRow, SubmitRow, FileRow } from './FormFields.tsx'
+import { useCategories } from "../../contexts/CategoriesContext.tsx";
 
 type ProductFormParams = {
     product?: Product,
@@ -16,8 +16,7 @@ type ProductFormParams = {
 }
 
 export const ProductForm = ({ product, editForm, submitCallback, isNew = false, categoryId = 0, name = null }: ProductFormParams) => {
-    const categoriesContext = useContext(CategoriesContext)
-    const categories = categoriesContext[0]
+    const [categories] = useCategories()
     const userState = (useContext(UserContext))[0]
     const [image, setImage] = useState<string>('')
 

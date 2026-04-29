@@ -7,7 +7,7 @@ import { Filter } from "../../components/Admin/Filter"
 import { GetProductsByCategory } from "../../lib/Products"
 import * as Products from '../../lib/Admin/Products.ts'
 
-import { CategoriesContext } from '../../contexts/CategoriesContext'
+import { useCategories } from '../../contexts/CategoriesContext'
 import { ModalContext } from "../../contexts/ModalContext.tsx"
 import { ProductForm } from "../../components/Admin/ProductForm.tsx"
 
@@ -22,8 +22,7 @@ export const AdminProducts = () => {
     const [products, setProducts] = useState<Product[]>([])
     const setModalContent = useContext(ModalContext)[1]
     const [categoryId, setCategoryId] = useState(0)
-    const categoriesContext = useContext(CategoriesContext)
-    const categories = categoriesContext[0]
+    const [categories] = useCategories();
     const navigate = useNavigate()
     const params = useParams<PageParams>()
     const editForm = useForm()

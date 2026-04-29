@@ -1,10 +1,9 @@
-import { useContext } from 'react'
 import { Link } from 'react-router'
-import { CategoriesContext } from '../contexts/CategoriesContext'
+import { useCategories } from '../contexts/CategoriesContext'
 import type { Category } from "../../../server/src/generated/prisma/client.ts";
 
 export const MenuCategories = () => {
-    const [categories, setCategories] = useContext(CategoriesContext)
+    const [categories] = useCategories()
 
     return <div className="sub-menu">
         <a href="#">Categories</a>

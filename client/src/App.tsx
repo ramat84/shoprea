@@ -6,7 +6,7 @@ import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 
 import { Router } from './Router'
 
-import { CategoriesContext, GetCategories } from './contexts/CategoriesContext'
+import { CategoriesContextProvider } from './contexts/CategoriesContext'
 import { BasketContext, GetAmounts } from './contexts/BasketContext'
 import { UserContext } from './contexts/UserContext'
 import { UserCheck } from './lib/User.ts'
@@ -14,12 +14,10 @@ import { UserCheck } from './lib/User.ts'
 import type { Product, Category } from './generated/prisma/client.ts'
 import type { AmountsType } from './contexts/BasketContext'
 
-function App() {
-    const categoriesState = useState<Category[]>([])
-    const [, setCategories] = categoriesState
 
 import { Footer } from './components/Footer.tsx'
 
+function App() {
     type BasketStatesType = {
         amounts: [AmountsType, Dispatch<AmountsType>],
         products: [Product[], Dispatch<Product[]>],
@@ -38,18 +36,17 @@ import { Footer } from './components/Footer.tsx'
 
     useEffect(() => {
         setBasketAmounts(GetAmounts())
-        GetCategories(setCategories)
         UserCheck(setUser)
     }, [])
     return (
-        <CategoriesContext.Provider value={categoriesState}>
-            <BasketContext.Provider value={basketStates}>
+        <CategoriesContextProvider>
+            <BasketContext.Provider value={basketStates as any}>
                 <UserContext.Provider value={userState}>
                     <Router />
                     <Footer />
                 </UserContext.Provider>
             </BasketContext.Provider>
-        </CategoriesContext.Provider>
+        </CategoriesContextProvider>
     )
 }
 
