@@ -9,7 +9,6 @@ import { Price } from '../components/Price'
 
 import '../css/pages/product.css'
 import '../css/components/products.css'
-import '../css/components/products-mobile.css'
 
 import type { Product } from "../generated/prisma/client.ts"
 
@@ -46,7 +45,7 @@ export const ProductPage = () => {
         </div>
         <div className="products-container">
             <h2>Similar products</h2>
-            <Products categoryID={categoryID} />
+            <Products categoryID={categoryID} skipID={product.id} />
         </div>
     </>
 }
