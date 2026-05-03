@@ -13,6 +13,11 @@ body {
     font-family: Arimo;
 }
 
+:root {
+    --color-text: #303030;
+    --color-link: #002630;
+}
+
 .loading {
     display: none;
     animation: delayShow;

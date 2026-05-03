@@ -1,9 +1,12 @@
 import { ProductButtons } from "./ProductButtons";
-import type { BasketProductType } from '../types/BasketProductType'
+import type { Product } from '../generated/prisma/client';
 import { Price } from "./Price";
+import { useState } from "react";
 
-export const Product = ({ product }: { product: BasketProductType }) => (
-    <div className="product" >
+export const ProductComponent = ({ product }: { product: Product }) => {
+    const [effect, setEffect] = useState<string>('');
+
+    return <div className={'product ' + effect}>
         <div className="image">
             <img src={product.image} alt={product.title} />
         </div>
@@ -12,6 +15,6 @@ export const Product = ({ product }: { product: BasketProductType }) => (
         <div className="price">
             <Price price={product.price} />
         </div>
-        <ProductButtons product={product} />
+        <ProductButtons product={product} setEffect={setEffect} />
     </div>
-)
+}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-import type { BasketProductType } from '../types/BasketProductType'
-import { Product } from "./Product";
+import { ProductComponent } from "./Product";
+import type { Product } from '../generated/prisma/client';
 import { GetProductsByCategory } from "../lib/Products";
 
 export const Products = ({ categoryID }: { categoryID: number }) => {
@@ -13,7 +13,7 @@ export const Products = ({ categoryID }: { categoryID: number }) => {
 
     return (
         <div className="products">
-            {products.map((prod: BasketProductType) => <Product key={prod.id} product={prod} />)}
+            {products.map((prod: Product) => <ProductComponent key={prod.id} product={prod} />)}
         </div>
     )
 }

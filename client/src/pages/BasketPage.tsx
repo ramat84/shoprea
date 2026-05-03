@@ -2,7 +2,6 @@ import axios from 'axios'
 import { useState, useEffect, useContext, type ReactNode } from 'react'
 
 import { Checkout } from './Checkout'
-import { BasketContext, GetAmounts } from '../contexts/BasketContext'
 import { BasketProducts } from '../components/Basket/BasketProducts'
 import { BasketFooter } from '../components/Basket/BasketFooter';
 
@@ -10,11 +9,10 @@ import '../css/pages/basket.css'
 import { ModalContext } from '../contexts/ModalContext'
 import { ModalComponent } from '../components/ModalComponent';
 
-export const BasketPage = () => {
-    const basketContext = useContext(BasketContext)
-    const [, setBasketProducts] = basketContext.products
-    const [basketTotal] = basketContext.total
+import { useBasket } from '../contexts/BasketContext';
 
+export const BasketPage = () => {
+    const { setBasketProducts, basketTotal, GetAmounts } = useBasket()
 
     useEffect(() => {
         const basketAmounts = Object.entries(GetAmounts())

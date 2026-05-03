@@ -1,26 +1,9 @@
-import { useEffect, useContext } from "react";
-import type { BasketProductType } from "../../types/BasketProductType";
-import { BasketContext } from "../../contexts/BasketContext";
 import { Price } from "../Price";
+import { useBasket } from "../../contexts/BasketContext";
 
 export const BasketFooter = () => {
-    const basketContext = useContext(BasketContext)
-    const [basketAmounts] = basketContext.amounts
-    const [basketTotal, setBasketTotal] = basketContext.total
-    const [basketProducts] = basketContext.products
 
-    const GetTotal = () => {
-        let total = 0
-
-        basketProducts.forEach((prod: BasketProductType) => {
-            total += prod.price * basketAmounts[prod.id]
-        })
-
-        return total
-    }
-
-    useEffect(() => { setBasketTotal(GetTotal()) }, [])
-    useEffect(() => { setBasketTotal(GetTotal()) }, [basketContext.products, basketContext.amounts])
+    const { basketTotal } = useBasket()
 
     return <div className="row basket-footer" >
         <div className="image">&nbsp;</div>

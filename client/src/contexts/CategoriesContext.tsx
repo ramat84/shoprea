@@ -1,5 +1,5 @@
 import axios from "axios"
-import { createContext, useContext, useEffect, useMemo, useState, type Dispatch, type ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, type Dispatch, type ReactNode } from 'react';
 import type { Category } from "../generated/prisma/client";
 
 export const CategoriesContext = createContext<Category[]>([])
@@ -12,7 +12,6 @@ export const GetCategories = (callback: Dispatch<Category[]>) => {
 }
 
 export const CategoriesContextProvider = ({ children }: { children: ReactNode }) => {
-
     const categoriesState = useState<Category[]>([])
     const [, setCategories] = categoriesState;
 

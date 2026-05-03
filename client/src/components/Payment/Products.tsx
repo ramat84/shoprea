@@ -1,26 +1,23 @@
-import type { BasketProductType } from '../../types/BasketProductType'
-import { useContext } from 'react'
-import { BasketContext } from '../../contexts/BasketContext'
+import type { BasketProductType } from '../../types/Basket'
 import { Price } from '../Price'
+import { useBasket } from '../../contexts/BasketContext'
 
 export const PaymentProducts = () => {
-    const basketContext = useContext(BasketContext)
-
-    const [basketProducts] = basketContext.products
-    const [basketAmounts] = basketContext.amounts
-    const [basketTotal] = basketContext.total
+    const { basketProducts, basketAmounts, basketTotal } = useBasket()
 
     return (<>
         <h4>Products: </h4>
         <div className="paymentProducts">
-            {basketProducts.length > 0 && basketProducts.map((product: BasketProductType) => (
-                <div key={'payprod' + product.id} >
+            {basketProducts.length > 0 && basketProducts.map((product: BasketProductType) => {
+                if (!product) return <></>;
+
+                return <div key={'payprod' + product.id} >
                     {product.title}
                     <span>
                         <Price price={product.price} />
                         &nbsp;✕ {basketAmounts[product.id]}
                     </span></div>
-            ))}
+            })}
             <div className="paymentTotal">
                 Total
                 <span><Price price={basketTotal} /></span>

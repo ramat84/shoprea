@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from 'react'
 import { Link } from 'react-router'
 import '../../css/components/basket.css'
-import { BasketContext } from '../../contexts/BasketContext'
+import { useBasket } from '../../contexts/BasketContext'
+import { useEffect, useState } from 'react'
 
 export const Basket = () => {
     const [basketCount, setBasketCount] = useState<number>(0)
-    const [basketAmounts] = useContext(BasketContext).amounts
+    const { basketAmounts } = useBasket()
 
     useEffect(() => {
         const values = Object.values(basketAmounts)

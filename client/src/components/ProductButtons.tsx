@@ -1,16 +1,25 @@
-import { useContext } from 'react'
+import type { Dispatch } from 'react'
 import { Link } from 'react-router'
-import { BasketContext, type AmountsType } from '../contexts/BasketContext'
-import '../css/components/buttons.css'
-import type { BasketProductType } from '../types/BasketProductType'
 
-export const ProductButtons = ({ renderView, renderAdd, product }: { renderView?: boolean, renderAdd?: boolean, product: BasketProductType }) => {
-    const basketContext = useContext(BasketContext)
-    const [, setBasketAmounts] = basketContext.amounts
+import { useBasket } from '../contexts/BasketContext'
+import type { AmountsType } from '../types/Basket'
+
+import '../css/components/buttons.css'
+import type { BasketProductType } from '../types/Basket'
+
+type ProductButtonsParams = { renderView?: boolean, renderAdd?: boolean, product: BasketProductType, setEffect?: Dispatch<string> }
+
+export const ProductButtons = ({ renderView, renderAdd, product, setEffect }: ProductButtonsParams) => {
+    const { setBasketAmounts } = useBasket()
 
     const AddToBasket = (productId: number, amount: number = 1) => {
-        setBasketAmounts((prev: BasketProductType) => {
-            let new_amounts: AmountsType = { ...prev };
+        if (setEffect) {
+            setEffect('addToBasket')
+            setTimeout(() => setEffect(''), 2000)
+        }
+
+        setBasketAmounts((prev: AmountsType) => {
+            let new_amounts = { ...prev };
             new_amounts[productId] = (new_amounts[productId] ?? 0) + amount;
             localStorage.setItem("basket", JSON.stringify(new_amounts))
             return new_amounts
@@ -24,4 +33,3 @@ export const ProductButtons = ({ renderView, renderAdd, product }: { renderView?
         {(renderAdd ?? true) && <button className="btn-add" onClick={() => AddToBasket(product.id)}><i></i> Add to cart</button>}
     </div>
 }
-

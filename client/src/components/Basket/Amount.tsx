@@ -1,12 +1,12 @@
-import { useContext } from "react"
-import { BasketContext } from "../../contexts/BasketContext"
+import type { AmountsType } from "../../types/Basket.ts";
 import type { Product } from "../../../../server/src/generated/prisma/client.ts";
-import type { AmountsType } from "../../contexts/BasketContext";
+import { useBasket } from "../../contexts/BasketContext";
+
+// import { useLocalStorage } from "../../hooks/useLocalStorage.ts";
 
 export const Amount = ({ product }: { product: Product }) => {
-    const basketContext = useContext(BasketContext)
-    const [basketAmounts, setBasketAmounts] = basketContext.amounts
-    const [, setBasketProducts] = basketContext.products
+    const { setBasketAmounts, basketAmounts } = useBasket()
+    // const [basket, setBasket] = useLocalStorage('basket')
 
     const UpdateBasket = (productId: number, amount: number) => {
         if (amount === 0) {

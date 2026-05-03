@@ -1,17 +1,17 @@
-import { useEffect, useState, useContext } from "react"
+import { useEffect, useState } from "react"
 import { useParams } from 'react-router-dom'
 
 import { Products } from '../components/Products'
-import { CategoriesContext } from '../contexts/CategoriesContext'
 
 import '../css/components/products.css'
 import '../css/components/products-mobile.css'
+import { useCategories } from "../contexts/CategoriesContext"
 
 export const CategoryPage = () => {
     const [title, setCategoryTitle] = useState('')
 
     const currentCategoryID = parseInt(useParams().id ?? '0')
-    const [categories] = useContext(CategoriesContext)
+    const [categories] = useCategories()
 
     const refreshCategoryTitle = () => {
         if (currentCategoryID == 0) {
