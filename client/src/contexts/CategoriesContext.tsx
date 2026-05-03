@@ -1,6 +1,8 @@
 import axios from "axios"
-import { createContext, useContext, useEffect, useState, type Dispatch, type ReactNode } from 'react';
+import type { Dispatch, ReactNode } from 'react';
 import type { Category } from "../generated/prisma/client";
+
+import { createContext, useContext, useEffect, useState } from 'react';
 
 export const CategoriesContext = createContext<Category[]>([])
 
@@ -27,8 +29,19 @@ export const CategoriesContextProvider = ({ children }: { children: ReactNode })
 }
 
 export const useCategories = () => {
-    const context = useContext(CategoriesContext)
-    if (!context) throw new Error('Must be used within the categories context')
+    const categoriesContext = useContext(CategoriesContext)
+    const [categories, setCategories] = categoriesContext;
 
-    return context
+    if (!categoriesContext) throw new Error('Must be used within the categories context')
+
+    const CategoryByID = (categoryID: number): Category | null => {
+        const results = categories.filter((catItem: Category) => (catItem.id == categoryID))
+
+        if (results.length > 0)
+            return results[0]
+
+        return null
+    }
+
+    return { categories, setCategories, CategoryByID }
 }

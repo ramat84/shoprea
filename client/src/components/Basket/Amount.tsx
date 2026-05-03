@@ -5,8 +5,7 @@ import { useBasket } from "../../contexts/BasketContext";
 // import { useLocalStorage } from "../../hooks/useLocalStorage.ts";
 
 export const Amount = ({ product }: { product: Product }) => {
-    const { setBasketAmounts, basketAmounts } = useBasket()
-    // const [basket, setBasket] = useLocalStorage('basket')
+    const { setBasketAmounts, basketAmounts, setBasketProducts } = useBasket()
 
     const UpdateBasket = (productId: number, amount: number) => {
         if (amount === 0) {

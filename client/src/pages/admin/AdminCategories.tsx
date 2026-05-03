@@ -5,7 +5,7 @@ import '../../css/pages/admin/categories.css'
 import { useCategories } from '../../contexts/CategoriesContext.tsx';
 
 export const AdminCategories = () => {
-    const [categories, setCategories] = useCategories()
+    const { categories, setCategories } = useCategories()
 
     return (
         <div className="admin-categories">

@@ -124,3 +124,15 @@ body:has(.addToBasket) .basket {
         opacity: 0;
     }
 }
+
+@media screen and (max-width: 1000px) {
+    .products {
+        grid-template-columns: 100%;
+
+        .product {
+            width: calc(100% - 100px);
+            margin: 20px;
+        }
+    }
+
+}

@@ -16,7 +16,7 @@ type ProductFormParams = {
 }
 
 export const ProductForm = ({ product, editForm, submitCallback, isNew = false, categoryId = 0, name = null }: ProductFormParams) => {
-    const [categories] = useCategories()
+    const { categories } = useCategories()
     const userState = (useContext(UserContext))[0]
     const [image, setImage] = useState<string>('')
 

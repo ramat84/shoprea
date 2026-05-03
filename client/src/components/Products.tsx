@@ -4,7 +4,7 @@ import { ProductComponent } from "./Product";
 import type { Product } from '../generated/prisma/client';
 import { GetProductsByCategory } from "../lib/Products";
 
-export const Products = ({ categoryID }: { categoryID: number }) => {
+export const Products = ({ categoryID, skipID }: { categoryID: number, skipID?: number }) => {
     const [products, setProducts] = useState<Product[]>([])
 
     useEffect(() => {
@@ -13,7 +13,13 @@ export const Products = ({ categoryID }: { categoryID: number }) => {
 
     return (
         <div className="products">
-            {products.map((prod: Product) => <ProductComponent key={prod.id} product={prod} />)}
+            {
+                products.map((prod: Product) => {
+                    return skipID === prod.id
+                        ? <></>
+                        : <ProductComponent key={prod.id} product={prod} />
+                })
+            }
         </div>
     )
 }

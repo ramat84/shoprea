@@ -22,7 +22,8 @@ export const AdminProducts = () => {
     const [products, setProducts] = useState<Product[]>([])
     const setModalContent = useContext(ModalContext)[1]
     const [categoryId, setCategoryId] = useState(0)
-    const [categories] = useCategories();
+    const { categories } = useCategories()
+
     const navigate = useNavigate()
     const params = useParams<PageParams>()
     const editForm = useForm()
