@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 import axios from "axios";
 
-import { ModalContext } from '../../contexts/ModalContext'
+//import { ModalContext } from '../../contexts/ModalContext'
 import { Paypal } from './Types/Paypal'
 
 import { Input } from "./Input";
@@ -10,7 +10,7 @@ import { Input } from "./Input";
 export const ShipmentForm = () => {
     const form = useForm<FormFields>()
     const { register, handleSubmit, setValue, reset, watch, trigger } = form
-    const [, setModalContent] = useContext(ModalContext)
+    // const [, setModalContent] = useContext(ModalContext)
 
     const country = watch('country')
     const state = watch('state')

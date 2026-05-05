@@ -1,12 +1,13 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
 import { BasketProducts } from '../components/Basket/BasketProducts'
 import { BasketFooter } from '../components/Basket/BasketFooter'
-import { ModalContext } from '../contexts/ModalContext'
+import { useModal } from '../contexts/ModalContext'
 import { PaymentPage } from '../pages/PaymentPage'
 
 export const Checkout = () => {
-    const [, setModalContent] = useContext(ModalContext)
+    const { ModalPortal } = useModal()
+    const [showPayment, setShowPayment] = useState(false)
 
     return (
         <div className="modal-wrapper">
@@ -16,10 +17,14 @@ export const Checkout = () => {
                 <BasketFooter />
             </div>
             <div className="ModalBottom">
-                <button className="btn btn-payment next" onClick={() => setModalContent(<PaymentPage />)}>
+                <button className="btn btn-payment next" onClick={() => setShowPayment(true)}>
                     <i></i> Continue to Payment
                 </button>
             </div>
+
+            <ModalPortal isOpen={showPayment}>
+                <PaymentPage />
+            </ModalPortal>
         </div>
     )
 }

@@ -1,4 +1,6 @@
-import { useContext, createContext, useEffect, useState } from "react"
+import axios from "axios";
+
+import { useContext, createContext, useEffect, useState, useMemo } from "react"
 import type { Dispatch, ReactNode, SetStateAction } from "react"
 import type { Product } from "../generated/prisma/client"
 import type { AmountsType } from '../types/Basket';
@@ -44,7 +46,6 @@ export const useBasket = () => {
     const [basketProducts, setBasketProducts] = basketContext.products
     const [basketTotal, setBasketTotal] = basketContext.total
 
-
     const GetTotal = () => {
         let total = 0
 
@@ -63,5 +64,34 @@ export const useBasket = () => {
         return storageBasket ? JSON.parse(storageBasket) : {};
     }
 
-    return { basketProducts, basketAmounts, basketTotal, setBasketAmounts, setBasketProducts, setBasketTotal, GetAmounts, GetTotal }
+    const GetProductIDs = () => {
+        const basketAmounts = Object.entries(GetAmounts())
+        return Object.values(basketAmounts).map(([id]) => id)
+    }
+
+    useEffect(() => {
+        const basketAmounts = Object.entries(GetAmounts())
+        const productIDs = Object.values(basketAmounts).map(([id]) => id)
+
+        //useMemo(() => {
+        if (productIDs.length > 0)
+            axios
+                .get('http://localhost:4000/api/products/multi/' + productIDs.join(','))
+                .then((res) => {
+                    setBasketProducts(res.data)
+                })
+        //}, [productIDs])
+    }, [])
+
+    return {
+        basketProducts,
+        basketAmounts,
+        basketTotal,
+        setBasketAmounts,
+        setBasketProducts,
+        setBasketTotal,
+        GetAmounts,
+        GetTotal,
+        GetProductIDs
+    }
 }

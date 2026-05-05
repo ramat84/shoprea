@@ -50,8 +50,6 @@ const UpdateProductCategory = async (productId: number, categoryId: number) => {
     if (oldProductCategory.length > 0)
         return false;
 
-    console.log(oldProductCategory)
-
     await prisma.productCategory.deleteMany({
         where: { productID: productId },
     })
