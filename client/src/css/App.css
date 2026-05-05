@@ -13,6 +13,10 @@ body {
     font-family: Arimo;
 }
 
+.page-contents {
+  min-height: calc(100vh - 280px);
+}
+
 :root {
     --color-text: #303030;
     --color-link: #002630;
