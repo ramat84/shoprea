@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 
 import { BasketProducts } from '../components/Basket/BasketProducts'
 import { BasketFooter } from '../components/Basket/BasketFooter'
@@ -22,7 +22,7 @@ export const Checkout = () => {
                 </button>
             </div>
 
-            <ModalPortal isOpen={showPayment}>
+            <ModalPortal isOpen={showPayment} setIsOpen={setShowPayment}>
                 <PaymentPage />
             </ModalPortal>
         </div>

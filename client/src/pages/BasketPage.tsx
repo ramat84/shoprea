@@ -1,12 +1,13 @@
+import { useState } from 'react';
 import { Checkout } from './Checkout'
 import { BasketProducts } from '../components/Basket/BasketProducts'
 import { BasketFooter } from '../components/Basket/BasketFooter';
 
 import { useModal } from '../contexts/ModalContext'
+
 import { useBasket } from '../contexts/BasketContext';
 
 import '../css/pages/basket.css'
-import { useState } from 'react';
 
 const BasketContents = () => {
     const { basketTotal } = useBasket()
@@ -26,7 +27,7 @@ const BasketContents = () => {
                 }
             </div>
 
-            <ModalPortal isOpen={showPopup}>
+            <ModalPortal isOpen={showPopup} setIsOpen={setPopup}>
                 <Checkout />
             </ModalPortal>
         </>

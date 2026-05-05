@@ -1,4 +1,5 @@
-import { createContext, useState, type ReactNode } from "react";
+import { createContext } from "react";
+import type { Dispatch, ReactNode, SetStateAction } from "react";
 import { createPortal } from "react-dom";
 import ReactModal from "react-modal";
 
@@ -7,19 +8,18 @@ const mountTo = document.getElementById('modal-container')
 export const ModalContext = createContext<any>(false)
 
 export const useModal = () => {
-    const [modalContent, setModalContent] = useState<ReactNode>(false)
+    ReactModal.setAppElement('#root')
 
-    const ModalPortal = ({ children, isOpen }: { children: ReactNode, isOpen: boolean }) => {
-        if (!mountTo || !isOpen) return
+    const ModalPortal = ({ children, isOpen, setIsOpen }: { children: ReactNode, isOpen: boolean, setIsOpen: Dispatch<SetStateAction<boolean>> }) => {
+        if (!mountTo || !isOpen) return;
 
-        console.log(mountTo)
+        const CloseModal = () => { setIsOpen(false) }
 
         return createPortal(
             <ReactModal isOpen={isOpen}>
-                <button className="modal-close" onClick={() => setModalContent(false)}>x</button>
+                <button className="modal-close" onClick={CloseModal}>x</button>
                 {children}
-            </ReactModal>
-            ,
+            </ReactModal>,
             mountTo
         )
     }
