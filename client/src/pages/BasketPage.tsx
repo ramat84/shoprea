@@ -9,37 +9,38 @@ import { useBasket } from '../contexts/BasketContext';
 
 import '../css/pages/basket.css'
 
-const BasketContents = () => {
-    const { basketTotal } = useBasket()
+export const BasketPage = () => {
+    const { basketTotal, basketProducts } = useBasket()
     const { ModalPortal } = useModal()
     const [showPopup, setPopup] = useState(false)
 
-    return (
-        <>
-            <div className="basketProducts">
-                <BasketProducts allowChange={true} />
-                <BasketFooter />
-                {
-                    basketTotal > 0 &&
-                    <button className="btn next" onClick={() => setPopup(true)}>
-                        <i></i> Continue to Checkout
-                    </button>
-                }
-            </div>
+    const BasketContents = () => {
+        return (
+            <>
+                <div className="basketProducts">
+                    <BasketProducts allowChange={true} />
+                    <BasketFooter />
+                    {
+                        basketTotal > 0 &&
+                        <button className="btn next" onClick={() => setPopup(true)}>
+                            <i></i> Continue to Checkout
+                        </button>
+                    }
+                </div>
 
-            <ModalPortal isOpen={showPopup} setIsOpen={setPopup}>
-                <Checkout />
-            </ModalPortal>
-        </>
-    )
-}
+                <ModalPortal isOpen={showPopup} setIsOpen={setPopup}>
+                    <Checkout />
+                </ModalPortal>
+            </>
+        )
+    }
 
-export const BasketPage = () => {
     return (
         <>
             <h2>Cart</h2>
-            <div className="basketPage">
-                <BasketContents />
+            <div className="basketPage page-contents">
+                {basketProducts.length > 0 && <BasketContents />}
+                {basketProducts.length == 0 && <div className="basket-empty">Your cart is empty</div>}
             </div>
         </>
     )
