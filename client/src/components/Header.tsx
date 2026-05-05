@@ -1,6 +1,6 @@
 import { Link } from 'react-router'
 
-import { TopMenu } from './Header/Menu'
+import { TopMenu } from './Header/TopMenu'
 import { Basket } from './Header/Basket'
 import { Search } from './Header/Search'
 import { User } from './Header/User'

@@ -6,15 +6,15 @@
 
 .products {
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 25% 25% 25% 25%;
 
     .product {
         position: relative;
         background: #fff;
         padding: 30px;
         box-sizing: inherit;
-        width: calc(100% - 80px);
-        margin-bottom: 20px;
+        width: calc(100% - 61px);
+        margin-bottom: 1px;
         border-radius: 10px;
         color: var(--bs-black);
         text-decoration: none;
@@ -22,6 +22,9 @@
         padding-top: 200px;
         overflow: hidden;
         color: #fff;
+        grid-template-rows: [title] 65px [desc] 40px [price] 60px [buttons] 50px;
+        display: grid;
+        align-items: self-end;
 
         &::after {
             content: " ";
@@ -53,26 +56,28 @@
             box-shadow: 4px 7px 12px rgba(0,0,0,0.1);
 
             img {
-                object-fit: fill;
-                max-width: 100%;
-                min-height: 100%;
+                transform: scale(1.4);
+                transform-origin: top center;
+                width: 100%;
             }
         }
 
         .title {
+            grid-area: title/1;
             text-align: center;
             font-size: 18px;
             font-weight: 500;
-            margin: 15px 0;
         }
 
         .short {
+            grid-area: desc/1;
             font-size: 12px;
             text-align: center;
             min-height: 20px;
         }
 
         .price {
+            grid-area: price/1;
             padding: 5px 20px;
             font-size: 20px;
             font-weight: bold;
@@ -87,6 +92,7 @@
         }
 
         .cta {
+            grid-area: buttons/1;
             margin: auto;
             display: inline-flex;
             position: relative;

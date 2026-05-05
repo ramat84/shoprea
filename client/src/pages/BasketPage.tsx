@@ -40,7 +40,7 @@ export const BasketPage = () => {
             <h2>Cart</h2>
             <div className="basketPage page-contents">
                 {basketProducts.length > 0 && <BasketContents />}
-                {basketProducts.length == 0 && <div className="basket-empty">Your cart is empty</div>}
+                {basketProducts.length == 0 && <div className="basket-empty"><i>󰄑</i> Your cart is empty</div>}
             </div>
         </>
     )

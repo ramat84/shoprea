@@ -4,7 +4,7 @@ import type { InputProps } from "../../types/InputProps";
 import { useFormContext } from "react-hook-form";
 
 export const Input = (props: InputProps) => {
-    const { isEnabled = true, name, label, icon = '', values = [], register = {}, emptyOn = null, double = false }: InputProps = props;
+    const { isEnabled = true, name, label, icon = '', values = [], register = {}, emptyOn = null, doubleWidth = false }: InputProps = props;
 
     const { formState: { errors }, setValue, watch } = useFormContext()
 
@@ -19,7 +19,7 @@ export const Input = (props: InputProps) => {
         }, emptyOn)
 
     return (
-        <fieldset className={'inputText' + (double ? ' double' : '')} data-disabled={!isEnabled} >
+        <fieldset className={'inputText' + (doubleWidth ? ' double' : '')} data-disabled={!isEnabled} >
             {icon && <i>{icon}</i>}
             <input
                 id={name}

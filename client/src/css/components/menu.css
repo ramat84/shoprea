@@ -2,9 +2,10 @@ h1 {
     float: left;
     padding: 10px 40px;
     margin: 0;
-    color: #236b96;
+    color: #2771c0;
     border-radius: 5% 85% 25% 25px;
-    box-shadow: 3px 3px 0 1px #d6eaff;
+    box-shadow: 3px 3px 0 1px #fff, 5px 5px 0 2px rgba(255,255,255,0.3), inset 0 -15px rgba(255,255,255,0.5);
+    background: rgba(255,255,255,0.2);
 
     span {
         color: #2771c0;

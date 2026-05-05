@@ -7,5 +7,5 @@ export type InputProps = {
     callback?: any,
     register?: any,
     emptyOn?: any,
-    double?: boolean
+    doubleWidth?: boolean
 }

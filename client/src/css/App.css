@@ -10,7 +10,7 @@
 
 body {
     background: #fff;
-    font-family: Arimo;
+    font-family: "Bricolage Grotesque", sans-serif;
 }
 
 .page-contents {
@@ -39,12 +39,20 @@ body {
 }
 
 #root {
-    max-width: 1200px;
+    max-width: min(calc(100vw - 400px), 1600px);
     margin: auto;
 
+    @media screen and (max-width: 2500px) {
+    max-width: calc(100vw - 200px);
+    }
+
     >h2 {
-        padding: 20px 0 30px;
+        padding: 20px 0 20px;
         margin: 0;
+        margin-bottom: 0px;
+        background: #d5d9de;
+        margin-bottom: 20px;
+        box-shadow: -40vw 0 #d5d9de, 40vw 0 #d5d9de;
     }
 }
 
