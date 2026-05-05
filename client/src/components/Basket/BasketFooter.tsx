@@ -2,7 +2,6 @@ import { Price } from "../Price";
 import { useBasket } from "../../contexts/BasketContext";
 
 export const BasketFooter = () => {
-
     const { basketTotal } = useBasket()
 
     return <div className="row basket-footer" >

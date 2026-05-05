@@ -46,18 +46,18 @@ export const useBasket = () => {
     const [basketProducts, setBasketProducts] = basketContext.products
     const [basketTotal, setBasketTotal] = basketContext.total
 
-    const GetTotal = () => {
+    const SetTotal = () => {
         let total = 0
 
         basketProducts.forEach((prod: Product) => {
             total += prod.price * basketAmounts[prod.id]
         })
 
-        return total
+        if (total != basketTotal)
+            setBasketTotal(total)
     }
 
-    useEffect(() => { setBasketTotal(GetTotal()) }, [])
-    useEffect(() => { setBasketTotal(GetTotal()) }, [basketContext.products, basketContext.amounts])
+    useEffect(SetTotal, [basketContext.products, basketContext.amounts])
 
     const GetAmounts = () => {
         const storageBasket = localStorage.getItem("basket")
@@ -73,14 +73,12 @@ export const useBasket = () => {
         const basketAmounts = Object.entries(GetAmounts())
         const productIDs = Object.values(basketAmounts).map(([id]) => id)
 
-        //useMemo(() => {
-        if (productIDs.length > 0)
+        if (productIDs.length > 0 && basketProducts.length == 0)
             axios
                 .get('http://localhost:4000/api/products/multi/' + productIDs.join(','))
                 .then((res) => {
                     setBasketProducts(res.data)
                 })
-        //}, [productIDs])
     }, [])
 
     return {
@@ -91,7 +89,6 @@ export const useBasket = () => {
         setBasketProducts,
         setBasketTotal,
         GetAmounts,
-        GetTotal,
         GetProductIDs
     }
 }

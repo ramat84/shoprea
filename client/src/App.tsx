@@ -1,5 +1,6 @@
 import './css/App.css'
 import './css/bootstrap.css'
+import './css/modal.css'
 
 import { Router } from './Router'
 

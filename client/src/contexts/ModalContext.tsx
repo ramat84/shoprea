@@ -1,7 +1,6 @@
 import { createContext, useState, type ReactNode } from "react";
 import { createPortal } from "react-dom";
-// import ReactModal from "react-modal";
-// import ReactModal from "react-modal";
+import ReactModal from "react-modal";
 
 const mountTo = document.getElementById('modal-container')
 
@@ -16,10 +15,10 @@ export const useModal = () => {
         console.log(mountTo)
 
         return createPortal(
-            <div className="ReactModal__Content">
+            <ReactModal isOpen={isOpen}>
                 <button className="modal-close" onClick={() => setModalContent(false)}>x</button>
                 {children}
-            </div>
+            </ReactModal>
             ,
             mountTo
         )
