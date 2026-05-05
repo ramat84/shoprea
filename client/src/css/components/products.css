@@ -95,9 +95,6 @@
             grid-area: buttons/1;
             margin: auto;
             display: inline-flex;
-            position: relative;
-            left: 50%;
-            transform: translateX(-50%);
         }
     }
 
