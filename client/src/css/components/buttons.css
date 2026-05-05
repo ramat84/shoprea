@@ -12,6 +12,7 @@
             cursor: pointer;
             transition: all 0.2s ease-in-out;
             text-decoration: none;
+            box-shadow: inset 2px -30px 4px rgba(0,0,0,0.2);
 
             &.btn-view {
                 background: var(--bs-blue);

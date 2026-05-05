@@ -69,6 +69,7 @@
         .short {
             font-size: 12px;
             text-align: center;
+            min-height: 20px;
         }
 
         .price {

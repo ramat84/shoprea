@@ -9,7 +9,7 @@ import '../css/components/header.css'
 
 export const Header = () => (
     <header>
-        <Link to="/"><h1>Shop<span>Rea</span></h1></Link>
+        <Link to="/"><h1>Shop<span><u>R</u>ea</span></h1></Link>
         <TopMenu />
         <User />
         <Basket />
