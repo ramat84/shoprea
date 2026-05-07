@@ -4,6 +4,11 @@
     gap: 10px;
 }
 
+.basket-empty-container {
+    position: relative;
+    top: 15vh;
+}
+
 .basketProducts,
 .basketPage {
     .row {
@@ -123,12 +128,12 @@
 .basket-empty {
     text-align: center;
     font-size: 3vw;
-    margin: 2vh 0;
+    margin-bottom: 40px;
 
     i {
         display: block;
         font-size: 10vw;
-        transform: rotate(40deg);
+        transform: rotate(40deg) translateY(-40px);
         color: #7c7c7c;
 
         &::after {
