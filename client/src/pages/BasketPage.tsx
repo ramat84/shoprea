@@ -1,18 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Checkout } from './Checkout'
 import { BasketProducts } from '../components/Basket/BasketProducts'
 import { BasketFooter } from '../components/Basket/BasketFooter';
 
 import { useModal } from '../contexts/ModalContext'
-
 import { useBasket } from '../contexts/BasketContext';
 
 import '../css/pages/basket.css'
+import { Link } from 'react-router';
 
 export const BasketPage = () => {
-    const { basketTotal, basketProducts } = useBasket()
+    const { basketTotal, basketProducts, GetBasketProducts } = useBasket()
     const { ModalPortal } = useModal()
     const [showPopup, setPopup] = useState(false)
+
+    useEffect( GetBasketProducts, [])
 
     const BasketContents = () => {
         return (
@@ -38,9 +40,23 @@ export const BasketPage = () => {
     return (
         <>
             <h2>Cart</h2>
-            <div className="basketPage page-contents">
-                {basketProducts.length > 0 && <BasketContents />}
-                {basketProducts.length == 0 && <div className="basket-empty"><i>󰄑</i> Your cart is empty</div>}
+            <div className="page-contents">
+                {basketProducts.length > 0 && (
+                    <div className="basketPage page-contents">
+                        <BasketContents />
+                    </div>
+                )}
+                {basketProducts.length == 0 && (
+                    <div className="basket-empty-container">
+                        <div className="basket-empty">
+                            <i>󰄑</i>
+                            Your cart is empty
+                        </div>
+                        <div className='center-text'>
+                            <Link to="/" className='action btn'>Continue Shopping</Link>
+                        </div>
+                    </div>
+                )}
             </div>
         </>
     )

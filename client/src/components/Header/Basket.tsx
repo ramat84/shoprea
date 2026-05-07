@@ -1,5 +1,4 @@
 import { Link } from 'react-router'
-import '../../css/components/basket.css'
 import { useBasket } from '../../contexts/BasketContext'
 import { useEffect, useState } from 'react'
 
@@ -13,5 +12,5 @@ export const Basket = () => {
         setBasketCount(count)
     }, [basketAmounts])
 
-    return <Link to="/basket" className="basket"><i>󰄑</i> &nbsp; {basketCount} </Link>
+    return <Link className="action btn" to="/basket"><i>󰄑</i> &nbsp; {basketCount} </Link>
 }

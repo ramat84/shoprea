@@ -1,9 +1,8 @@
-import axios from "axios";
-
-import { useContext, createContext, useEffect, useState, useMemo } from "react"
+import { useContext, createContext, useEffect, useState, useCallback } from "react"
 import type { Dispatch, ReactNode, SetStateAction } from "react"
 import type { Product } from "../generated/prisma/client"
 import type { AmountsType } from '../types/Basket';
+import { GetAmounts, SetTotalFor, AddToBasketFor, FetchProducts, GetProductIDs } from "../lib/Basket";
 
 type BasketContextType = {
     amounts: [AmountsType, Dispatch<SetStateAction<AmountsType>>],
@@ -16,11 +15,6 @@ const BasketContext = createContext<BasketContextType>({
     products: [[], () => { }],
     total: [0, () => { }]
 })
-
-export const GetAmounts = () => {
-    const storageBasket = localStorage.getItem("basket")
-    return storageBasket ? JSON.parse(storageBasket) : {};
-}
 
 export const BasketContextProvider = ({ children }: { children: ReactNode }) => {
     const basketStates = {
@@ -46,42 +40,21 @@ export const useBasket = () => {
     const [basketProducts, setBasketProducts] = basketContext.products
     const [basketTotal, setBasketTotal] = basketContext.total
 
-    const SetTotal = () => {
-        let total = 0
+    const SetTotal = () => SetTotalFor(basketContext)
 
-        basketProducts.forEach((prod: Product) => {
-            total += prod.price * basketAmounts[prod.id]
-        })
+    const AddToBasket = (productId: number, amount: number = 1, setEffect?: Dispatch<string>) => (
+        AddToBasketFor(basketContext, productId, amount, setEffect)
+    )
 
-        if (total != basketTotal)
-            setBasketTotal(total)
-    }
+    const GetBasketProducts = useCallback(() => {
+        console.log(basketAmounts)
+        FetchProducts(basketContext)
+    }, [basketAmounts])
 
     useEffect(SetTotal, [basketContext.products, basketContext.amounts])
 
-    const GetAmounts = () => {
-        const storageBasket = localStorage.getItem("basket")
-        return storageBasket ? JSON.parse(storageBasket) : {};
-    }
-
-    const GetProductIDs = () => {
-        const basketAmounts = Object.entries(GetAmounts())
-        return Object.values(basketAmounts).map(([id]) => id)
-    }
-
-    useEffect(() => {
-        const basketAmounts = Object.entries(GetAmounts())
-        const productIDs = Object.values(basketAmounts).map(([id]) => id)
-
-        if (productIDs.length > 0 && basketProducts.length == 0)
-            axios
-                .get('http://localhost:4000/api/products/multi/' + productIDs.join(','))
-                .then((res) => {
-                    setBasketProducts(res.data)
-                })
-    }, [])
-
     return {
+        GetBasketProducts,
         basketProducts,
         basketAmounts,
         basketTotal,
@@ -89,6 +62,7 @@ export const useBasket = () => {
         setBasketProducts,
         setBasketTotal,
         GetAmounts,
-        GetProductIDs
+        GetProductIDs,
+        AddToBasket
     }
 }
