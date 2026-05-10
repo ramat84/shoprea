@@ -13,6 +13,7 @@
 
     &.view { background: var(--bs-green) }
     &.action { background: var(--bs-blue) }
+    &.trash { background: var(--bs-red) }
 
     &.small {}
     &.medium {}

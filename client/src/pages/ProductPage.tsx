@@ -29,7 +29,9 @@ export const ProductPage = () => {
     useEffect(LoadProduct, [location.pathname])
 
     return <>
-        <h2>{product.title}</h2>
+        <div className="subheader">
+            <h2>{product.title}</h2>
+        </div>
         <div className='productPage'>
             <Link className="product-image" to={`/p/${product.id}/${product.title}`}>
                 <img loading="lazy" src={product.image} />

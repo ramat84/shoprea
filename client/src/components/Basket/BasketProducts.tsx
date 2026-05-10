@@ -6,18 +6,7 @@ import { Price } from '../Price'
 export const BasketProducts = ({ allowChange }: { allowChange: boolean }) => {
     const { basketAmounts, basketProducts } = useBasket()
 
-    const BasketHeader = () => (
-        <div key="basket-header" className="row">
-            <div className="image">Product</div>
-            <div className="title">&nbsp;</div>
-            <div className="desc">&nbsp;</div>
-            <div className="price">Price</div>
-            <div className="amount">Amount</div>
-        </div>
-    )
-
     return <>
-        <BasketHeader />
         {
             basketProducts.length > 0 &&
                 basketProducts.map((product: BasketProductType) => {

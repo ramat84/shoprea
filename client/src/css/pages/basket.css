@@ -76,10 +76,6 @@
                 transition: all 0.2s ease-in-out;
                 font-family: Nerd;
 
-                &.trash {
-                    background: var(--bs-red);
-                }
-
                 &:hover {
                     opacity: 0.9;
                     transform: scale(1.5);
@@ -89,39 +85,13 @@
             }
         }
     }
-
-    .btn.next {
-        background: var(--bs-green);
-        float: right;
-    }
 }
 
-.basket-footer {
+.basket-total {
     position: relative;
-
-
-    .btn {
-        position: absolute;
-        left: 50%;
-        top: -6px;
-        transform: translateX(-50%);
-        background: var(--bs-green);
-    }
 
     .btn-payment {
         background: var(--bs-blue);
-    }
-
-
-    i {
-        margin-right: 10px;
-        padding-right: 10px;
-        border-right: 1px solid #fff;
-    }
-
-    .amount[class] {
-        display: block;
-        font-size: 18px;
     }
 }
 

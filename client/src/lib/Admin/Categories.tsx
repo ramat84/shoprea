@@ -75,7 +75,7 @@ export const DeleteCategory = ({ user, data, setData, item }: { user: User, data
 
     const DeleteDialog = (
         <div className="delete-category-dialog" >
-            <h2><i></i> Delete Category - {item.name}</h2 >
+            <h2><i></i> Delete Category - {item.name}</h2>
             <div>Please choose a new category for "{item.name}" products </div>
             < form className="modal-wrap" onSubmit={DelForm.handleSubmit(() => DeleteNow(user, data, setData, item, DelForm))} >
                 <label htmlFor="move-category" > Move Products to: </label>

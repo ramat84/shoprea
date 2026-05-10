@@ -32,7 +32,9 @@ export const SettingsPage = () => {
 
     return (
         <ModalContext.Provider value={modalState}>
-            <h2>User Settings</h2>
+            <div className="subheader">
+                <h2>User Settings</h2>
+            </div>
             <div className="settings-container">
                 <div className="panel">
                     <PageLink page='user' title='User' />

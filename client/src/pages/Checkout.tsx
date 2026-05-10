@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { BasketProducts } from '../components/Basket/BasketProducts'
-import { BasketFooter } from '../components/Basket/BasketFooter'
+import { BasketTotal } from '../components/Basket/BasketTotal'
 import { useModal } from '../contexts/ModalContext'
 import { PaymentPage } from '../pages/PaymentPage'
 
@@ -11,10 +11,12 @@ export const Checkout = () => {
 
     return (
         <div className="modal-wrapper">
-            <h2>Checkout</h2>
+            <div className="subheader">
+                <h2>Checkout</h2>
+            </div>
             <div className="basketProducts">
+                <BasketTotal />
                 <BasketProducts allowChange={false} />
-                <BasketFooter />
             </div>
             <div className="ModalBottom">
                 <button className="btn btn-payment next" onClick={() => setShowPayment(true)}>

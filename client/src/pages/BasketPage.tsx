@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Checkout } from './Checkout'
 import { BasketProducts } from '../components/Basket/BasketProducts'
-import { BasketFooter } from '../components/Basket/BasketFooter';
+import { BasketTotal } from '../components/Basket/BasketTotal';
 
 import { useModal } from '../contexts/ModalContext'
 import { useBasket } from '../contexts/BasketContext';
 
 import '../css/pages/basket.css'
 import { Link } from 'react-router';
+import { BasketHeader } from '../components/Basket/BasketHeader';
 
 export const BasketPage = () => {
     const { basketTotal, basketProducts, GetBasketProducts } = useBasket()
@@ -20,14 +21,9 @@ export const BasketPage = () => {
         return (
             <>
                 <div className="basketProducts">
+                    <BasketHeader />
+                    <BasketTotal />
                     <BasketProducts allowChange={true} />
-                    <BasketFooter />
-                    {
-                        basketTotal > 0 &&
-                        <button className="btn next" onClick={() => setPopup(true)}>
-                            <i></i> Continue to Checkout
-                        </button>
-                    }
                 </div>
 
                 <ModalPortal isOpen={showPopup} setIsOpen={setPopup}>
@@ -39,7 +35,15 @@ export const BasketPage = () => {
 
     return (
         <>
-            <h2>Cart</h2>
+            <div className="subheader">
+                <h2>Cart</h2>
+                {basketProducts.length == 0 && <Link to="/" className='action btn'>Continue Shopping</Link>}
+                {basketProducts.length > 0 && (
+                    <button className="btn view" onClick={() => setPopup(true)}>
+                        <i></i> Continue to Checkout
+                    </button>
+                )}
+            </div>
             <div className="page-contents">
                 {basketProducts.length > 0 && (
                     <div className="basketPage page-contents">

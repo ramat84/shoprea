@@ -118,7 +118,7 @@ export const AdminTable = ({ data, setData, orderCallback, editCallback, createC
                             </div>
                     ))}
                     <button onClick={() => editCallback({ user, data, setData, item })} className="l edit"><i></i></button>
-                    <button onClick={() => deleteCallback({ user, data, setData, item })} className="r trash"><i></i></button>
+                    <button onClick={() => deleteCallback({ user, data, setData, item })} className="btn r trash"><i></i></button>
                 </div>
             })}
         </div>

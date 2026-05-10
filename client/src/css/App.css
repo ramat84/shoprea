@@ -46,13 +46,22 @@ body {
     max-width: calc(100vw - 200px);
     }
 
-    >h2 {
+    .subheader {
+        display: flex;
+        justify-content: space-between;
+
         padding: 20px 0 20px;
         margin: 0;
         margin-bottom: 0px;
-        background: #d5d9de;
         margin-bottom: 20px;
+
+        background: #d5d9de;
         box-shadow: -40vw 0 #d5d9de, 40vw 0 #d5d9de;
+
+        h2 {
+            padding: 0;
+            margin: 0;
+        }
     }
 }
 

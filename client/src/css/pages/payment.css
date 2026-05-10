@@ -202,7 +202,7 @@
     font-size: min(1.6vh, 15px);
     line-height: 1.5;
     overflow: auto;
-    max-height: calc(80vh - 540px);
+    max-height: min(calc(80vh - 540px), 200px);
 
 
     div {

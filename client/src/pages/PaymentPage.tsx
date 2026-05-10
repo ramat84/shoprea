@@ -6,7 +6,9 @@ import '../css/pages/payment.css'
 export const PaymentPage = () => {
     return (
         <div className="paymentPage">
-            <h2>Summary</h2>
+            <div className="subheader">
+                <h2>Summary</h2>
+            </div>
             <PaymentProducts />
             <ShipmentForm />
         </div>
