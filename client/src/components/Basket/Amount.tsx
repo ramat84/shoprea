@@ -46,10 +46,10 @@ export const Amount = ({ product }: { product: Product }) => {
 
     return (
         <div className="amount">
-            <button className="trash" onClick={() => Trash(product.id)}><i></i></button>
+            <button className="btn trash" onClick={() => Trash(product.id)}><i></i></button>
             <input onChange={(e) => UpdateBasket(product.id, parseInt(e.target.value))} value={basketAmounts[product.id]} />
-            <button onClick={() => UpdateBasket(product.id, basketAmounts[product.id] - 1)}>-</button>
-            <button onClick={() => UpdateBasket(product.id, basketAmounts[product.id] + 1)}>+</button>
+            <button className="btn action" onClick={() => UpdateBasket(product.id, basketAmounts[product.id] - 1)}>-</button>
+            <button className="btn action" onClick={() => UpdateBasket(product.id, basketAmounts[product.id] + 1)}>+</button>
         </div>
     )
 }

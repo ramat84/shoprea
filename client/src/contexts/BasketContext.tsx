@@ -36,6 +36,7 @@ export const BasketContextProvider = ({ children }: { children: ReactNode }) => 
 
 export const useBasket = () => {
     const basketContext = useContext(BasketContext)
+
     const [basketAmounts, setBasketAmounts] = basketContext.amounts
     const [basketProducts, setBasketProducts] = basketContext.products
     const [basketTotal, setBasketTotal] = basketContext.total
@@ -51,18 +52,21 @@ export const useBasket = () => {
         FetchProducts(basketContext)
     }, [basketAmounts])
 
+    const IsBasketEmpty = () => basketProducts.length == 0
+
     useEffect(SetTotal, [basketContext.products, basketContext.amounts])
 
     return {
-        GetBasketProducts,
         basketProducts,
         basketAmounts,
         basketTotal,
         setBasketAmounts,
         setBasketProducts,
         setBasketTotal,
+        AddToBasket,
+        GetBasketProducts,
         GetAmounts,
         GetProductIDs,
-        AddToBasket
+        IsBasketEmpty
     }
 }

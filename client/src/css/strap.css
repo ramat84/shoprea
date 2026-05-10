@@ -18,3 +18,7 @@
 .ta-right {
     text-align: right;
 }
+
+.small  { font-size: 14px }
+.medium { font-size: 16px }
+.large  { font-size: 18px }

@@ -15,10 +15,6 @@
     &.action { background: var(--bs-blue) }
     &.trash { background: var(--bs-red) }
 
-    &.small {}
-    &.medium {}
-    &.large {}
-
     &:hover {
         transform: scale(1.1);
         filter: contrast(2);
