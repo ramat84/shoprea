@@ -11,7 +11,7 @@ export const BasketTotal = () => {
         <div className="price">
             <Price price={basketTotal} />
         </div>
-        <div className="amount">{Object.keys(basketAmounts).length} products</div>
+        <div className="amount">{Object.values(basketAmounts).reduce((sum,val) => sum + val)} products</div>
     </div>
 }
 
