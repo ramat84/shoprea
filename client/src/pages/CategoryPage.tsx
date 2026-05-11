@@ -21,7 +21,9 @@ export const CategoryPage = () => {
     useEffect(refreshCategoryTitle, [categories, location.pathname])
 
     return <>
-        <h2>{title}</h2>
+        <div className="subheader">
+            <h1>{title}</h1>
+        </div>
         <Products categoryID={currentCategoryID} />
     </>
 }

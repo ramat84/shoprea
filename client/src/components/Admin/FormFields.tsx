@@ -1,6 +1,7 @@
 import { type ChangeEvent, type ReactNode } from "react"
 import type { UseFormReturn } from "react-hook-form"
 import type { Item } from "../../types/Item"
+import { Button } from "../Elements/Button"
 
 
 type FieldType = {
@@ -52,6 +53,6 @@ export const FileRow = ({ form, name, callback }: FieldType) => {
 }
 
 export const SubmitRow = ({ value }: { value: string }) => {
-    const submitButton = <button className="btn-submit">{value}</button>
+    const submitButton = <Button type="action">{value}</Button>
     return <Row label="" input={submitButton} />
 }

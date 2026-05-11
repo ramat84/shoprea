@@ -3,7 +3,7 @@ import { useBasket } from '../../contexts/BasketContext.tsx'
 import { Price } from '../Price'
 import { Button } from '../Elements/Button.tsx'
 
-export const BasketProducts = ({ allowChange, e }: { allowChange: boolean, e: Event }) => {
+export const BasketProducts = ({ allowChange }: { allowChange: boolean }) => {
     const { basketAmounts, basketProducts, UpdateBasket, Trash } = useBasket()
 
     if(basketProducts.length == 0) return <></>;

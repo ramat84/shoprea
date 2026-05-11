@@ -9,6 +9,7 @@ import { UserContext } from "../contexts/UserContext"
 
 import '../css/pages/signin.css'
 import { useContext } from "react"
+import type { User } from "../generated/prisma/client"
 
 type FormFields = {
     email: string;
@@ -16,7 +17,7 @@ type FormFields = {
 }
 
 const Welcome = () => {
-    const [user] = useContext<[any, any]>(UserContext)
+    const [user] = useContext<any>(UserContext)
 
     return (
         <div className="popup-signin">
@@ -28,7 +29,7 @@ const Welcome = () => {
 }
 
 const Form = () => {
-    const [, setUser] = useContext(UserContext)
+    const [, setUser] = useContext<User>(UserContext)
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormFields>()
 
     const onSubmit: SubmitHandler<FormFields> = (userData) => {
@@ -86,7 +87,7 @@ const Form = () => {
 }
 
 export const SigninForm = () => {
-    const [user] = useContext(UserContext)
+    const [user] = useContext<User>(UserContext)
 
     return (
         <>
