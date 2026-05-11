@@ -1,8 +1,6 @@
-import { useState } from "react"
+import type { Dispatch } from "react"
 
-export const PaymentMethods = () => {
-    const [, setPayType] = useState<string>('')
-
+export const PaymentMethods = ({setPayType} : {setPayType: Dispatch<string>}) => {
     return (
         <>
             <h2>Pay with</h2>

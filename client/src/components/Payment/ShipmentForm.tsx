@@ -13,13 +13,14 @@ export const ShipmentForm = () => {
     const [modalOpen, setModalOpen] = useState<boolean>(false)
     const shopForm = useShopForm();
     const { FocusOnNextInput, form, FormProvider, QuickReg } = shopForm;
+    const [payType, setPayType] = useState<string>('')
 
     const city = form.watch('city')
     useEffect(() => { FocusOnNextInput() }, [city])
 
     const onSubmit = () => {
-        // if (payType == 'paypal')
-        // setModalContent(<Paypal />)
+        if (payType == 'paypal')
+            setModalOpen(true)
         return true
     }
 
@@ -42,7 +43,7 @@ export const ShipmentForm = () => {
         </FormProvider>
 
         <ModalPortal isOpen={modalOpen} setIsOpen={setModalOpen}>
-            <div>Hello</div>
+            <h2>Pay</h2>
         </ModalPortal>
     </>
 }

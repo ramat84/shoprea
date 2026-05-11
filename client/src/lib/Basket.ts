@@ -55,7 +55,6 @@ export const FetchProducts = (basketContext) => {
         axios
     .get('http://localhost:4000/api/products/multi/' + productIDs.join(','))
     .then((res) => {
-        console.log(res.data)
         setBasketProducts(res.data)
     })
 }
