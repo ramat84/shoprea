@@ -14,7 +14,7 @@ export const City = ({ shopForm }) => {
             dep: country,
             url: `http://localhost:4000/api/location/countries/${country}/cities`,
             set: setCities,
-            focus: 'city'
+            focus: state ? 'city' : null
         })
     }, [country, state])
 
@@ -23,7 +23,7 @@ export const City = ({ shopForm }) => {
             dep: state,
             url: `http://localhost:4000/api/location/countries/${country}/states/${state}/cities`,
             set: setCities,
-            focus: 'city'
+            focus: !state ? 'state' : null
         })
     }, [state])
 

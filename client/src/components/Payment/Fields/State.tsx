@@ -6,7 +6,6 @@ export const State = ({ shopForm }) => {
 
     const { UpdateOptions, form, SetInputValue } = shopForm
     const country = form.watch('country')
-    // const state = form.watch('state')
 
     const reg = form.register('state', { required: 'State is required' })
 
