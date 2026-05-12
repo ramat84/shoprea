@@ -2,11 +2,25 @@ import type { BasketProductType } from '../../types/Basket.ts'
 import { useBasket } from '../../contexts/BasketContext.tsx'
 import { Price } from '../Price'
 import { Button } from '../Elements/Button.tsx'
+import type { Product } from '../../generated/prisma/client.ts'
+import type { ChangeEvent } from 'react'
 
 export const BasketProducts = ({ allowChange }: { allowChange: boolean }) => {
     const { basketAmounts, basketProducts, UpdateBasket, Trash } = useBasket()
 
     if(basketProducts.length == 0) return <></>;
+
+    const Increment = (product: Product) => {
+        UpdateBasket(product.id, basketAmounts[product.id] + 1)
+    }
+
+    const Decrement = (product: Product) => {
+        UpdateBasket(product.id, basketAmounts[product.id] - 1)
+    }
+
+    const ChangeNumber = (e : ChangeEvent<HTMLInputElement>, product : Product) => {
+         UpdateBasket(product.id, parseInt(e.target.value))
+    }
 
     return <>
         {
@@ -23,9 +37,9 @@ export const BasketProducts = ({ allowChange }: { allowChange: boolean }) => {
                     {allowChange && (
                         <div className="amount">
                             <Button icon='' type='trash' onClick={() => Trash(product.id)}/>
-                            <input onChange={(e) => UpdateBasket(product.id, parseInt(e.target.value))} value={basketAmounts[product.id]} />
-                            <Button icon='-' type='action' onClick={() => UpdateBasket(product.id, basketAmounts[product.id] - 1)}/>
-                            <Button icon='+' type='action' onClick={() => UpdateBasket(product.id, basketAmounts[product.id] + 1)}/>
+                            <input onChange={(e) => ChangeNumber(e, product)} value={basketAmounts[product.id]} />
+                            <Button icon='-' type='action' onClick={() => Decrement(product)}/>
+                            <Button icon='+' type='action' onClick={() => Increment(product)}/>
                         </div>
                     )}
                     {!allowChange && <div className="amount">✕ {basketAmounts[product.id]}</div>}

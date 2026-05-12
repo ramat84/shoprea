@@ -1,4 +1,4 @@
-import type { Dispatch } from 'react'
+import type { Dispatch, SetStateAction } from 'react'
 
 import { useModal } from '../../contexts/ModalContext'
 import { Checkout } from './../../pages/Checkout'
@@ -7,7 +7,7 @@ import { BasketProducts } from './BasketProducts'
 import { BasketTotal } from './BasketTotal'
 import { BasketHeader } from './BasketHeader'
 
-export const BasketContents = ({showPopup, setPopup} : {showPopup : boolean , setPopup : Dispatch<boolean>} ) => {
+export const BasketContents = ({showPopup, setPopup} : {showPopup : boolean , setPopup : Dispatch<SetStateAction<boolean>>} ) => {
     const { ModalPortal } = useModal()
 
     return (
