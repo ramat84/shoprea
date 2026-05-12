@@ -1,11 +1,22 @@
 import axios from "axios"
-import { useEffect } from "react"
 import { useForm, FormProvider } from "react-hook-form"
 
 type UpdateOptionsType = { url: string, set: any, on: any, dep?: any, focus?: string }
 
+type formType = { [key: string]: string | number }
+
+export type useShopFormType = () => {
+    FocusOn: (name: string) => void,
+    FocusOnNextInput: () => void,
+    UpdateOptions: ({ url, set, dep, focus }: UpdateOptionsType) => void,
+    form : formType,
+    FormProvider : any,
+    SetInputValue: (name: any, value: string) => void,
+    QuickReg: (name: string, label: string) => void
+}
+
 export const useShopForm = () => {
-    const form = useForm<{ [key: string]: string | number }>()
+    const form = useForm<formType>()
 
     const FocusOn = (name: string) => {
         setTimeout(() => {
@@ -51,12 +62,12 @@ export const useShopForm = () => {
             name: name,
             label: label,
             register:
-                form.register(name, {
-                    required: `${label} is required`, pattern: {
-                        value: pattern,
-                        message: `Enter a valid ${label}`
-                    }
-                })
+            form.register(name, {
+                required: `${label} is required`, pattern: {
+                    value: pattern,
+                    message: `Enter a valid ${label}`
+                }
+            })
         }
     }
 
