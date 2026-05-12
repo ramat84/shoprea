@@ -11,9 +11,10 @@ import { City } from "./Fields/City";
 export const ShipmentForm = () => {
     const { ModalPortal } = useModal()
     const [modalOpen, setModalOpen] = useState<boolean>(false)
+    const [payType, setPayType] = useState<string>('')
+
     const shopForm = useShopForm();
     const { FocusOnNextInput, form, FormProvider, QuickReg } = shopForm;
-    const [payType, setPayType] = useState<string>('')
 
     const city = form.watch('city')
     useEffect(() => { FocusOnNextInput() }, [city])
@@ -38,7 +39,7 @@ export const ShipmentForm = () => {
                     <Input icon="󰇰" {...QuickReg('email', 'Email Address')} />
                 </div>
 
-                <PaymentMethods />
+                <PaymentMethods setPayType={setPayType}/>
             </form>
         </FormProvider>
 

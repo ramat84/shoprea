@@ -3,6 +3,7 @@ import type { Dispatch, ReactNode } from 'react';
 import type { Category } from "../generated/prisma/client";
 
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 
 export const CategoriesContext = createContext<Category[]>([])
 
@@ -31,6 +32,8 @@ export const CategoriesContextProvider = ({ children }: { children: ReactNode })
 export const useCategories = () => {
     const categoriesContext = useContext(CategoriesContext)
     const [categories, setCategories] = categoriesContext;
+    const currentCategoryID = parseInt(useParams().id ?? '0')
+    const [title, setCategoryTitle] = useState('')
 
     if (!categoriesContext) throw new Error('Must be used within the categories context')
 
@@ -43,5 +46,16 @@ export const useCategories = () => {
         return null
     }
 
-    return { categories, setCategories, CategoryByID }
+    const refreshCategoryTitle = () => {
+        if (currentCategoryID == 0) {
+            return setCategoryTitle('All Products')
+        }
+
+        const category = CategoryByID(currentCategoryID)
+        if (category) setCategoryTitle(category.name)
+    }
+
+    useEffect(refreshCategoryTitle, [categories, location.pathname])
+
+    return { categories, setCategories, CategoryByID, currentCategoryID, title }
 }

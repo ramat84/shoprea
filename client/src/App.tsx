@@ -13,16 +13,16 @@ import { UserContextProvider } from './contexts/UserContext'
 import { Footer } from './components/Footer'
 
 function App() {
-    return (
+    return (<>
         <CategoriesContextProvider>
             <BasketContextProvider>
                 <UserContextProvider>
                     <Router />
-                    <Footer />
                 </UserContextProvider>
             </BasketContextProvider>
         </CategoriesContextProvider>
-    )
+        <Footer />
+    </>)
 }
 
 export default App

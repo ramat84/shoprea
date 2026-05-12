@@ -11,6 +11,7 @@ import '../css/pages/product.css'
 import '../css/components/products.css'
 
 import type { Product } from "../generated/prisma/client.ts"
+import { Subheader } from '../components/Elements/Subheader.tsx'
 
 export const ProductPage = () => {
     const [product, setProduct] = useState<Product>({})
@@ -29,9 +30,7 @@ export const ProductPage = () => {
     useEffect(LoadProduct, [location.pathname])
 
     return <>
-        <div className="subheader">
-            <h2>{product.title}</h2>
-        </div>
+        <Subheader title={product.title} />
         <div className='productPage'>
             <Link className="product-image" to={`/p/${product.id}/${product.title}`}>
                 <img loading="lazy" src={product.image} />

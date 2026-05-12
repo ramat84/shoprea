@@ -4,6 +4,7 @@ import { BasketProducts } from '../components/Basket/BasketProducts'
 import { BasketTotal } from '../components/Basket/BasketTotal'
 import { useModal } from '../contexts/ModalContext'
 import { PaymentPage } from '../pages/PaymentPage'
+import { Subheader } from '../components/Elements/Subheader'
 
 export const Checkout = () => {
     const { ModalPortal } = useModal()
@@ -11,9 +12,7 @@ export const Checkout = () => {
 
     return (
         <div className="modal-wrapper">
-            <div className="subheader">
-                <h2>Checkout</h2>
-            </div>
+            <Subheader title="Checkout" />
             <div className="basketProducts">
                 <BasketTotal />
                 <BasketProducts allowChange={false} />

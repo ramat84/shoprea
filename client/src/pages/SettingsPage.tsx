@@ -11,11 +11,12 @@ import { UserContext } from '../contexts/UserContext.tsx';
 import '../css/pages/settings.css'
 import { AdminCategories } from './admin/AdminCategories'
 import { AdminProducts } from './admin/AdminProducts'
+import type { User } from '../generated/prisma/client.ts'
 
 export const SettingsPage = () => {
     const curPage = useParams().page ?? 'user'
     const modalState = useState(false)
-    const user = (useContext(UserContext))[0]
+    const [user] = useContext<User>(UserContext)
 
     const PageLink = ({ page, title }: { page: string, title: string }) => {
         return <Link className={page == curPage ? 'active' : ''} to={`/settings/${page}`}>{title}</Link>
