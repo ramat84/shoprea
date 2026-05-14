@@ -7,6 +7,7 @@ import { PaymentMethods } from "./PaymentMethods";
 import { Country } from "./Fields/Country";
 import { State } from "./Fields/State";
 import { City } from "./Fields/City";
+import { Cash } from "./Types/Cash";
 
 export const ShipmentForm = () => {
     const { ModalPortal } = useModal()
@@ -20,10 +21,11 @@ export const ShipmentForm = () => {
     useEffect(() => { FocusOnNextInput() }, [city])
 
     const onSubmit = () => {
-        if (payType == 'paypal')
+        if (payType == 'cash')
             setModalOpen(true)
-        return true
     }
+
+
 
     return <>
         <h2>Shipping</h2>
@@ -44,7 +46,7 @@ export const ShipmentForm = () => {
         </FormProvider>
 
         <ModalPortal isOpen={modalOpen} setIsOpen={setModalOpen}>
-            <h2>Pay</h2>
+            <Cash />
         </ModalPortal>
     </>
 }

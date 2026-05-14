@@ -12,6 +12,7 @@ import '../css/pages/settings.css'
 import { AdminCategories } from './admin/AdminCategories'
 import { AdminProducts } from './admin/AdminProducts'
 import type { User } from '../generated/prisma/client.ts'
+import { ShopSettings } from '../components/Settings/ShopSettings.tsx'
 
 export const SettingsPage = () => {
     const curPage = useParams().page ?? 'user'
@@ -24,6 +25,7 @@ export const SettingsPage = () => {
 
     const Panel = () => {
         if (curPage == 'user') return <UserSettings />
+        if (curPage == 'shop') return <ShopSettings />
         if (curPage == 'orders') return <Orders />
         if (curPage == 'categories') return <AdminCategories />
         if (curPage == 'products') return <AdminProducts />
@@ -39,6 +41,7 @@ export const SettingsPage = () => {
             <div className="settings-container">
                 <div className="panel">
                     <PageLink page='user' title='User' />
+                    <PageLink page='shop' title='Shop' />
                     <PageLink page='orders' title='Orders' />
                     <PageLink page='categories' title='Categories' />
                     <PageLink page='products' title='Products' />

@@ -22,3 +22,47 @@
 .small  { font-size: 14px }
 .medium { font-size: 16px }
 .large  { font-size: 18px }
+
+form {
+    fieldset {
+        background: transparent;
+        border: 0;
+        padding: 0;
+
+        + button {
+            margin-top: 20px;
+        }
+    }
+
+    .checkbox {
+        display: inline-block;
+        position: relative;
+
+        input[type=checkbox] {
+            position: absolute;
+            cursor: pointer;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            width: 25px;
+            height: 25px;
+
+            &:checked + span:after {
+                font-family: Nerd;
+                content: "";
+                font-size: 16px;
+            }
+        }
+
+        span {
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+            display: inline-block;
+            border-radius: 3px;
+            margin-right: 15px;
+            vertical-align: center;
+            text-align: center;
+        }
+    }
+}
