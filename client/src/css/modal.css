@@ -3,7 +3,7 @@
 }
 
 .ReactModal__Content {
-    inset: 0 !important;
+    inset: auto !important;
 }
 
 @keyframes show {
@@ -49,11 +49,15 @@ div.modal-small.ReactModal__Content[class] {
     >div[role=dialog] {
         max-width: min(1600px, calc(100vw - 200px));
         width: 100%;
-        margin: auto;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translateX(-50%) translateY(-50%);
+        padding: 0 !important;
+        padding-bottom: 20px !important;
+
         background: rgba(255, 255, 255, 0.4) !important;
         border-radius: 10px !important;
         box-shadow: 5px 5px 15px silver;
-        padding: 0 !important;
         max-height: calc(100vh - 100px);
         backdrop-filter: blur(5px);
 
