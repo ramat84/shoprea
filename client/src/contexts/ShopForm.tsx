@@ -1,7 +1,9 @@
 import axios from "axios"
+import type { Dispatch, SetStateAction } from "react"
 import { useForm, FormProvider } from "react-hook-form"
+import type { Items } from "../types/Item"
 
-type UpdateOptionsType = { url: string, set: any, on: any, dep?: any, focus?: string }
+type UpdateOptionsType = { url: string, set: Dispatch<SetStateAction<Items>>, on: any, dep?: boolean, focus?: string }
 
 type formType = { [key: string]: string | number }
 
